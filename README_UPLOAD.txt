@@ -1,0 +1,1 @@
+Upload index.html, the assets folder (all 13 PNG files), and gemini_generated_video_fd623309.mp4 to the root of your GitHub Pages repository. Keep your existing HEADSHOT MERCY.jpg in the repository root: it is referenced by index.html but was not available to include in this ZIP. Do not upload the ZIP itself as your website.
