@@ -37,3 +37,29 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
 }
 
+
+const carousel = document.querySelector('.hero-carousel');
+const slides = [...document.querySelectorAll('.hero-slide')];
+const dots = [...document.querySelectorAll('.slide-dot')];
+const rotationButton = document.getElementById('rotate-slides');
+let slideIndex = 0, rotationTimer, rotationPaused = motionPreference.matches;
+function showSlide(index) {
+  slideIndex = index;
+  slides.forEach((slide, i) => { slide.hidden = i !== index; });
+  dots.forEach((dot, i) => { dot.classList.toggle('selected', i === index); dot.setAttribute('aria-pressed', String(i === index)); });
+}
+function stopRotation() { clearInterval(rotationTimer); }
+function startRotation() {
+  stopRotation();
+  if (!rotationPaused && !motionPreference.matches && !document.hidden && !carousel.matches(':hover') && !carousel.contains(document.activeElement)) rotationTimer = setInterval(() => showSlide((slideIndex + 1) % slides.length), 7000);
+}
+function updateRotationButton() { rotationButton.textContent = rotationPaused ? 'Play slides' : 'Pause slides'; rotationButton.setAttribute('aria-pressed', String(rotationPaused)); }
+dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); rotationPaused = true; stopRotation(); updateRotationButton(); }));
+rotationButton.addEventListener('click', () => { rotationPaused = !rotationPaused; updateRotationButton(); if (rotationPaused) stopRotation(); else { stopRotation(); if (!motionPreference.matches) rotationTimer = setInterval(() => showSlide((slideIndex + 1) % slides.length), 7000); } });
+carousel.addEventListener('mouseenter', stopRotation);
+carousel.addEventListener('mouseleave', startRotation);
+carousel.addEventListener('focusin', stopRotation);
+carousel.addEventListener('focusout', () => setTimeout(startRotation, 0));
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopRotation(); else startRotation(); });
+motionPreference.addEventListener('change', event => { if (event.matches) { rotationPaused = true; stopRotation(); updateRotationButton(); } });
+updateRotationButton(); startRotation();
