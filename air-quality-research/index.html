@@ -23,7 +23,7 @@
   <p>I studied afternoon ground-level ozone across 47 selected Ontario locations. I wanted to understand where modelled conditions differed, how well weather inputs helped estimate ozone on later days, and how much evidence a stakeholder would need before relying on an alert threshold.</p>
 
   <h2>Patterns in the data</h2>
-  <p>I compared location-level models using temperature, wind and solar radiation. In the saved Toronto evaluation, the root mean squared error was <strong>7.51 parts per billion</strong> on later days. The reference series is modelled ozone from the Copernicus Atmosphere Monitoring Service. The result measures agreement with that series and needs separate validation against station observations.</p>
+  <p>I compared location-level models using temperature, wind and solar radiation. In the October 23 Power BI snapshot, the Toronto root mean squared error was <strong>7.39 parts per billion</strong> across 23 later days. The reference series is modelled ozone from the Copernicus Atmosphere Monitoring Service. The result measures agreement with that series and needs separate validation against station observations.</p>
 
   <h2>Impact and decision trade-offs</h2>
   <p>At the illustrative <strong>60 parts per billion</strong> threshold, 46 of the 47 saved location holdouts had zero event days. That leaves too little evidence to estimate how often the model catches events across most locations. The research shows why average prediction error and alert performance need separate checks. The weather scenarios show how model estimates respond to different inputs under the fitted assumptions.</p>
@@ -37,6 +37,7 @@
 
   <h2>Methods and dashboard</h2>
   <p>I used Python for time alignment, regression, and chronological validation. I used Power BI to show location comparisons, uncertainty, and weather scenarios. The report presents a dated research snapshot.</p>
+  <p><a class="button" href="dashboard/">Explore the interactive ozone dashboard ↗</a></p>
   <p><a class="text-link" href="https://github.com/mamkon/air-quality-analysis-research-analysis">View the research repository and dashboard files ↗</a> · <a class="text-link" href="../wildfire-triage/">Read the Canadian wildfire study ↗</a></p>
 </main>
 </body>

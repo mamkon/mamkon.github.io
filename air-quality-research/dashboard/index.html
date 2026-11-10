@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare weather-based ozone estimates and alert thresholds across 47 selected Ontario locations.">
+  <title>Ontario Ozone | Interactive Research Dashboard</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="dashboard.js" defer></script>
+  <style>
+    body { background: #edf3f8; color: #17324a; }
+    main { max-width: 1120px; margin: auto; padding: clamp(1rem, 4vw, 2.5rem); }
+    header, section { border-radius: 15px; padding: clamp(1rem, 3vw, 1.7rem); margin: 1rem 0; }
+    header { color: #fff; background: #153653; }
+    header h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; margin: .35rem 0 .75rem; }
+    header p, section p, footer p { margin: .5rem 0; }
+    section { background: #fff; border: 1px solid #cbdce8; }
+    h2 { margin-top: 0; font-size: 1.35rem; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem .75rem; margin: .8rem 0; }
+    select, input, button { font: inherit; color: inherit; background: #fff; border: 1px solid #657e91; padding: .45rem; border-radius: 6px; }
+    input { width: 5.5rem; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid #916007; outline-offset: 3px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .7rem; margin: 1rem 0; }
+    .cards div { padding: .8rem; background: #e6f0f7; border-radius: 8px; }
+    .cards dd { margin: .25rem 0 0; font-size: 1.5rem; font-weight: 700; }
+    .legend { display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
+    .key { border-left: .8rem solid var(--key); padding-left: .35rem; }
+    svg { width: 100%; max-height: 390px; display: block; }
+    .axis { fill: #31516a; font-size: 15px; }
+    .point { cursor: pointer; }
+    .point:hover, .point:focus { stroke: #172e45; stroke-width: 4; }
+    .note { border-left: 4px solid #168171; padding-left: .65rem; }
+  </style>
+</head>
+<body>
+<main>
+  <nav aria-label="Portfolio"><a href="../">← Back to the air quality case study</a></nav>
+  <header>
+    <p>Ontario air quality · Interactive research snapshot</p>
+    <h1>How reliable are weather-based ozone estimates?</h1>
+    <p>Compare predictions and alert outcomes across 47 selected locations using the Power BI research snapshot from October 23, 2026.</p>
+  </header>
+  <p id="status" role="status">Loading the research snapshot…</p>
+  <div id="dashboard" hidden>
+    <div class="controls">
+      <label for="location">Location</label>
+      <select id="location"></select>
+      <button id="reset" type="button">Reset to Toronto and 60 ppb</button>
+    </div>
+    <section aria-labelledby="validation-heading">
+      <h2 id="validation-heading">How close were estimates on later days?</h2>
+      <p id="period"></p>
+      <dl class="cards" aria-live="polite">
+        <div><dt>Days evaluated</dt><dd id="days"></dd></div>
+        <div><dt>Root mean squared error</dt><dd id="rmse"></dd></div>
+        <div><dt>Days inside the prediction interval</dt><dd id="coverage"></dd></div>
+      </dl>
+      <div class="legend">
+        <span class="key" style="--key:#173e72">CAMS reference</span>
+        <span class="key" style="--key:#08736a">Weather-based estimate</span>
+        <span class="key" style="--key:#badfda">95% prediction interval</span>
+      </div>
+      <svg id="chart" viewBox="0 0 760 300" role="group" aria-label="Daily reference and estimated ozone in parts per billion"></svg>
+      <div class="controls"><label for="day">Inspect a day</label><select id="day"></select></div>
+      <p id="day-detail" class="note" aria-live="polite"></p>
+      <p>CAMS is the Copernicus Atmosphere Monitoring Service. Its modelled ozone is the comparison series here. Station observations would be needed to validate performance against measured ozone.</p>
+    </section>
+    <section aria-labelledby="alert-heading">
+      <h2 id="alert-heading">What changes when you move the alert cutoff?</h2>
+      <div class="controls">
+        <label for="threshold">Illustrative cutoff in parts per billion (ppb)</label>
+        <input id="threshold" type="number" min="20" max="100" step="1" value="60">
+      </div>
+      <dl class="cards" aria-live="polite">
+        <div><dt>Event days flagged</dt><dd id="hits"></dd></div>
+        <div><dt>Event days missed</dt><dd id="misses"></dd></div>
+        <div><dt>Extra alerts</dt><dd id="extra"></dd></div>
+        <div><dt>Days correctly below cutoff</dt><dd id="quiet"></dd></div>
+      </dl>
+      <p id="threshold-detail" class="note" aria-live="polite"></p>
+      <p id="study-support"></p>
+      <p>These cutoffs illustrate how alert workload changes. For current conditions and health guidance, consult the <a href="https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index.html">official Air Quality Health Index</a>.</p>
+    </section>
+  </div>
+  <footer>
+    <p><a href="https://github.com/mamkon/air-quality-analysis-research-analysis/tree/main/powerbi">Power BI research export and methods</a> · <a href="../../#contact">Request a walkthrough</a></p>
+  </footer>
+</main>
+</body>
+</html>
