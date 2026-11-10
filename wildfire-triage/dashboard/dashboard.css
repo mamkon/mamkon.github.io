@@ -27,6 +27,8 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .axis { fill: #dccfc5; font-size: 12px; }
 .grid { stroke: #514a46; stroke-width: 1; }
 .annual-point { fill: #dc673d; cursor: pointer; }
+.cell-point { fill: #f39a47; fill-opacity: .7; }
+.cell-point:hover { fill: #fff4e8; fill-opacity: 1; }
 .annual-point:focus, .annual-point:hover { fill: #fff4e8; stroke: #dc673d; stroke-width: 3; }
 .region { stroke: #8e7769; stroke-width: 1; cursor: pointer; }
 .region:hover, .region.selected { stroke: #fff4e8; stroke-width: 2.3; }

@@ -18,7 +18,7 @@ function areaLabel(value) {
   return value >= 1000000 ? millions.format(value / 1000000) + "M ha" : exact.format(value) + " ha";
 }
 
-function init(data) {
+function init(data, evidence) {
   const years = Object.keys(data.annual);
   const yearSelect = byId("year");
   const provinceSelect = byId("province");
@@ -124,11 +124,14 @@ function init(data) {
     const rows = selected ? [data.annual[selected]] : Object.values(data.annual);
     const records = rows.reduce((sum, row) => sum + row.records, 0);
     const area = rows.reduce((sum, row) => sum + row.area, 0);
+    const large = selected ? evidence.annual_large[selected] : Object.values(evidence.annual_large).reduce((sum, count) => sum + count, 0);
     const months = monthNames.map((_, index) => rows.reduce((sum, row) => sum + row.months[index], 0));
     const unknown = records - months.reduce((sum, count) => sum + count, 0);
     const max = Math.max(...months);
     byId("records").textContent = number.format(records);
     byId("area").textContent = areaLabel(area);
+    byId("large-count").textContent = number.format(large);
+    byId("large-share").textContent = percent(large / records) + " of " + number.format(records) + " national records";
     byId("peak").textContent = max ? monthNames[months.indexOf(max)] : "No known month";
     byId("month-note").textContent = number.format(unknown) + " records with unknown month are excluded from the bars.";
     const geographicRecords = regionNames.reduce((sum, name) => sum + mappedTotals(name)[0], 0);
@@ -191,6 +194,7 @@ function renderBars(id, rows, { selected = "", max = Math.max(1, ...rows.map((ro
 function setupViews() {
   const update = () => {
     const view = ["overview", "geography", "triage"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "overview";
+    if (view !== "triage") byId(view + "-map").append(byId("map-and-ranking"));
     document.querySelectorAll(".view").forEach((el) => { el.hidden = el.id !== view; });
     document.querySelectorAll("[data-view]").forEach((el) => {
       if (el.dataset.view === view) el.setAttribute("aria-current", "page"); else el.removeAttribute("aria-current");
@@ -211,11 +215,37 @@ function table(id, headings, rows, caption) {
   }); });
   byId(id).replaceChildren(t);
 }
-function initIntelligence([policies, yearly, kpis, agencies, concentration]) {
-  const kpi = kpis[0];
-  byId("large-count").textContent = number.format(kpi.large_fire_records);
-  byId("large-share").textContent = percent(kpi.large_fire_share) + " of " + number.format(kpi.reported_records) + " study records";
-  renderBars("concentration", concentration.filter((r) => r.reporting_agency === "ALL").map((r) => ["Top " + r.top_pct + "%", r.area_share, percent(r.area_share)]), { max: 1 });
+
+function renderCells(cells) {
+  const plot = byId("cell-plot");
+  const x = (lon) => 46 + (lon + 141) / 89 * 452;
+  const y = (lat) => 196 - (lat - 41) / 43 * 180;
+  for (const lat of [45, 55, 65, 75]) {
+    plot.append(svgNode("line", { x1: 46, x2: 498, y1: y(lat), y2: y(lat), class: "grid" }));
+    plot.append(svgNode("text", { x: 40, y: y(lat) + 4, "text-anchor": "end", class: "axis" }, lat + "°N"));
+  }
+  for (const lon of [-140, -120, -100, -80, -60]) {
+    plot.append(svgNode("text", { x: x(lon), y: 218, "text-anchor": "middle", class: "axis" }, Math.abs(lon) + "°W"));
+  }
+  const largeCells = cells.filter(([, , , large]) => large > 0);
+  const max = Math.max(...largeCells.map(([, , , large]) => large));
+  for (const [lat, lon, , large] of largeCells) {
+    const point = svgNode("circle", { cx: x(lon), cy: y(lat), r: 1 + 9 * Math.sqrt(large / max), class: "cell-point" });
+    point.append(svgNode("title", {}, lat + "°N, " + Math.abs(lon) + "°W · " + number.format(large) + " large-fire records"));
+    plot.append(point);
+  }
+}
+
+function initIntelligence([policies, yearly, agencies, concentration], evidence) {
+  const shares = concentration.filter((r) => r.reporting_agency === "ALL").map((r) => [r.top_pct, r.area_share]);
+  shares.push([10, evidence.top_10_area_share]);
+  renderBars("concentration", shares.map(([top, share]) => ["Top " + top + "%", share, percent(share)]), { max: 1 });
+  renderBars("size-bins", evidence.size_bins.map(([label, count]) => [label, count, number.format(count)]));
+  const hotspots = [...evidence.cells].sort((a, b) => b[3] - a[3] || b[4] - a[4]).slice(0, 10);
+  renderCells(evidence.cells);
+  renderBars("hotspots", hotspots.map(([lat, lon, , large]) => [lat + "°N, " + Math.abs(lon) + "°W", large, number.format(large)]));
+  byId("cell-note").textContent = number.format(evidence.cells.length) + " cells across the study. "
+    + number.format(evidence.quality.invalid_coordinates) + " records were excluded for invalid coordinates.";
   renderBars("agency-bars", agencies.sort((a,b) => b.large_fire_share - a.large_fire_share).map((r) => [r.reporting_agency, r.large_fire_share, percent(r.large_fire_share)]), { max: 1 });
   const models = policies.filter((r) => !["Alert every record", "Alert no records"].includes(r.policy));
   const select = byId("policy");
@@ -261,10 +291,16 @@ async function csv(url) {
   const names = header.split(",");
   return lines.map((line) => Object.fromEntries(line.split(",").map((value, i) => [names[i], value === "" ? null : Number.isFinite(Number(value)) ? Number(value) : value])));
 }
+async function json(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("JSON request failed");
+  return response.json();
+}
 Promise.all([
-  fetch("summary.json").then((r) => { if (!r.ok) throw new Error("Summary request failed"); return r.json(); }),
-  Promise.all(["../test_policies.csv", "../test_by_year.csv", "data/reference_kpis.csv", "data/vw_agency.csv", "data/vw_concentration.csv"].map(csv)),
-]).then(([data, intelligence]) => { initIntelligence(intelligence); init(data); }).catch(() => {
+  json("summary.json"),
+  json("data/geographic-evidence.json"),
+  Promise.all(["../test_policies.csv", "../test_by_year.csv", "data/vw_agency.csv", "data/vw_concentration.csv"].map(csv)),
+]).then(([data, evidence, intelligence]) => { initIntelligence(intelligence, evidence); init(data, evidence); }).catch(() => {
   byId("dashboard").hidden = true;
   byId("status").hidden = false;
   byId("status").textContent = "The dashboard could not load. Try refreshing the page.";

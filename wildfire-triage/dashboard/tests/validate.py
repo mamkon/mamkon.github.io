@@ -50,5 +50,19 @@ assert math.isclose(sum(int(r['reported_records'])*float(r['large_fire_share']) 
 concentration = rows(ROOT/'data/vw_concentration.csv')
 assert len({(r['reporting_agency'],r['top_pct']) for r in concentration}) == len(concentration)
 assert all(0 <= float(r['area_share']) <= 1 for r in concentration)
+evidence = json.loads((ROOT/'data/geographic-evidence.json').read_text(encoding='utf-8'))
+assert evidence['annual_large'].keys() == summary['annual'].keys()
+assert sum(evidence['annual_large'].values()) == int(kpi['large_fire_records'])
+assert sum(count for _, count in evidence['size_bins']) == int(kpi['reported_records'])
+assert sum(count for _, count in evidence['size_bins'][3:]) == int(kpi['large_fire_records'])
+cells = evidence['cells']
+assert len({(lat, lon) for lat, lon, *_ in cells}) == len(cells) == 1121
+assert all(41 <= lat <= 84 and -141 <= lon <= -52 and 0 <= large <= count and area >= 0
+           for lat, lon, count, large, area in cells)
+assert sum(count for _, _, count, _, _ in cells) == int(kpi['reported_records']) - evidence['quality']['invalid_coordinates']
+assert evidence['quality']['invalid_coordinates'] == 207
+assert evidence['quality']['unknown_month'] == unknown_month
+top_five = next(float(r['area_share']) for r in concentration if r['reporting_agency'] == 'ALL' and r['top_pct'] == '5')
+assert top_five <= evidence['top_10_area_share'] <= 1
 print(f'PASS: 7 policies, 3 yearly rows, counts and ratios; 168,276 national records; 9,594 large fires; 12 agencies; {unknown_month} unknown-month records; area rounding difference {area_difference:.6f} ha.')
-print('Record-level duplicates, missing coordinates and size distributions cannot be rechecked from aggregate exports.')
+print('PASS: annual large-fire counts, six size bands, concentration and 1,121 rounded cells.')
