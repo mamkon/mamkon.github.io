@@ -6,31 +6,45 @@
   <meta name="description" content="Compare weather-based ozone estimates and alert thresholds across 47 selected Ontario locations.">
   <title>Ontario Ozone | Interactive Research Dashboard</title>
   <link rel="stylesheet" href="../../styles.css">
-  <script src="dashboard.js" defer></script>
+  <script src="dashboard.js?v=2" defer></script>
   <style>
-    body { background: #edf3f8; color: #17324a; }
+    :root { color-scheme: dark; }
+    body { background: #153653; color: #f2f8ff; }
     main { max-width: 1120px; margin: auto; padding: clamp(1rem, 4vw, 2.5rem); }
-    header, section { border-radius: 15px; padding: clamp(1rem, 3vw, 1.7rem); margin: 1rem 0; }
-    header { color: #fff; background: #153653; }
+    main a { color: #a8e1ff; }
+    header, section { border: 1px solid #4c6a84; border-radius: 15px; padding: clamp(1rem, 3vw, 1.7rem); margin: 1rem 0; }
+    header { color: #fff; background: #102c46; }
     header h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; margin: .35rem 0 .75rem; }
     header p, section p, footer p { margin: .5rem 0; }
-    section { background: #fff; border: 1px solid #cbdce8; }
+    section { background: #102c46; }
     h2 { margin-top: 0; font-size: 1.35rem; }
     .controls { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem .75rem; margin: .8rem 0; }
-    select, input, button { font: inherit; color: inherit; background: #fff; border: 1px solid #657e91; padding: .45rem; border-radius: 6px; }
+    select, input, button { font: inherit; color: inherit; background: #193d5a; border: 1px solid #7295b0; padding: .45rem .65rem; border-radius: 15px; max-width: 100%; }
     input { width: 5.5rem; }
     button { cursor: pointer; }
-    :focus-visible { outline: 3px solid #916007; outline-offset: 3px; }
+    :focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .7rem; margin: 1rem 0; }
-    .cards div { padding: .8rem; background: #e6f0f7; border-radius: 8px; }
-    .cards dd { margin: .25rem 0 0; font-size: 1.5rem; font-weight: 700; }
+    .cards > div { min-width: 0; padding: .9rem 1rem; background: #1d405c; border: 1px solid #54748e; border-radius: 15px; }
+    .cards dt { font-weight: 650; color: #eef7ff; }
+    .cards dd { margin: .3rem 0 0; font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 750; color: #99e9df; font-variant-numeric: tabular-nums; }
+    .cards small { display: block; color: #d0e1ee; line-height: 1.5; }
+    .snapshot-cards { grid-template-columns: 1fr 1fr minmax(235px, 1.5fr); }
+    .aqhi-scale, .aqhi-track, .aqhi-labels { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 2px; }
+    .aqhi-scale { margin-top: .95rem; }
+    .aqhi-scale[hidden] { display: none; }
+    .aqhi-track { grid-area: 1 / 1 / 2 / -1; height: .55rem; border-radius: 15px; overflow: hidden; }
+    .aqhi-labels { grid-area: 2 / 1 / 3 / -1; color: #e4eff7; font-size: .68rem; text-align: center; }
+    .aqhi-marker { grid-row: 1; grid-column: var(--step, 1); justify-self: center; align-self: start; margin-top: -.55rem; z-index: 1; width: 0; height: 0; border: .32rem solid transparent; border-top: .5rem solid #fff; }
     .legend { display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
     .key { border-left: .8rem solid var(--key); padding-left: .35rem; }
     svg { width: 100%; max-height: 390px; display: block; }
-    .axis { fill: #31516a; font-size: 15px; }
+    #chart { background: #0d263e; border: 1px solid #4c6a84; border-radius: 15px; margin-top: .8rem; }
+    .axis { fill: #e2eef7; font-size: 15px; }
     .point { cursor: pointer; }
-    .point:hover, .point:focus { stroke: #172e45; stroke-width: 4; }
-    .note { border-left: 4px solid #168171; padding-left: .65rem; }
+    .point:hover, .point:focus { stroke: #fff; stroke-width: 4; }
+    .note { border-left: 4px solid #67d9c7; padding-left: .65rem; }
+    @media (max-width: 700px) { .snapshot-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .snapshot-cards > :last-child { grid-column: 1 / -1; } }
+    @media (max-width: 385px) { .snapshot-cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -48,6 +62,21 @@
       <select id="location"></select>
       <button id="reset" type="button">Reset to Toronto and 60 ppb</button>
     </div>
+    <section aria-labelledby="snapshot-heading">
+      <h2 id="snapshot-heading">Air quality snapshot <span id="snapshot-location"></span></h2>
+      <dl class="cards snapshot-cards" aria-live="polite">
+        <div><dt>CAMS reference ozone</dt><dd id="snapshot-ozone"></dd><small id="snapshot-ozone-date"></small></div>
+        <div><dt>Estimated afternoon ozone</dt><dd id="snapshot-estimate"></dd><small id="snapshot-estimate-date"></small></div>
+        <div><dt>Saved Canadian Air Quality Health Index (AQHI)</dt><dd id="aqhi-value"></dd><small id="aqhi-date"></small>
+          <div id="aqhi-scale" class="aqhi-scale" aria-hidden="true">
+            <span id="aqhi-marker" class="aqhi-marker"></span>
+            <div id="aqhi-track" class="aqhi-track"></div>
+            <div id="aqhi-labels" class="aqhi-labels"></div>
+          </div>
+        </div>
+      </dl>
+      <p>Saved observations and estimates from the October 2026 research snapshot. The AQHI marker uses the nearest whole-number step. <a href="https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index/about.html">About the Canadian AQHI scale</a>.</p>
+    </section>
     <section aria-labelledby="validation-heading">
       <h2 id="validation-heading">How close were estimates on later days?</h2>
       <p id="period"></p>
@@ -57,9 +86,9 @@
         <div><dt>Days inside the prediction interval</dt><dd id="coverage"></dd></div>
       </dl>
       <div class="legend">
-        <span class="key" style="--key:#173e72">CAMS reference</span>
-        <span class="key" style="--key:#08736a">Weather-based estimate</span>
-        <span class="key" style="--key:#badfda">95% prediction interval</span>
+        <span class="key" style="--key:#91caff">CAMS reference</span>
+        <span class="key" style="--key:#67d9c7">Weather-based estimate</span>
+        <span class="key" style="--key:#315e72">95% prediction interval</span>
       </div>
       <svg id="chart" viewBox="0 0 760 300" role="group" aria-label="Daily reference and estimated ozone in parts per billion"></svg>
       <div class="controls"><label for="day">Inspect a day</label><select id="day"></select></div>
