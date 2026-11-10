@@ -8,6 +8,8 @@ h2 { font-size: 1.25rem; margin: 0 0 .6rem; }
 p { line-height: 1.55; margin: .55rem 0; }
 a { color: #ffca91; }
 .eyebrow { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; }
+header .eyebrow { display: flex; align-items: center; gap: .5rem; }
+.canada-mark { flex: none; object-fit: cover; }
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem .75rem; }
 select, button { max-width: 100%; color: inherit; font: inherit; padding: .48rem .65rem; background: #2b2726; border: 1px solid #9f8e83; border-radius: 6px; }
 button { cursor: pointer; }
