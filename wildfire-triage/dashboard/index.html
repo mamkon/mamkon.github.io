@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore 26 years of Canadian wildfire records in an interactive portfolio dashboard.">
   <title>Canada Wildfire Intelligence | Interactive Executive Summary</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="dashboard.css">
   <script src="dashboard.js" defer></script>
 </head>
@@ -33,7 +34,7 @@
         <div><dt>Fire records</dt><dd id="records"></dd></div>
         <div><dt>Recorded area</dt><dd id="area"></dd></div>
         <div><dt>Peak month by count</dt><dd id="peak"></dd></div>
-        <div><dt>Large fires ≥200 ha · all years</dt><dd id="large-count">—</dd><small id="large-share"></small></div>
+        <div><dt>Large fires ≥200 ha · all years</dt><dd id="large-count">—</dd><dd id="large-share" class="metric-note"></dd></div>
       </dl>
       <section class="panel" aria-labelledby="annual-heading">
         <h2 id="annual-heading">Annual recorded area and five-year mean</h2>
@@ -43,13 +44,11 @@
         <p id="annual-detail" class="readout" aria-live="polite"></p>
         <p class="muted">The 2023 area total is pending National Forestry Database reconciliation.</p>
       </section>
-      <div class="split">
-        <section class="panel" aria-labelledby="month-heading">
-          <h2 id="month-heading">Records by known month</h2>
-          <p id="month-note" class="muted"></p>
-          <ol id="months" class="bars" aria-label="Monthly fire record counts"></ol>
-        </section>
-      </div>
+      <section class="panel" aria-labelledby="month-heading">
+        <h2 id="month-heading">Records by known month</h2>
+        <p id="month-note" class="muted"></p>
+        <ol id="months" class="bars" aria-label="Monthly fire record counts"></ol>
+      </section>
       </section>
       <section id="geography" class="view" aria-label="Geography and severity" hidden>
       <h2>Geographic &amp; Severity Intelligence</h2>
@@ -58,13 +57,13 @@
       <div class="split">
         <section class="panel" aria-labelledby="map-heading">
           <h2 id="map-heading">Where recorded area is concentrated</h2>
-          <div class="controls"><label for="province">Province or territory (map and ranking)</label>
+          <div class="controls"><label for="province">Geographic area (map and ranking)</label>
           <select id="province"><option value="">All areas</option></select></div>
-          <svg id="map" role="img" aria-label="Map of Canadian provinces and territories shaded by mapped recorded fire area"></svg>
+          <svg id="map" role="group" aria-label="Interactive map of Canadian provinces and territories shaded by recorded fire area"></svg>
           <p id="map-detail" class="readout" aria-live="polite"></p>
-          <p class="muted">Shading shows total mapped area, with darker regions carrying smaller totals. Geographic totals use mapped records. Agency totals use the organization that filed the report.</p>
+          <p class="muted">Darker regions have smaller recorded area totals. Zero mapped records can reflect study coverage.</p>
         </section>
-        <section class="panel"><h2>Recorded area by geography</h2><p class="muted">Mapped totals, hectares. Select a region on the map or in the dropdown to highlight it.</p><ol id="regional-bars" class="bars wide"></ol></section>
+        <section class="panel"><h2>Recorded area by geography</h2><p class="muted">Unassigned records are listed separately from provinces and territories. Select an area on the map or in the dropdown to highlight it.</p><p id="geography-coverage" class="muted" aria-live="polite"></p><ol id="regional-bars" class="bars wide"></ol></section>
       </div>
       <div class="split">
         <section class="panel"><h2>Area concentration</h2><p class="muted">Share of pooled recorded area accounted for by the largest fire records. Full study, all agencies.</p><ol id="concentration" class="bars wide"></ol><p class="muted">Top 10% and individual fire-size bins are unavailable in these exports. Fire size is an area measure, not ecological burn severity.</p></section>
@@ -80,10 +79,10 @@
         <p id="policy-detail" class="readout"></p>
         <div class="split">
           <section class="panel"><h2>Confusion matrix</h2><div class="table-wrap" id="confusion"></div><p class="muted">Rows show observed final size; columns show the alert decision.</p></section>
-          <section class="panel"><h2>Recall versus review workload</h2><svg id="tradeoff" viewBox="0 0 600 300" role="group" aria-label="Five model policies: review share on horizontal axis, large-fire recall on vertical axis"></svg><p class="muted">Select or focus a point to inspect a policy. Review rate counts all alerts, including false positives.</p></section>
+          <section class="panel"><h2>Recall versus review workload</h2><svg id="tradeoff" viewBox="0 0 600 305" role="group" aria-label="Five model policies: review share on horizontal axis, large-fire recall on vertical axis"></svg><p class="muted">Click or tap a point, or focus it and press Enter or Space, to select a policy. Review rate counts all alerts, including false positives.</p></section>
         </div>
-        <section class="panel"><h2>Five model alert policies</h2><div class="table-wrap" id="policy-table"></div><p class="muted">The CSV also includes alert-all and alert-none baselines. <a href="../test_policies.csv" download>Download all seven policies</a>.</p></section>
-        <section class="panel"><h2>Year-by-year validation · selected 10× policy</h2><p class="muted">Yearly exports exist only for the original 10× policy (threshold 0.042464523). This table stays fixed when another policy is selected.</p><div class="table-wrap" id="year-table"></div><p><a href="../test_by_year.csv" download>Download yearly results</a></p></section>
+        <section class="panel"><h2 id="policy-table-heading">Five model alert policies</h2><div class="table-wrap" id="policy-table" tabindex="0" role="region" aria-labelledby="policy-table-heading"></div><p class="muted">The CSV also includes alert-all and alert-none baselines. <a href="../test_policies.csv" download>Download all seven policies</a>.</p></section>
+        <section class="panel"><h2 id="year-table-heading">Year-by-year validation · original 10× policy</h2><p class="muted">Yearly exports exist only for the original 10× policy (threshold 0.042464523). This table stays fixed when another policy is selected.</p><div class="table-wrap" id="year-table" tabindex="0" role="region" aria-labelledby="year-table-heading"></div><p><a href="../test_by_year.csv" download>Download yearly results</a></p></section>
       </section>
     </div>
     <footer>

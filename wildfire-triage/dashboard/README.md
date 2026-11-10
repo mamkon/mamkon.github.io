@@ -24,7 +24,9 @@ The 2000–2025 fixed-agency scope has 168,276 records, 83,988,359.25419672 reco
 
 All seven policy and three annual rows reconcile confusion-matrix totals, recall, precision, review rate and accuracy. The 10× policy has 18,814 held-out records: TP 1,498, FP 3,793, FN 529, TN 12,994. Recall is 73.9023%, precision 28.3122%, review share 28.1227%. Annual confusion counts sum exactly to the pooled result. Five model policies exclude the alert-all and alert-none baselines; all seven remain downloadable.
 
-The original annual summary rounds area to cents; its pooled difference from the precise KPI is +0.005803 ha. There are 3,418 records without a known month; they are excluded from monthly bars. Geographic assignment differs from reporting agency, so these denominators are kept separate. Unassigned geography appears explicitly in the ranking. Zero mapped records, including Prince Edward Island in this fixed-agency scope, do not establish absence of fires.
+All 26 annual record counts, area totals and five-year means match the research annual export at the dashboard's precision. The pooled area differs from the precise KPI by +0.005803 ha due to rounding. All 12 pooled month counts match the seasonality export. The monthly chart excludes 3,418 records without a known month.
+
+Geographic assignment and reporting agency use separate denominators. The geographic ranking includes records with mappable coordinates that could not be assigned to a province or territory under Unassigned. It excludes 207 records without mappable coordinates across the study period. Prince Edward Island's reporting agency is outside the study scope, while the geographic summary includes five records assigned there and 0.52 recorded hectares.
 
 The shipped concentration export supports top 1%, 3% and 5%, with pooled shares 81.7219%, 96.2133% and 98.8197%. It does not supply top 10% or fire-size-bin counts. These are not fabricated. This update does not export individual coordinates or predictions; point hotspots and clustering are omitted. Ecological severity is not inferred from hectares. Record-level duplicate and coordinate checks cannot be rerun from these aggregate files. The research evaluation documents ambiguous-identity exclusions; this update validates aggregates rather than retraining a model. The existing 2023 NFD reconciliation caveat is retained.
 
@@ -44,9 +46,9 @@ python -m http.server 8765
 CHROMIUM_PATH=/usr/bin/chromium node wildfire-triage/dashboard/tests/browser.cjs
 ```
 
-`CHROMIUM_PATH` is optional when Playwright's bundled Chromium is installed. `DASHBOARD_BASE` overrides the test server URL (include a trailing slash). `PREVIEW_DIR` optionally saves screenshots to an existing directory. The browser test verifies year/reset/map controls, synchronized year selectors, policy changes, fixed annual evaluation scope, keyboard selection, hash navigation, local links/resources, desktop and 390px layouts, and absence of JavaScript exceptions. No prior test suite or package manifest exists in this portfolio repository.
+`CHROMIUM_PATH` is optional when Playwright's bundled Chromium is installed. `DASHBOARD_BASE` overrides the test server URL (include a trailing slash). `PREVIEW_DIR` optionally saves screenshots to an existing directory. The browser test verifies year/reset/map controls, synchronized year selectors, policy changes, fixed annual evaluation scope, keyboard selection, hash navigation, local links and resources, desktop and 390px layouts, and absence of JavaScript exceptions and console errors or warnings.
 
-Desktop and mobile screenshots are in [`previews/`](previews/): [Overview](previews/overview.png), [Geography](previews/geography.png), [Triage](previews/triage.png), and corresponding `*-mobile.png` files. All checks passed with system Chromium and Playwright.
+Desktop and mobile screenshots are in [`previews/`](previews/). See [Overview](previews/overview.png), [Geography](previews/geography.png), [Triage](previews/triage.png), and the corresponding `*-mobile.png` files. The follow-up audit also checked viewport widths from 320 to 1440 pixels, ran axe on desktop and mobile, and verified that CSV downloads from the case study and dashboard matched the shipped files.
 
 ## Deployment
 

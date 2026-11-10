@@ -31,6 +31,7 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .region { stroke: #8e7769; stroke-width: 1; cursor: pointer; }
 .region:hover, .region.selected { stroke: #fff4e8; stroke-width: 2.3; }
 .region.dimmed { opacity: .32; }
+.region:focus-visible { opacity: 1; stroke: #ffce8d; stroke-width: 3; }
 .bars { display: grid; gap: .4rem; padding: 0; list-style: none; font-variant-numeric: tabular-nums; }
 .bars li { display: grid; align-items: center; grid-template-columns: 2.4rem minmax(0, 1fr) 4rem; gap: .5rem; }
 .bars strong { text-align: right; }
@@ -45,7 +46,7 @@ header { background: radial-gradient(ellipse at top right, #743c22, transparent 
 .view > h2 { margin-top:1rem; font-size:1.6rem; }
 [hidden] { display:none !important; }
 .metrics { grid-template-columns:repeat(4,minmax(0,1fr)); }
-.metrics small { display:block; margin-top:.5rem; color:#dccfc5; line-height:1.4; }
+.metrics .metric-note { margin-top:.5rem; color:#dccfc5; font-size:.85rem; font-weight:400; line-height:1.4; }
 .panel { margin-top:.8rem; }
 .split .panel { margin-top:0; }
 .table-wrap { overflow-x:auto; }
@@ -59,3 +60,4 @@ thead { color:#ffca91; }
 .annual-point[aria-pressed=true] { fill:#ffd38d; stroke:#fff; stroke-width:2; }
 @media(max-width:900px) { .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:690px) { .metrics { grid-template-columns:1fr; } .view-nav { flex-direction:column; } .bars.wide li { grid-template-columns:minmax(5rem,1fr) minmax(2rem,1fr) 5rem; } }
+@media(max-width:520px) { .axis { font-size:20px; } }

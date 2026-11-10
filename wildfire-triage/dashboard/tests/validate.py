@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 def rows(path):
-    with path.open() as f:
+    with path.open(encoding='utf-8', newline='') as f:
         return list(csv.DictReader(f))
 
 policies = rows(ROOT.parent / 'test_policies.csv')
@@ -24,7 +24,7 @@ selected = next(r for r in policies if r['policy'] == 'Miss cost 10×')
 for field in ['records','true_negatives','false_positives','false_negatives','true_positives']:
     assert sum(int(r[field]) for r in yearly) == int(selected[field])
 assert all(float(r['threshold']) == float(selected['threshold']) for r in yearly)
-summary = json.loads((ROOT/'summary.json').read_text())
+summary = json.loads((ROOT/'summary.json').read_text(encoding='utf-8'))
 kpi = rows(ROOT/'data/reference_kpis.csv')[0]
 assert sum(v['records'] for v in summary['annual'].values()) == int(kpi['reported_records']) == 168276
 area_difference = sum(v['area'] for v in summary['annual'].values()) - float(kpi['area_ha'])
@@ -37,6 +37,12 @@ for year, row in summary['annual'].items():
     unknown_month += row['records'] - sum(row['months'])
 for name, region in summary['regions'].items():
     assert all(int(y) in range(2000,2026) and n >= 0 and a >= 0 for y,(n,a) in region['years'].items()), name
+geographic_counts = {
+    year: sum(region['years'].get(year, (0, 0))[0] for region in summary['regions'].values())
+    for year in summary['annual']
+}
+assert all(count <= summary['annual'][year]['records'] for year, count in geographic_counts.items())
+assert int(kpi['reported_records']) - sum(geographic_counts.values()) == 207
 agencies = rows(ROOT/'data/vw_agency.csv')
 assert len({r['reporting_agency'] for r in agencies}) == len(agencies) == 12
 assert sum(int(r['reported_records']) for r in agencies) == 168276

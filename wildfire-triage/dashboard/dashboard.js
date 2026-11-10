@@ -57,9 +57,8 @@ function init(data) {
     const point = svgNode("circle", {
       cx: x(year), cy: y(row.area), r: year === "2023" ? 5 : 3.5,
       class: "annual-point", tabindex: 0, role: "button",
-      "aria-label": year + ", " + exact.format(row.area) + " hectares. Show annual details",
     });
-    point.append(svgNode("title", {}, year + " · " + exact.format(row.area) + " ha"));
+    point.append(svgNode("title", {}, year + " · " + exact.format(row.area) + " ha · Show annual details"));
     for (const event of ["pointerenter", "focus", "click"]) {
       point.addEventListener(event, () => showYear(year));
     }
@@ -79,7 +78,7 @@ function init(data) {
   const shapes = new Map();
   for (const name of regionNames) {
     if (!data.regions[name].path) continue;
-    const path = svgNode("path", { d: data.regions[name].path, class: "region", "fill-rule": "evenodd", tabindex: 0, role: "button", "aria-label": "Select " + name });
+    const path = svgNode("path", { d: data.regions[name].path, class: "region", "fill-rule": "evenodd", tabindex: 0, role: "button" });
     const title = svgNode("title");
     path.append(title);
     path.addEventListener("click", () => {
@@ -108,13 +107,14 @@ function init(data) {
       path.setAttribute("fill", "hsl(15 58% " + (20 + strength * 35) + "%)");
       path.classList.toggle("selected", selected === name);
       path.classList.toggle("dimmed", Boolean(selected && selected !== name));
+      path.setAttribute("aria-pressed", String(selected === name));
       title.textContent = name + " · " + number.format(records) + " mapped records · " + exact.format(area) + " ha";
     }
     const [count, area] = selected ? totals.get(selected) : Array.from(shapes.keys())
       .reduce(([n, ha], name) => [n + totals.get(name)[0], ha + totals.get(name)[1]], [0, 0]);
     const ranking = [...totals].sort((a, b) => b[1][1] - a[1][1]);
-    renderBars("regional-bars", ranking.map(([name, values]) => [name, values[1], areaLabel(values[1])]), selected);
-    const label = selected || "Mapped to a province or territory";
+    renderBars("regional-bars", ranking.map(([name, values]) => [name, values[1], areaLabel(values[1])]), { selected });
+    const label = selected === "Unassigned" ? "Unassigned to a province or territory" : selected || "Mapped to a province or territory";
     byId("map-detail").textContent = label + " · " + number.format(count) + " records · " + exact.format(area) + " ha";
   }
 
@@ -131,6 +131,11 @@ function init(data) {
     byId("area").textContent = areaLabel(area);
     byId("peak").textContent = max ? monthNames[months.indexOf(max)] : "No known month";
     byId("month-note").textContent = number.format(unknown) + " records with unknown month are excluded from the bars.";
+    const geographicRecords = regionNames.reduce((sum, name) => sum + mappedTotals(name)[0], 0);
+    const coverage = number.format(records - geographicRecords) + " records without mappable coordinates are excluded.";
+    byId("geography-coverage").textContent = selected === "2023"
+      ? coverage + " The 2023 recorded area is pending National Forestry Database reconciliation."
+      : coverage;
     byId("months").replaceChildren(...months.map((count, index) => {
       const row = document.createElement("li");
       const label = document.createElement("abbr");
@@ -171,13 +176,12 @@ function init(data) {
   setupViews();
 }
 
-function renderBars(id, rows, selected = "") {
-  const max = Math.max(1, ...rows.map((row) => row[1]));
+function renderBars(id, rows, { selected = "", max = Math.max(1, ...rows.map((row) => row[1])) } = {}) {
   byId(id).replaceChildren(...rows.map(([label, value, display]) => {
     const item = document.createElement("li");
     if (label === selected) item.className = "highlight";
     const name = document.createElement("span"); name.textContent = label;
-    const track = document.createElement("span"); track.className = "track";
+    const track = document.createElement("span"); track.className = "track"; track.setAttribute("aria-hidden", "true");
     const bar = document.createElement("i"); bar.style.width = value / max * 100 + "%";
     track.append(bar);
     const count = document.createElement("strong"); count.textContent = display;
@@ -210,9 +214,9 @@ function table(id, headings, rows, caption) {
 function initIntelligence([policies, yearly, kpis, agencies, concentration]) {
   const kpi = kpis[0];
   byId("large-count").textContent = number.format(kpi.large_fire_records);
-  byId("large-share").textContent = percent(kpi.large_fire_share) + " of 168,276 study records; fixed across year filters";
-  renderBars("concentration", concentration.filter((r) => r.reporting_agency === "ALL").map((r) => ["Top " + r.top_pct + "%", r.area_share, percent(r.area_share)]));
-  renderBars("agency-bars", agencies.sort((a,b) => b.large_fire_share - a.large_fire_share).map((r) => [r.reporting_agency, r.large_fire_share, percent(r.large_fire_share)]));
+  byId("large-share").textContent = percent(kpi.large_fire_share) + " of " + number.format(kpi.reported_records) + " study records";
+  renderBars("concentration", concentration.filter((r) => r.reporting_agency === "ALL").map((r) => ["Top " + r.top_pct + "%", r.area_share, percent(r.area_share)]), { max: 1 });
+  renderBars("agency-bars", agencies.sort((a,b) => b.large_fire_share - a.large_fire_share).map((r) => [r.reporting_agency, r.large_fire_share, percent(r.large_fire_share)]), { max: 1 });
   const models = policies.filter((r) => !["Alert every record", "Alert no records"].includes(r.policy));
   const select = byId("policy");
   models.forEach((r) => select.add(new Option(r.policy, r.policy)));
@@ -221,8 +225,8 @@ function initIntelligence([policies, yearly, kpis, agencies, concentration]) {
   for (const v of [0, .25, .5, .75, 1]) {
     const y = 250 - v * 215, x = 60 + v * 490;
     plot.append(svgNode("line", {x1:60, x2:550, y1:y, y2:y, class:"grid"}));
-    plot.append(svgNode("text", {x:50,y:y+4,"text-anchor":"end",class:"axis"}, percent(v)));
-    plot.append(svgNode("text", {x,y:272,"text-anchor":"middle",class:"axis"}, percent(v)));
+    plot.append(svgNode("text", {x:50,y:y+4,"text-anchor":"end",class:"axis"}, v * 100 + "%"));
+    plot.append(svgNode("text", {x,y:272,"text-anchor":"middle",class:"axis"}, v * 100 + "%"));
   }
   plot.append(svgNode("text", {x:300,y:295,"text-anchor":"middle",class:"axis"}, "Records sent for review"));
   const dots = [];
@@ -244,7 +248,7 @@ function initIntelligence([policies, yearly, kpis, agencies, concentration]) {
     byId("triage-metrics").replaceChildren(...cards.map(([label,value]) => {
       const div = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = label; dd.textContent = value; div.append(dt,dd); return div;
     }));
-    byId("policy-detail").textContent = "Score threshold: "+r.threshold+" · "+number.format(r.true_positives)+" of 2,027 large fires flagged · "+number.format(r.true_positives+r.false_positives)+" reviews · "+number.format(r.false_positives)+" false positives.";
+    byId("policy-detail").textContent = "Score threshold: "+r.threshold+" · "+number.format(r.true_positives)+" of "+number.format(r.true_positives+r.false_negatives)+" large fires flagged · "+number.format(r.true_positives+r.false_positives)+" reviews · "+number.format(r.false_positives)+" false positives.";
     table("confusion", ["Observed final size", "Alert", "No alert"], [["≥200 ha", number.format(r.true_positives), number.format(r.false_negatives)], ["<200 ha", number.format(r.false_positives), number.format(r.true_negatives)]], r.policy);
     dots.forEach(([dot,name]) => { dot.setAttribute("r", name === r.policy ? 10 : 7); dot.setAttribute("aria-pressed", String(name === r.policy)); });
   }
