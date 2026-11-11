@@ -1,0 +1,71 @@
+const { chromium } = require('playwright');
+const assert = require('node:assert/strict');
+const BASE = process.env.DASHBOARD_BASE || 'http://127.0.0.1:8765/';
+const PREVIEW = process.env.PREVIEW_DIR;
+(async()=>{
+ const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH ? {executablePath:process.env.CHROMIUM_PATH} : {})});
+ const page=await browser.newPage({viewport:{width:1440,height:1050},deviceScaleFactor:1});
+ const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+ page.on('console', message=>{ if (['error', 'warning'].includes(message.type())) errors.push(message.text()); });
+ await page.goto(BASE + 'wildfire-triage/dashboard/');
+ await page.waitForSelector('#dashboard:visible');
+ assert.equal(await page.locator('#records').innerText(),'168,276');
+ assert.equal(await page.locator('#large-count').innerText(),'9,594');
+ assert(await page.locator('#overview #map').isVisible());
+ if (PREVIEW) await page.screenshot({path:PREVIEW + '/overview.png',fullPage:true});
+ await page.selectOption('#year','2023');
+ assert.equal(await page.locator('#records').innerText(),'6,825');
+ assert.notEqual(await page.locator('#large-count').innerText(),'9,594');
+ await page.click('[data-view=geography]');
+ await page.locator('#geography').waitFor({state:'visible'});
+ assert(await page.locator('#geography #map').isVisible());
+ assert((await page.locator('#concentration').innerText()).includes('Top 10%'));
+ assert.equal(await page.locator('#size-bins li').count(),6);
+ assert.equal(await page.locator('#hotspots li').count(),10);
+ assert.equal(await page.locator('#geography-year').inputValue(),'2023');
+ await page.selectOption('#geography-year','2024');
+ assert.equal(await page.locator('#year').inputValue(),'2024');
+ await page.selectOption('#geography-year','2023');
+ await page.selectOption('#province','Alberta');
+ assert((await page.locator('#map-detail').innerText()).includes('1,201 records'));
+ assert((await page.locator('#geography-coverage').innerText()).includes('53 records'));
+ const alberta=page.getByRole('button',{name:/^Alberta ·/});
+ assert.equal(await alberta.getAttribute('aria-pressed'),'true');
+ const ontario=page.getByRole('button',{name:/^Ontario ·/});
+ await ontario.focus(); await page.keyboard.press('Space');
+ assert.equal(await page.locator('#province').inputValue(),'Ontario');
+ assert.equal(await ontario.getAttribute('aria-pressed'),'true');
+ assert(await page.locator('#map').evaluate(el=>el.getAttribute('viewBox').split(' ').map(Number).every(Number.isFinite)&&el.getBBox().width>0));
+ if (PREVIEW) await page.screenshot({path:PREVIEW + '/geography.png',fullPage:true});
+ await page.click('[data-view=triage]');
+ await page.locator('#triage').waitFor({state:'visible'});
+ assert((await page.locator('#triage-metrics').innerText()).includes('73.9%'));
+ if (PREVIEW) await page.screenshot({path:PREVIEW + '/triage.png',fullPage:true});
+ const years=await page.locator('#year-table').innerText();
+ await page.selectOption('#policy','Miss cost 20×');
+ assert((await page.locator('#triage-metrics').innerText()).includes('80.6%'));
+ assert.equal(await page.locator('#year-table').innerText(),years);
+ await page.locator('#tradeoff circle').first().focus(); await page.keyboard.press('Enter');
+ assert.equal(await page.locator('#policy').inputValue(),'Default 0.50');
+ await page.click('[data-view=overview]'); await page.click('#reset');
+ assert.equal(await page.locator('#records').innerText(),'168,276');
+ for (const view of ['overview','geography','triage']) {
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(BASE + 'wildfire-triage/dashboard/#'+view);
+  await page.waitForSelector('#'+view+':visible');
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),'Mobile overflow '+view);
+  if (PREVIEW) await page.screenshot({path:PREVIEW + '/'+view+'-mobile.png',fullPage:true});
+ }
+ // Check all local case-study/dashboard anchors and resources resolve.
+ for(const url of ['wildfire-triage/','wildfire-triage/dashboard/']){
+  await page.goto(BASE + ''+url);
+  const paths=await page.locator('a[href],script[src],link[href],img[src]').evaluateAll(els=>els.map(e=>e.href||e.src).filter(u=>u.startsWith(location.origin)));
+  for(const path of paths) assert((await page.request.get(path)).ok(),path);
+ }
+ await page.goto(BASE + 'wildfire-triage/predictive-triage/');
+ await page.waitForURL('**/wildfire-triage/dashboard/#triage');
+ await page.locator('#triage').waitFor({state:'visible'});
+ assert.deepEqual(errors,[]);
+ console.log('PASS: desktop and mobile views, deep links, year/reset/map filters, policy changes, keyboard selection, fixed yearly scope, local links; no browser exceptions.');
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
