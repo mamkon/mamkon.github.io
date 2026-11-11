@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1296pt" height="568.8pt" viewBox="0 0 1296 568.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 568.8
+L 1296 568.8
+L 1296 0
+L 0 0
+z
+" style="fill: #141618"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 46.8 402.48
+L 222.48 402.48
+Q 229.68 402.48 229.68 395.28
+L 229.68 133.92
+Q 229.68 126.72 222.48 126.72
+L 46.8 126.72
+Q 39.6 126.72 39.6 133.92
+L 39.6 395.28
+Q 39.6 402.48 46.8 402.48
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 262.8 402.48
+L 453.6 402.48
+Q 460.8 402.48 460.8 395.28
+L 460.8 133.92
+Q 460.8 126.72 453.6 126.72
+L 262.8 126.72
+Q 255.6 126.72 255.6 133.92
+L 255.6 395.28
+Q 255.6 402.48 262.8 402.48
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 493.92 402.48
+L 695.52 402.48
+Q 702.72 402.48 702.72 395.28
+L 702.72 133.92
+Q 702.72 126.72 695.52 126.72
+L 493.92 126.72
+Q 486.72 126.72 486.72 133.92
+L 486.72 395.28
+Q 486.72 402.48 493.92 402.48
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 735.84 260.64
+L 938.88 260.64
+Q 946.08 260.64 946.08 253.44
+L 946.08 133.92
+Q 946.08 126.72 938.88 126.72
+L 735.84 126.72
+Q 728.64 126.72 728.64 133.92
+L 728.64 253.44
+Q 728.64 260.64 735.84 260.64
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 735.84 402.48
+L 938.88 402.48
+Q 946.08 402.48 946.08 395.28
+L 946.08 288
+Q 946.08 280.8 938.88 280.8
+L 735.84 280.8
+Q 728.64 280.8 728.64 288
+L 728.64 395.28
+Q 728.64 402.48 735.84 402.48
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 979.2 402.48
+L 1249.2 402.48
+Q 1256.4 402.48 1256.4 395.28
+L 1256.4 133.92
+Q 1256.4 126.72 1249.2 126.72
+L 979.2 126.72
+Q 972 126.72 972 133.92
+L 972 395.28
+Q 972 402.48 979.2 402.48
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 230.683008 270.72
+Q 242.641157 270.72 253.034058 270.72
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #d6d3ce; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 247.834058 268.12
+L 253.034058 270.72
+L 247.834058 273.32
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #d6d3ce; stroke: #d6d3ce; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 461.803008 270.72
+Q 473.761157 270.72 484.154058 270.72
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #d6d3ce; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 478.954058 268.12
+L 484.154058 270.72
+L 478.954058 273.32
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #d6d3ce; stroke: #d6d3ce; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 703.037988 269.774868
+Q 715.678825 232.203491 727.82053 196.115647
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 723.69807 200.215076
+L 727.82053 196.115647
+L 728.626598 201.873272
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #87d7cb; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 946.59416 194.536934
+Q 959.040448 215.280746 970.681422 234.68237
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 970.235525 228.885718
+L 970.681422 234.68237
+L 965.776562 231.561095
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #87d7cb; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 703.063301 271.659309
+Q 715.680712 306.181949 727.760815 339.234453
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 728.417803 333.457917
+L 727.760815 339.234453
+L 723.533779 335.242941
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #87d7cb; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 946.654277 340.818464
+Q 959.040174 323.099751 970.529296 306.663924
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 965.419095 309.43626
+L 970.529296 306.663924
+L 969.681044 312.415486
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #87d7cb; stroke: #87d7cb; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 46.8 495.36
+L 1249.2 495.36
+Q 1256.4 495.36 1256.4 488.16
+L 1256.4 424.8
+Q 1256.4 417.6 1249.2 417.6
+L 46.8 417.6
+Q 39.6 417.6 39.6 424.8
+L 39.6 488.16
+Q 39.6 495.36 46.8 495.36
+z
+" clip-path="url(#pba9a6cde18)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 52.56 136.08
+L 216.72 136.08
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #ff9b70; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 268.56 136.08
+L 447.84 136.08
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #ff9b70; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 499.68 136.08
+L 689.76 136.08
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #ff9b70; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 741.6 136.08
+L 933.12 136.08
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 741.6 290.16
+L 933.12 290.16
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 984.96 136.08
+L 1243.44 136.08
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #ffc36a; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 52.56 426.96
+L 1243.44 426.96
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 39.6 514.8
+L 1256.4 514.8
+" clip-path="url(#pba9a6cde18)" style="fill: none; stroke: #4e555b; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="fill: #f7f3ed; font: 700 28px 'DejaVu Sans'; text-anchor: start" x="39.6" y="51.515625" transform="rotate(-0 39.6 51.515625)">Canada Wildfire Intelligence</text>
+   </g>
+   <g id="text_2">
+    <text style="fill: #ffc36a; font: 700 19px 'DejaVu Sans'; text-anchor: start" x="41.04" y="84.277031" transform="rotate(-0 41.04 84.277031)">From source records to a Power BI decision view</text>
+   </g>
+   <g id="text_3">
+    <text style="fill: #ff9b70; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="53.28" y="157.709625" transform="rotate(-0 53.28 157.709625)">Source</text>
+   </g>
+   <g id="text_4">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="182.846125" transform="rotate(-0 53.28 182.846125)">Canadian National Fire</text>
+   </g>
+   <g id="text_5">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="198.926125" transform="rotate(-0 53.28 198.926125)">Database</text>
+   </g>
+   <g id="text_6">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="222.206125" transform="rotate(-0 53.28 222.206125)">Point release 20260811.</text>
+   </g>
+   <g id="text_7">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="238.286125" transform="rotate(-0 53.28 238.286125)">Source file hash checked</text>
+   </g>
+   <g id="text_8">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="254.366125" transform="rotate(-0 53.28 254.366125)">before use.</text>
+   </g>
+   <g id="text_9">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="277.646125" transform="rotate(-0 53.28 277.646125)">12 reporting agencies ·</text>
+   </g>
+   <g id="text_10">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="293.726125" transform="rotate(-0 53.28 293.726125)">2000–2025</text>
+   </g>
+   <g id="text_11">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="309.806125" transform="rotate(-0 53.28 309.806125)">168,276 historical records</text>
+   </g>
+   <g id="text_12">
+    <text style="fill: #ff9b70; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="269.28" y="157.709625" transform="rotate(-0 269.28 157.709625)">Python preparation</text>
+   </g>
+   <g id="text_13">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="182.846125" transform="rotate(-0 269.28 182.846125)">ETL means Extract,</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="198.926125" transform="rotate(-0 269.28 198.926125)">Transform, Load.</text>
+   </g>
+   <g id="text_15">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="222.206125" transform="rotate(-0 269.28 222.206125)">Standardize fields and retain</text>
+   </g>
+   <g id="text_16">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="238.286125" transform="rotate(-0 269.28 238.286125)">flagged rows. Flag</text>
+   </g>
+   <g id="text_17">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="254.366125" transform="rotate(-0 269.28 254.366125)">duplicates, repeated</text>
+   </g>
+   <g id="text_18">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="270.446125" transform="rotate(-0 269.28 270.446125)">identifiers, invalid</text>
+   </g>
+   <g id="text_19">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="286.526125" transform="rotate(-0 269.28 286.526125)">coordinates and prescribed</text>
+   </g>
+   <g id="text_20">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="302.606125" transform="rotate(-0 269.28 302.606125)">fires.</text>
+   </g>
+   <g id="text_21">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="325.886125" transform="rotate(-0 269.28 325.886125)">Large fire: final recorded</text>
+   </g>
+   <g id="text_22">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="269.28" y="341.966125" transform="rotate(-0 269.28 341.966125)">area of at least 200 hectares.</text>
+   </g>
+   <g id="text_23">
+    <text style="fill: #ff9b70; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="500.4" y="157.709625" transform="rotate(-0 500.4 157.709625)">SQLite research</text>
+   </g>
+   <g id="text_24">
+    <text style="fill: #ff9b70; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="500.4" y="178.077625" transform="rotate(-0 500.4 178.077625)">warehouse</text>
+   </g>
+   <g id="text_25">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="203.214125" transform="rotate(-0 500.4 203.214125)">SQL means Structured Query</text>
+   </g>
+   <g id="text_26">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="219.294125" transform="rotate(-0 500.4 219.294125)">Language.</text>
+   </g>
+   <g id="text_27">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="242.574125" transform="rotate(-0 500.4 242.574125)">fact_fire · one row per source</text>
+   </g>
+   <g id="text_28">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="258.654125" transform="rotate(-0 500.4 258.654125)">record</text>
+   </g>
+   <g id="text_29">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="281.934125" transform="rotate(-0 500.4 281.934125)">Dimensions</text>
+   </g>
+   <g id="text_30">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="298.014125" transform="rotate(-0 500.4 298.014125)">dim_agency, dim_cause</text>
+   </g>
+   <g id="text_31">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="314.094125" transform="rotate(-0 500.4 314.094125)">dim_date, dim_month</text>
+   </g>
+   <g id="text_32">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="330.174125" transform="rotate(-0 500.4 330.174125)">dim_response, dim_size_class</text>
+   </g>
+   <g id="text_33">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="500.4" y="346.254125" transform="rotate(-0 500.4 346.254125)">dim_year</text>
+   </g>
+   <g id="text_34">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="742.32" y="157.709625" transform="rotate(-0 742.32 157.709625)">Historical analysis</text>
+   </g>
+   <g id="text_35">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="182.846125" transform="rotate(-0 742.32 182.846125)">Annual and monthly activity,</text>
+   </g>
+   <g id="text_36">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="198.926125" transform="rotate(-0 742.32 198.926125)">geography, fire-size bands and</text>
+   </g>
+   <g id="text_37">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="215.006125" transform="rotate(-0 742.32 215.006125)">area concentration.</text>
+   </g>
+   <g id="text_38">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="742.32" y="311.789625" transform="rotate(-0 742.32 311.789625)">Model evaluation</text>
+   </g>
+   <g id="text_39">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="336.926125" transform="rotate(-0 742.32 336.926125)">Chronological validation and</text>
+   </g>
+   <g id="text_40">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="353.006125" transform="rotate(-0 742.32 353.006125)">the held-out policy</text>
+   </g>
+   <g id="text_41">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="369.086125" transform="rotate(-0 742.32 369.086125)">comparison. See the</text>
+   </g>
+   <g id="text_42">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="742.32" y="385.166125" transform="rotate(-0 742.32 385.166125)">companion diagram.</text>
+   </g>
+   <g id="text_43">
+    <text style="fill: #ffc36a; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="985.68" y="157.709625" transform="rotate(-0 985.68 157.709625)">Power BI report</text>
+   </g>
+   <g id="text_44">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="182.846125" transform="rotate(-0 985.68 182.846125)">National Overview</text>
+   </g>
+   <g id="text_45">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="198.926125" transform="rotate(-0 985.68 198.926125)">Geography &amp; Fire Size</text>
+   </g>
+   <g id="text_46">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="215.006125" transform="rotate(-0 985.68 215.006125)">Predictive Triage</text>
+   </g>
+   <g id="text_47">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="238.286125" transform="rotate(-0 985.68 238.286125)">DAX means Data Analysis Expressions.</text>
+   </g>
+   <g id="text_48">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="261.566125" transform="rotate(-0 985.68 261.566125)">Validated aggregates and evaluation</text>
+   </g>
+   <g id="text_49">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="277.646125" transform="rotate(-0 985.68 277.646125)">counts are embedded in a separate report</text>
+   </g>
+   <g id="text_50">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="293.726125" transform="rotate(-0 985.68 293.726125)">model.</text>
+   </g>
+   <g id="text_51">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="317.006125" transform="rotate(-0 985.68 317.006125)">Embedded historical snapshot. Selecting a</text>
+   </g>
+   <g id="text_52">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="985.68" y="333.086125" transform="rotate(-0 985.68 333.086125)">policy does not retrain the model.</text>
+   </g>
+   <g id="text_53">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="53.28" y="448.589625" transform="rotate(-0 53.28 448.589625)">Study populations</text>
+   </g>
+   <g id="text_54">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="473.726125" transform="rotate(-0 53.28 473.726125)">168,276 historical · 168,069 mapped · 167,147 modeling</text>
+   </g>
+   <g id="text_55">
+    <text style="fill: #d6d3ce; font: 10.2px 'DejaVu Sans'; text-anchor: start" x="40.32" y="529.750406" transform="rotate(-0 40.32 529.750406)">Retrospective research on archived records. Not a live forecast. Staffing needs and prevented losses were not measured. Multipliers are planning assumptions, not financial estimates.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pba9a6cde18">
+   <rect x="0" y="0" width="1296" height="568.8"/>
+  </clipPath>
+ </defs>
+</svg>

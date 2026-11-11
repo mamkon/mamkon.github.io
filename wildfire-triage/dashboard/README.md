@@ -12,13 +12,13 @@ An in-place extension of the existing GitHub Pages dashboard. No build step or e
 
 Existing `summary.json` and the original `../test_policies.csv` and `../test_by_year.csv` are unchanged. The two CSVs match byte-for-byte with the linked research repository's `modeling/results/` originals.
 
-Added aggregate data are copied unchanged from [wildfire-seasonal-risk-research at f33afbb3bf878750b3cdd55980d8d79ad3185842](https://github.com/mamkon/wildfire-seasonal-risk-research/tree/f33afbb3bf878750b3cdd55980d8d79ad3185842):
+The baseline aggregate data came from [wildfire-seasonal-risk-research at f33afbb3bf878750b3cdd55980d8d79ad3185842](https://github.com/mamkon/wildfire-seasonal-risk-research/tree/f33afbb3bf878750b3cdd55980d8d79ad3185842):
 
 | Local file | Research source |
 | --- | --- |
 | `data/reference_kpis.csv` | `powerbi/reference_kpis.csv` |
 | `data/vw_agency.csv` | `powerbi/validation/vw_agency.csv` |
-| `data/vw_concentration.csv` | `powerbi/validation/vw_concentration.csv` |
+| `data/vw_concentration.csv` | `sql/03_reference_views.sql` via the warehouse export. The top-10% rows extend the pinned baseline. |
 
 The 2000–2025 fixed-agency scope has 168,276 records, 83,988,359.25419672 recorded hectares and 9,594 large fires (5.7013%). Large means final recorded area **≥200 ha**, confirmed in `modeling/results/evaluation.json` and the case study. Agency record counts sum to the national total, and weighted agency large-fire shares reconcile to 9,594.
 
@@ -28,7 +28,7 @@ All 26 annual record counts, area totals and five-year means match the research 
 
 Geographic assignment and reporting agency use separate denominators. The geographic ranking includes records with mappable coordinates that could not be assigned to a province or territory under Unassigned. It excludes 207 records without mappable coordinates across the study period. Prince Edward Island's reporting agency is outside the study scope, while the geographic summary includes five records assigned there and 0.52 recorded hectares.
 
-The research concentration export gives pooled shares of 81.7219%, 96.2133% and 98.8197% for the largest 1%, 3% and 5% of records. The same ranked-record method gives 99.8024% for the top 10%. Each group rounds its record count up. The raw-source rebuild also supplies annual large-fire counts, six size bands and 1,121 one-degree rounded cells. The hotspot chart shows historical large-fire counts by cell. Cell area varies with latitude, so count alone does not estimate geographic fire risk or ecological burn severity.
+The research concentration export gives pooled shares of 81.7219%, 96.2133% and 98.8197% for the largest 1%, 3% and 5% of records. The warehouse also exports 99.8024% for the top 10%, independently checked against the raw-source rebuild. Each group rounds its record count up. The raw-source rebuild also supplies annual large-fire counts, six size bands and 1,121 one-degree rounded cells. The hotspot chart shows historical large-fire counts by cell. Cell area varies with latitude, so count alone does not estimate geographic fire risk or ecological burn severity.
 
 `data/build_geography.py RAW_FILE RESEARCH_CHECKOUT` uses pandas and the pinned research repository's preparation and scope rules. It checks the CNFDB SHA-256, each annual count and area, the published concentration shares, and the mapped subtotal before writing `data/geographic-evidence.json`. It found two exact-duplicate candidates in the year and agency window, zero missing or invalid size candidates, and 1,078 included records with a repeated ID. The analytical scope excludes exact duplicates and keeps repeated IDs for descriptive totals. The evaluation documents its separate ambiguous-identity exclusions. The public export contains aggregated rounded cells and no individual coordinates or predictions.
 
@@ -36,7 +36,7 @@ The integration ZIP's Predictive Triage route opens the integrated view. The das
 
 ## Power BI status
 
-The existing service report URL is preserved. The pinned research repository includes `dashboard/Canada_Wildfire.pbip`, report definitions, a semantic model and `powerbi/measures.dax`. A separate three-page PBIP companion uses the validated public aggregates. Its report definition, semantic model, and embedded import data are delivered independently from the website. The existing service report remains separate from this companion.
+The portfolio shows screenshots of the audited Desktop report and links to the audited Power BI Service report supplied by the owner. Viewing the Service report requires access. The pinned research repository includes `dashboard/Canada_Wildfire.pbip`, report definitions, a semantic model and `powerbi/measures.dax`. A separate three-page PBIP companion uses the validated public aggregates. Its report definition, semantic model, and embedded import data are delivered independently from the website. The existing service report remains separate from this companion.
 
 ## Verification
 

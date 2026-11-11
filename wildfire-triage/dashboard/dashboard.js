@@ -129,13 +129,18 @@ function init(data, evidence) {
     const unknown = records - months.reduce((sum, count) => sum + count, 0);
     const max = Math.max(...months);
     byId("records").textContent = number.format(records);
-    byId("area").textContent = areaLabel(area);
+    byId("area").textContent = exact.format(area) + " ha";
+    byId("report-period").textContent = "Report period · " + (selected || "2000–2025");
     byId("large-count").textContent = number.format(large);
     byId("large-share").textContent = percent(large / records) + " of " + number.format(records) + " national records";
     byId("peak").textContent = max ? monthNames[months.indexOf(max)] : "No known month";
     byId("month-note").textContent = number.format(unknown) + " records with unknown month are excluded from the bars.";
-    const geographicRecords = regionNames.reduce((sum, name) => sum + mappedTotals(name)[0], 0);
-    const coverage = number.format(records - geographicRecords) + " records without mappable coordinates are excluded.";
+    const [geographicRecords, geographicArea] = regionNames.reduce(([count, area], name) => {
+      const [mappedCount, mappedArea] = mappedTotals(name);
+      return [count + mappedCount, area + mappedArea];
+    }, [0, 0]);
+    const coverage = number.format(geographicRecords) + " mapped records · " + exact.format(geographicArea)
+      + " ha. The geographic table excludes " + number.format(records - geographicRecords) + " records outside the coordinate bounds.";
     byId("geography-coverage").textContent = selected === "2023"
       ? coverage + " The 2023 recorded area is pending National Forestry Database reconciliation."
       : coverage;
@@ -238,14 +243,15 @@ function renderCells(cells) {
 
 function initIntelligence([policies, yearly, agencies, concentration], evidence) {
   const shares = concentration.filter((r) => r.reporting_agency === "ALL").map((r) => [r.top_pct, r.area_share]);
-  shares.push([10, evidence.top_10_area_share]);
   renderBars("concentration", shares.map(([top, share]) => ["Top " + top + "%", share, percent(share)]), { max: 1 });
   renderBars("size-bins", evidence.size_bins.map(([label, count]) => [label, count, number.format(count)]));
   const hotspots = [...evidence.cells].sort((a, b) => b[3] - a[3] || b[4] - a[4]).slice(0, 10);
   renderCells(evidence.cells);
   renderBars("hotspots", hotspots.map(([lat, lon, , large]) => [lat + "°N, " + Math.abs(lon) + "°W", large, number.format(large)]));
-  byId("cell-note").textContent = number.format(evidence.cells.length) + " cells across the study. "
-    + number.format(evidence.quality.invalid_coordinates) + " records were excluded for invalid coordinates.";
+  const largeCells = evidence.cells.filter(([, , , large]) => large > 0);
+  const mappedLargeFires = largeCells.reduce((count, [, , , large]) => count + large, 0);
+  byId("cell-note").textContent = number.format(mappedLargeFires) + " large fires across " + number.format(largeCells.length)
+    + " rounded cells with at least one large fire, 2000–2025.";
   renderBars("agency-bars", agencies.sort((a,b) => b.large_fire_share - a.large_fire_share).map((r) => [r.reporting_agency, r.large_fire_share, percent(r.large_fire_share)]), { max: 1 });
   const models = policies.filter((r) => !["Alert every record", "Alert no records"].includes(r.policy));
   const select = byId("policy");

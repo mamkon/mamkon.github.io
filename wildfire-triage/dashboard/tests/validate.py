@@ -62,7 +62,12 @@ assert all(41 <= lat <= 84 and -141 <= lon <= -52 and 0 <= large <= count and ar
 assert sum(count for _, _, count, _, _ in cells) == int(kpi['reported_records']) - evidence['quality']['invalid_coordinates']
 assert evidence['quality']['invalid_coordinates'] == 207
 assert evidence['quality']['unknown_month'] == unknown_month
-top_five = next(float(r['area_share']) for r in concentration if r['reporting_agency'] == 'ALL' and r['top_pct'] == '5')
-assert top_five <= evidence['top_10_area_share'] <= 1
+national_concentration = {
+    int(row['top_pct']): float(row['area_share'])
+    for row in concentration if row['reporting_agency'] == 'ALL'
+}
+assert national_concentration.keys() == {1, 3, 5, 10}
+assert national_concentration[5] <= national_concentration[10] <= 1
+assert math.isclose(national_concentration[10], evidence['top_10_area_share'], rel_tol=1e-10)
 print(f'PASS: 7 policies, 3 yearly rows, counts and ratios; 168,276 national records; 9,594 large fires; 12 agencies; {unknown_month} unknown-month records; area rounding difference {area_difference:.6f} ha.')
 print('PASS: annual large-fire counts, six size bands, concentration and 1,121 rounded cells.')

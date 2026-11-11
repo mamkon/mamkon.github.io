@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore 26 years of Canadian wildfire records in an interactive portfolio dashboard.">
-  <title>Canada Wildfire Intelligence | Interactive Executive Summary</title>
+  <title>Canada Wildfire Intelligence | Interactive Dashboard</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="dashboard.css">
   <script src="dashboard.js" defer></script>
@@ -20,11 +20,11 @@
     <p id="status" role="status">Loading dashboard…</p>
     <div id="dashboard" hidden>
       <nav class="view-nav" aria-label="Dashboard views">
-        <a href="#overview" data-view="overview">01 National overview</a>
-        <a href="#geography" data-view="geography">02 Geography &amp; severity</a>
-        <a href="#triage" data-view="triage">03 Predictive triage</a>
+        <a href="#overview" data-view="overview">01 National Overview</a>
+        <a href="#geography" data-view="geography">02 Geography &amp; Fire Size</a>
+        <a href="#triage" data-view="triage">03 Predictive Triage</a>
       </nav>
-      <section id="overview" class="view" aria-label="National overview">
+      <section id="overview" class="view" aria-label="National Overview">
       <div class="controls">
         <label for="year">Reporting year</label>
         <select id="year"><option value="">All years</option></select>
@@ -32,7 +32,7 @@
       </div>
       <dl class="metrics" aria-live="polite">
         <div><dt>Fire records</dt><dd id="records"></dd></div>
-        <div><dt>Recorded area</dt><dd id="area"></dd></div>
+        <div><dt>Recorded area</dt><dd id="area"></dd><dd id="report-period" class="metric-note"></dd></div>
         <div><dt>Peak month by count</dt><dd id="peak"></dd></div>
         <div><dt>Large fires ≥200 ha</dt><dd id="large-count">—</dd><dd id="large-share" class="metric-note"></dd></div>
       </dl>
@@ -51,8 +51,8 @@
       </section>
       <div id="overview-map"></div>
       </section>
-      <section id="geography" class="view" aria-label="Geography and severity" hidden>
-      <h2>Geographic &amp; Severity Intelligence</h2>
+      <section id="geography" class="view" aria-label="Geography and Fire Size" hidden>
+      <h2>Geography &amp; Fire Size</h2>
       <p class="muted">The map and geographic ranking follow the overview year filter. Size, concentration and rounded-cell summaries cover the complete 2000–2025 study.</p>
       <div class="controls"><label for="geography-year">Reporting year</label><select id="geography-year"><option value="">All years</option></select></div>
       <div id="geography-map"><div id="map-and-ranking" class="split">
@@ -75,15 +75,15 @@
         <section class="panel"><h2>Large-fire hotspots by rounded location</h2><p class="muted">Each point groups records ≥200 ha by latitude and longitude rounded to whole degrees. Larger points indicate more large-fire records. Cell area varies by latitude.</p><svg id="cell-plot" viewBox="0 0 520 230" role="img" aria-label="Longitude and latitude plot of rounded cells containing large-fire records. The ten largest counts are listed below."></svg><h3>Ten highest-count cells</h3><ol id="hotspots" class="bars wide"></ol><p class="muted" id="cell-note"></p></section>
       </div>
       </section>
-      <section id="triage" class="view" aria-label="Predictive triage" hidden>
-        <h2>Predictive Triage Intelligence</h2>
+      <section id="triage" class="view" aria-label="Predictive Triage" hidden>
+        <h2>Predictive Triage</h2>
         <p class="muted">Held-out 2023–2025 · 18,814 records · 2,027 fires ≥200 ha. Policies were calibrated on 2020–2022. These historical results do not establish live forecasting performance.</p>
         <div class="controls"><label for="policy">Alert policy</label><select id="policy"></select></div>
         <dl id="triage-metrics" class="metrics" aria-live="polite"></dl>
         <p id="policy-detail" class="readout"></p>
         <div class="split">
           <section class="panel"><h2>Confusion matrix</h2><div class="table-wrap" id="confusion"></div><p class="muted">Rows show observed final size; columns show the alert decision.</p></section>
-          <section class="panel"><h2>Recall versus review workload</h2><svg id="tradeoff" viewBox="0 0 600 305" role="group" aria-label="Five model policies: review share on horizontal axis, large-fire recall on vertical axis"></svg><p class="muted">Click or tap a point, or focus it and press Enter or Space, to select a policy. Review rate counts all alerts, including false positives.</p></section>
+          <section class="panel"><h2>Large-Fire Recall vs Review Rate</h2><svg id="tradeoff" viewBox="0 0 600 305" role="group" aria-label="Five model policies: review share on horizontal axis, large-fire recall on vertical axis"></svg><p class="muted">Click or tap a point, or focus it and press Enter or Space, to select a policy. Review rate counts all alerts, including false positives.</p></section>
         </div>
         <section class="panel"><h2 id="policy-table-heading">Five model alert policies</h2><div class="table-wrap" id="policy-table" tabindex="0" role="region" aria-labelledby="policy-table-heading"></div><p class="muted">The CSV also includes alert-all and alert-none baselines. <a href="../test_policies.csv" download>Download all seven policies</a>.</p></section>
         <section class="panel"><h2 id="year-table-heading">Year-by-year validation · original 10× policy</h2><p class="muted">Yearly exports exist only for the original 10× policy (threshold 0.042464523). These results stay fixed when another policy is selected.</p><div class="table-wrap" id="year-table" tabindex="0" role="region" aria-labelledby="year-table-heading"></div><p><a href="../test_by_year.csv" download>Download yearly results</a></p></section>
@@ -92,7 +92,7 @@
     <footer>
       <p>Static research snapshot, not a live incident feed. National and mapped totals have different coverage. The 2023 recorded area awaits National Forestry Database reconciliation.</p>
       <p>Source: <a href="https://cwfis.cfs.nrcan.gc.ca/downloads/nfdb/fire_pnt/current_version/">Canadian National Fire Database</a>. Boundaries from <a href="https://www.naturalearthdata.com/">Natural Earth</a>. Recorded fire size is a historical measure.</p>
-      <p><a href="https://app.powerbi.com/groups/me/reports/7f93680f-992c-4e5a-a61c-2b665f898093/3abcc2cf044058146834?experience=power-bi">Open the Power BI report (access required)</a> · <a href="../../#contact">Request a walkthrough</a></p>
+      <p><a href="https://app.powerbi.com/groups/me/reports/36eb2913-c706-45b5-b815-4175b600ddaf/a06bfd21f0e2d4c177f9?experience=power-bi">Open in Power BI (access required)</a> · <a href="../../#contact">Request a walkthrough</a></p>
     </footer>
   </main>
 </body>

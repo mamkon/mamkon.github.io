@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1224pt" height="676.8pt" viewBox="0 0 1224 676.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 676.8
+L 1224 676.8
+L 1224 0
+L 0 0
+z
+" style="fill: #141618"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 46.8 203.76
+L 396 203.76
+Q 403.2 203.76 403.2 196.56
+L 403.2 118.8
+Q 403.2 111.6 396 111.6
+L 46.8 111.6
+Q 39.6 111.6 39.6 118.8
+L 39.6 196.56
+Q 39.6 203.76 46.8 203.76
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 432 203.76
+L 781.2 203.76
+Q 788.4 203.76 788.4 196.56
+L 788.4 118.8
+Q 788.4 111.6 781.2 111.6
+L 432 111.6
+Q 424.8 111.6 424.8 118.8
+L 424.8 196.56
+Q 424.8 203.76 432 203.76
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 860.4 203.76
+L 1177.2 203.76
+Q 1184.4 203.76 1184.4 196.56
+L 1184.4 118.8
+Q 1184.4 111.6 1177.2 111.6
+L 860.4 111.6
+Q 853.2 111.6 853.2 118.8
+L 853.2 196.56
+Q 853.2 203.76 860.4 203.76
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 404.199316 158.4
+Q 414.000484 158.4 422.236404 158.4
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #d6d3ce; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 417.036404 155.8
+L 422.236404 158.4
+L 417.036404 161
+z
+" clip-path="url(#p1114a0e826)" style="fill: #d6d3ce; stroke: #d6d3ce; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 789.400635 158.4
+Q 820.799938 158.4 850.633993 158.4
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #ffc36a; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 845.433993 155.8
+L 850.633993 158.4
+L 845.433993 161
+z
+" clip-path="url(#p1114a0e826)" style="fill: #ffc36a; stroke: #ffc36a; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 46.8 347.04
+L 781.2 347.04
+Q 788.4 347.04 788.4 339.84
+L 788.4 228.96
+Q 788.4 221.76 781.2 221.76
+L 46.8 221.76
+Q 39.6 221.76 39.6 228.96
+L 39.6 339.84
+Q 39.6 347.04 46.8 347.04
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 820.8 347.04
+L 1177.2 347.04
+Q 1184.4 347.04 1184.4 339.84
+L 1184.4 228.96
+Q 1184.4 221.76 1177.2 221.76
+L 820.8 221.76
+Q 813.6 221.76 813.6 228.96
+L 813.6 339.84
+Q 813.6 347.04 820.8 347.04
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 46.8 511.92
+L 545.04 511.92
+Q 552.24 511.92 552.24 504.72
+L 552.24 374.4
+Q 552.24 367.2 545.04 367.2
+L 46.8 367.2
+Q 39.6 367.2 39.6 374.4
+L 39.6 504.72
+Q 39.6 511.92 46.8 511.92
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 584.64 511.92
+L 1177.2 511.92
+Q 1184.4 511.92 1184.4 504.72
+L 1184.4 374.4
+Q 1184.4 367.2 1177.2 367.2
+L 584.64 367.2
+Q 577.44 367.2 577.44 374.4
+L 577.44 504.72
+Q 577.44 511.92 584.64 511.92
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 46.8 603.36
+L 1177.2 603.36
+Q 1184.4 603.36 1184.4 596.16
+L 1184.4 532.8
+Q 1184.4 525.6 1177.2 525.6
+L 46.8 525.6
+Q 39.6 525.6 39.6 532.8
+L 39.6 596.16
+Q 39.6 603.36 46.8 603.36
+z
+" clip-path="url(#p1114a0e826)" style="fill: #222629; stroke: #4e555b; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 52.56 120.96
+L 390.24 120.96
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 437.76 120.96
+L 775.44 120.96
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 866.16 120.96
+L 1171.44 120.96
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 52.56 231.12
+L 775.44 231.12
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #87d7cb; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 826.56 231.12
+L 1171.44 231.12
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #ffc36a; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 52.56 376.56
+L 539.28 376.56
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #ffc36a; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 590.4 376.56
+L 1171.44 376.56
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #ff9b70; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 52.56 534.96
+L 1171.44 534.96
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #ffc36a; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 39.6 622.8
+L 1184.4 622.8
+" clip-path="url(#p1114a0e826)" style="fill: none; stroke: #4e555b; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="fill: #f7f3ed; font: 700 28px 'DejaVu Sans'; text-anchor: start" x="39.6" y="51.515625" transform="rotate(-0 39.6 51.515625)">Large-fire review policy</text>
+   </g>
+   <g id="text_2">
+    <text style="fill: #ffc36a; font: 700 19px 'DejaVu Sans'; text-anchor: start" x="41.04" y="84.277031" transform="rotate(-0 41.04 84.277031)">Thresholds fixed on earlier seasons, tested on later ones</text>
+   </g>
+   <g id="text_3">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="53.28" y="142.589625" transform="rotate(-0 53.28 142.589625)">Training and model selection</text>
+   </g>
+   <g id="text_4">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="167.726125" transform="rotate(-0 53.28 167.726125)">2000–2019 · 132,037 records · 4.9% large</text>
+   </g>
+   <g id="text_5">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="438.48" y="142.589625" transform="rotate(-0 438.48 142.589625)">Threshold setting</text>
+   </g>
+   <g id="text_6">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="438.48" y="167.726125" transform="rotate(-0 438.48 167.726125)">2020–2022 · 16,296 records · 6.7% large</text>
+   </g>
+   <g id="text_7">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="866.88" y="142.589625" transform="rotate(-0 866.88 142.589625)">Held-out test</text>
+   </g>
+   <g id="text_8">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="866.88" y="167.726125" transform="rotate(-0 866.88 167.726125)">2023–2025 · 18,814 records · 10.8% large</text>
+   </g>
+   <g id="text_9">
+    <text style="fill: #ffc36a; font: 700 10.8px 'DejaVu Sans'; text-anchor: end" x="851.76" y="101.086312" transform="rotate(-0 851.76 101.086312)">Freeze model and thresholds</text>
+   </g>
+   <g id="text_10">
+    <text style="fill: #87d7cb; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="53.28" y="252.749625" transform="rotate(-0 53.28 252.749625)">Inputs and model comparison</text>
+   </g>
+   <g id="text_11">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="277.886125" transform="rotate(-0 53.28 277.886125)">Report month, reporting agency, latitude and longitude. Fit preprocessing inside each fold.</text>
+   </g>
+   <g id="text_12">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="301.166125" transform="rotate(-0 53.28 301.166125)">Forward average precision over 5 folds: logistic regression 0.285, gradient boosting 0.369. Gradient boosting selected.</text>
+   </g>
+   <g id="text_13">
+    <text style="fill: #ffc36a; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="827.28" y="252.749625" transform="rotate(-0 827.28 252.749625)">Cost rule</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="827.28" y="277.886125" transform="rotate(-0 827.28 277.886125)">False alerts + multiplier × missed large fires. Thresholds</text>
+   </g>
+   <g id="text_15">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="827.28" y="293.966125" transform="rotate(-0 827.28 293.966125)">are selected on ranking scores.</text>
+   </g>
+   <g id="text_16">
+    <text style="fill: #ffc36a; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="53.28" y="398.189625" transform="rotate(-0 53.28 398.189625)">Held-out large-fire outcomes</text>
+   </g>
+   <g id="text_17">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="423.326125" transform="rotate(-0 53.28 423.326125)">10× rule · 5,291 reviews · 1,498 flagged · 529 missed</text>
+   </g>
+   <g id="text_18">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="446.606125" transform="rotate(-0 53.28 446.606125)">20× rule · 6,566 reviews · 1,634 flagged · 393 missed</text>
+   </g>
+   <g id="text_19">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="469.886125" transform="rotate(-0 53.28 469.886125)">Under the same 10× formula: 9,083 for 10× and 8,862 for 20×.</text>
+   </g>
+   <g id="text_20">
+    <text style="fill: #ff9b70; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="591.12" y="398.189625" transform="rotate(-0 591.12 398.189625)">10× → 20× on the same records</text>
+   </g>
+   <g id="text_21">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="591.12" y="423.326125" transform="rotate(-0 591.12 423.326125)">+1,275 reviews and +136 large fires flagged</text>
+   </g>
+   <g id="text_22">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="591.12" y="446.606125" transform="rotate(-0 591.12 446.606125)">About 9.4 additional reviews per additional large fire flagged.</text>
+   </g>
+   <g id="text_23">
+    <text style="fill: #ffc36a; font: 700 15.2px 'DejaVu Sans'; text-anchor: start" x="53.28" y="556.589625" transform="rotate(-0 53.28 556.589625)">Management question</text>
+   </g>
+   <g id="text_24">
+    <text style="fill: #d6d3ce; font: 12px 'DejaVu Sans'; text-anchor: start" x="53.28" y="581.726125" transform="rotate(-0 53.28 581.726125)">How much additional review capacity is worth one more large fire flagged?</text>
+   </g>
+   <g id="text_25">
+    <text style="fill: #d6d3ce; font: 10.2px 'DejaVu Sans'; text-anchor: start" x="40.32" y="637.750406" transform="rotate(-0 40.32 637.750406)">Retrospective research on archived records. Not a live forecast. Staffing needs and prevented losses were not measured. Multipliers are planning assumptions, not financial estimates.</text>
+   </g>
+   <g id="text_26">
+    <text style="fill: #87d7cb; font: 10.2px 'DejaVu Sans'; text-anchor: start" x="40.32" y="660.070406" transform="rotate(-0 40.32 660.070406)">Not yet tested: an agency-by-month rate baseline, and the model without reporting agency.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1114a0e826">
+   <rect x="0" y="0" width="1224" height="676.8"/>
+  </clipPath>
+ </defs>
+</svg>

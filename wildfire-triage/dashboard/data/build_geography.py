@@ -43,9 +43,13 @@ def build(raw_path, research):
         for pct in (1, 3, 5, 10)
     }
     with (dashboard / "data/vw_concentration.csv").open(encoding="utf-8", newline="") as handle:
-        for row in csv.DictReader(handle):
-            if row["reporting_agency"] == "ALL":
-                assert abs(concentration[int(row["top_pct"])] - float(row["area_share"])) < 1e-10
+        national_rows = [row for row in csv.DictReader(handle) if row["reporting_agency"] == "ALL"]
+    exported = {int(row["top_pct"]): float(row["area_share"]) for row in national_rows}
+    if len(national_rows) != len(concentration) or exported.keys() != concentration.keys():
+        raise ValueError("Expected exactly one national concentration row for each of 1%, 3%, 5%, and 10%")
+    for pct, share in concentration.items():
+        if not abs(share - exported[pct]) < 1e-10:
+            raise ValueError(f"National top-{pct}% concentration differs from the warehouse export")
 
     mapped = eligible.loc[~eligible.invalid_coordinates]
     cells = mapped.groupby(["grid_latitude", "grid_longitude"]).agg(

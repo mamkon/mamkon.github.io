@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
 <meta name="description" content="A retrospective Canadian wildfire case study on the trade-off between missed large fires and manual review workload.">
-<title>Canada Wildfire Large-Fire Triage</title>
+<title>Canada Wildfire Intelligence | Portfolio Case Study</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
   .wildfire { max-width: 980px; margin: 0 auto; padding: 2rem 1rem 4rem; }
@@ -14,6 +14,8 @@
   .wildfire h2 { font-size: 1.4rem; }
   .wildfire ul { padding-left: 1.4rem; }
   .wildfire img { display: block; max-width: 100%; height: auto; }
+  .wildfire .report-previews { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1rem; }
+  .wildfire .report-previews figure { margin: 0; }
   .wildfire .table-wrap { overflow-x: auto; }
   .wildfire table { border-collapse: collapse; width: 100%; }
   .wildfire th, .wildfire td { padding: .7rem; text-align: left; border-bottom: 1px solid #cad9dc; }
@@ -30,36 +32,40 @@
   <p>Across 2000–2025, July recorded <strong>3.07 times</strong> the average calendar-month count. The largest 3% of records accounted for <strong>96.2%</strong> of pooled recorded area, while the within-agency share ranged from 59% to over 99%. July’s volume is useful for reviewing seasonal staffing. The agency range points to different large-fire workloads.</p>
 
   <section id="executive-summary" aria-labelledby="dashboard-preview-heading">
-    <h2 id="dashboard-preview-heading">Power BI Executive Summary</h2>
-    <p>I built this view to show when wildfire records peak and how much of the recorded area comes from the largest fires. It covers 168,276 records and 83.99 million hectares across 12 reporting agencies from 2000 to 2025.</p>
+    <h2 id="dashboard-preview-heading">Canada Wildfire Intelligence</h2>
+    <p>The 2000–2025 study covers 168,276 records from 12 reporting agencies, 83,988,359.26 recorded hectares, and 9,594 fires of at least 200 hectares. The 2023 area total is pending National Forestry Database reconciliation.</p>
     <p><a class="button" href="dashboard/">Explore the interactive dashboard ↗</a></p>
-    <p><a class="text-link" href="dashboard/#geography">Geography &amp; severity</a> · <a class="text-link" href="predictive-triage/">Predictive triage policies</a></p>
-    <figure>
-      <a href="executive-summary.png"><img src="executive-summary.png" width="2698" height="1499" alt="Power BI Executive Summary showing a Canada wildfire map, annual recorded area, monthly counts and gauges for July workload and the share of area from the largest 3% of records." loading="lazy"></a>
-      <figcaption>Dashboard preview with all years selected. Select the image to open it full size. The 2023 area total is pending National Forestry Database reconciliation.</figcaption>
-    </figure>
-    <p><a class="text-link" href="https://app.powerbi.com/groups/me/reports/7f93680f-992c-4e5a-a61c-2b665f898093/3abcc2cf044058146834?experience=power-bi">Open in Power BI (sign-in and report access required)</a> · <a class="text-link" href="../#contact">Request a walkthrough</a></p>
+    <p><a class="text-link" href="dashboard/#geography">Geography &amp; Fire Size</a> · <a class="text-link" href="dashboard/#triage">Predictive Triage</a></p>
+    <h3>Audited Power BI Desktop report</h3>
+    <p>Select a screenshot to view it full size.</p>
+    <div class="report-previews">
+      <figure><a href="power-bi-preview/national-overview.jpg"><img src="power-bi-preview/national-overview.jpg" alt="Power BI National Overview showing the report period, national totals, annual area, monthly counts and jurisdiction table." loading="lazy"></a><figcaption>National Overview</figcaption></figure>
+      <figure><a href="power-bi-preview/geography-fire-size.jpg"><img src="power-bi-preview/geography-fire-size.jpg" alt="Power BI Geography and Fire Size showing size bands, reporting agency shares, area concentration and rounded large-fire cells." loading="lazy"></a><figcaption>Geography &amp; Fire Size</figcaption></figure>
+      <figure><a href="power-bi-preview/predictive-triage.jpg"><img src="power-bi-preview/predictive-triage.jpg" alt="Power BI Predictive Triage showing the 10× policy, five-policy comparison, confusion matrix and held-out annual results." loading="lazy"></a><figcaption>Predictive Triage</figcaption></figure>
+    </div>
+    <p><a class="text-link" href="https://app.powerbi.com/groups/me/reports/36eb2913-c706-45b5-b815-4175b600ddaf/a06bfd21f0e2d4c177f9?experience=power-bi">Open in Power BI (access required)</a> · <a class="text-link" href="../#contact">Request a walkthrough</a></p>
   </section>
 
   <h2>Impact and decision trade-offs</h2>
-  <p>The selected rule flagged <strong>1,498 of 2,027 large fires</strong> and missed <strong>529</strong>. It sent <strong>28.1% of all records</strong> for review. Of those alerts, 3,793 concerned fires that ended below 200 hectares.</p>
+  <p>The original 10× policy flagged <strong>1,498 of 2,027 large fires</strong> and missed <strong>529</strong>. It sent <strong>5,291 records (28.12%)</strong> for review. Of those alerts, 3,793 concerned fires that ended below 200 hectares.</p>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Alert policy comparison">
     <table>
       <caption>Held-out results from 18,814 records</caption>
-      <thead><tr><th scope="col">Alert rule</th><th scope="col">Large fires flagged</th><th scope="col">Large fires missed</th><th scope="col">Extra reviews</th></tr></thead>
+      <thead><tr><th scope="col">Alert rule</th><th scope="col">Large fires flagged</th><th scope="col">Large fires missed</th><th scope="col">Records flagged for review</th></tr></thead>
       <tbody>
-        <tr><th scope="row">Default cutoff</th><td>81</td><td>1,946</td><td>45</td></tr>
-        <tr><th scope="row">Selected cutoff</th><td>1,498</td><td>529</td><td>3,793</td></tr>
+        <tr><th scope="row">Miss cost 10×</th><td>1,498</td><td>529</td><td>5,291</td></tr>
+        <tr><th scope="row">Miss cost 20×</th><td>1,634</td><td>393</td><td>6,566</td></tr>
       </tbody>
     </table>
   </div>
+  <p>On the same held-out records, 20× would have added 1,275 reviews, flagged 136 more large fires and missed 136 fewer. That is about 9.4 additional reviews per additional large fire flagged. This comparison describes historical performance.</p>
   <h2>Who can use the research?</h2>
   <ul>
     <li><strong>Wildfire operations planners</strong> can use historical seasonality as a starting point for staffing reviews and check agency-specific patterns before setting dates.</li>
     <li><strong>Regional emergency management and mutual-aid coordinators</strong> can compare how much area came from large events and use the results to frame capacity discussions.</li>
     <li><strong>Analysts reviewing a triage rule</strong> can compare missed large fires with the extra workload at each cutoff before proposing a prospective test.</li>
   </ul>
-  <p>Agencies record small fires differently. The Power BI Trust page shows those differences so that readers can interpret record counts in context. Recorded area also reflects the reporting scope and provides no direct measure of community exposure.</p>
+  <p>Agencies record small fires differently. Geography &amp; Fire Size shows agency shares separately from geographic jurisdiction. Recorded area also reflects the reporting scope and provides no direct measure of community exposure.</p>
   <h2>How I built it</h2>
   <ul>
     <li><strong>SQLite</strong> organized the reporting archive and extracted the reviewed study records.</li>
@@ -67,10 +73,16 @@
     <li><strong>Matplotlib</strong> turned the verified results into a workflow diagram. The study also produced aggregate files for a separate Power BI model review.</li>
   </ul>
   <p>I treated one missed large fire as ten extra reviews when selecting the cutoff. That cost ratio is a planning assumption. The study supports historical review planning. Live use would require confirming which inputs were available at the first report and testing on new seasons.</p>
+  <h2>Workflow and policy evaluation</h2>
   <figure>
-    <a href="pipeline_workflow.png"><img src="pipeline_workflow.png" width="4470" height="2520" alt="Five-stage workflow from ingestion to held-out evaluation. The final scorecard shows 73.9 percent recall, 529 missed large fires, and 3,793 extra reviews."></a>
-    <figcaption>Workflow and final test scorecard. Select the image to open it full size.</figcaption>
+    <a href="canada_wildfire_pipeline.png"><img src="canada_wildfire_pipeline.png" width="5400" height="2370" alt="Canadian wildfire records are prepared in Python and loaded into SQLite. Historical analysis and model evaluation feed three Power BI views through an embedded snapshot." loading="lazy"></a>
+    <figcaption>Data and reporting pipeline. <a href="canada_wildfire_pipeline.svg">Open the vector diagram</a>.</figcaption>
   </figure>
+  <figure>
+    <a href="canada_wildfire_validation_decision.png"><img src="canada_wildfire_validation_decision.png" width="5100" height="2820" alt="The model trains on 2000–2019, sets thresholds on 2020–2022 and is tested on 2023–2025. The 20× policy flags 136 more large fires for 1,275 additional reviews." loading="lazy"></a>
+    <figcaption>Model validation and the 10× to 20× policy trade-off. <a href="canada_wildfire_validation_decision.svg">Open the vector diagram</a>.</figcaption>
+  </figure>
+  <p><a class="text-link" href="https://github.com/mamkon/mamkon.github.io/blob/406bd38/wildfire-triage/TECHNICAL_README.md">Read the technical methods and validation ↗</a></p>
   <h2>Explore the results</h2>
   <p><a class="text-link" href="../air-quality-research/">Read the Ontario air quality study ↗</a></p>
   <p><a class="text-link" href="https://github.com/mamkon/wildfire-seasonal-risk-research">View the research repository</a> · <a class="text-link" href="https://github.com/mamkon/wildfire-seasonal-risk-research/tree/main/modeling">Read the modeling methods and reproduction steps</a></p>
