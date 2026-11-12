@@ -33,26 +33,28 @@
 <main class="wildfire">
   <nav aria-label="Portfolio"><a class="text-link" href="../#projects">← Back to featured projects</a></nav>
   <p class="eyebrow">Environmental analytics · Retrospective research</p>
-  <h1>How many extra reviews is one more large fire worth?</h1>
-  <p>On the same 18,814 held-out Canadian wildfire records from 2023–2025, the 20× alert policy would have flagged <strong>136 more large fires</strong> than the 10× policy and required <strong>1,275 additional reviews</strong>. That’s about 9.4 extra reviews per additional large fire flagged.</p>
-  <h2>Patterns in the data</h2>
-  <p>Across 2000–2025, July recorded <strong>3.07 times</strong> the average calendar-month count. The largest 3% of records accounted for <strong>96.2%</strong> of pooled recorded area, while the within-agency share ranged from 59% to over 99%. July’s volume is useful for reviewing seasonal staffing. The agency range points to different large-fire workloads.</p>
+  <h1>Canada Wildfire Intelligence</h1>
+  <h2>Project workflow</h2>
+  <figure>
+    <a href="canada_wildfire_pipeline.png"><img src="canada_wildfire_pipeline.png" width="5400" height="2370" alt="Canadian wildfire records are prepared in Python and loaded into SQLite. Historical analysis and model evaluation feed three Power BI views through an embedded snapshot." loading="lazy"></a>
+    <figcaption>Data and reporting pipeline. <a href="canada_wildfire_pipeline.svg">Open the vector diagram</a>.</figcaption>
+  </figure>
 
-  <section id="executive-summary" aria-labelledby="dashboard-preview-heading">
-    <h2 id="dashboard-preview-heading">Canada Wildfire Intelligence</h2>
-    <p>The 2000–2025 study covers 168,276 records from 12 reporting agencies, 83,988,359.26 recorded hectares, and 9,594 fires of at least 200 hectares. The 2023 area total is pending National Forestry Database reconciliation.</p>
-    <p><a class="button" href="dashboard/">Explore the interactive dashboard ↗</a></p>
-    <p><a class="text-link" href="dashboard/#geography">Geography &amp; Fire Size</a> · <a class="text-link" href="dashboard/#triage">Predictive Triage</a></p>
-    <h3>Audited Power BI Desktop report</h3>
-    <p>Select a report preview to enlarge it.</p>
-    <div class="report-previews">
-      <figure id="report-national" class="report-national"><a href="#report-national" aria-label="Enlarge National Overview report preview"><div class="report-canvas"><img src="power-bi-preview/national-overview-report.jpg" width="1112" height="768" alt="Power BI National Overview showing the report period, national totals, annual area, monthly counts and jurisdiction table." loading="lazy"></div></a><figcaption>National Overview <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-      <figure id="report-geography" class="report-geography"><a href="#report-geography" aria-label="Enlarge Geography &amp; Fire Size report preview"><div class="report-canvas"><img src="power-bi-preview/geography-fire-size-report.jpg" width="1112" height="784" alt="Power BI Geography and Fire Size showing size bands, reporting agency shares, area concentration and rounded large-fire cells." loading="lazy"></div></a><figcaption>Geography &amp; Fire Size <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-      <figure id="report-triage" class="report-triage"><a href="#report-triage" aria-label="Enlarge Predictive Triage report preview"><div class="report-canvas"><img src="power-bi-preview/predictive-triage-report.jpg" width="1112" height="828" alt="Power BI Predictive Triage showing the 10× policy, five-policy comparison, confusion matrix and held-out annual results." loading="lazy"></div></a><figcaption>Predictive Triage <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-      <figure id="report-api" class="report-api"><a href="#report-api" aria-label="Enlarge WildFire Update report preview"><div class="report-canvas"><img src="power-bi-preview/wildfire-update-report.jpg" width="1112" height="646" alt="WildFire Update shows 85 distinct fires with 132 status updates from October 12 to November 11, 2026 UTC, using the Natural Resources Canada wildfire feed." loading="lazy"></div></a><figcaption>WildFire Update · API snapshot <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-    </div>
-    <p><a class="text-link" href="https://app.powerbi.com/groups/me/reports/36eb2913-c706-45b5-b815-4175b600ddaf/8436858a3932bc03e28d?experience=power-bi">Open in Power BI (sign-in and access required)</a> · <a class="text-link" href="../#contact">Request a walkthrough</a></p>
-  </section>
+  <h2>Background and problem</h2>
+  <p>This project grew out of a learning exercise on forest fires in Portugal. For the Canadian study, I wanted to understand when wildfire records pile up and how a team with limited review time could flag more fires that eventually reach <strong>200 hectares</strong>.</p>
+  <p>How many extra reviews would it take to flag one more large fire?</p>
+
+  <h2>When records peak and how burned area is concentrated</h2>
+  <p>The Canadian National Fire Database study covers <strong>168,276 records from 12 reporting agencies</strong> between 2000 and 2025. The archive includes <strong>9,594 large fires</strong> and <strong>83,988,359.26 recorded hectares</strong>. The 2023 area total is pending National Forestry Database reconciliation.</p>
+  <p>July had <strong>3.07 times the average calendar-month record count</strong>, giving planners a starting point for seasonal review capacity. The largest <strong>3% of records accounted for 96.2% of recorded area</strong>. Within agencies, that share ranged from 59% to over 99%, so local planners need to check their own mix of fire sizes alongside record volume.</p>
+
+  <h2>How I built it</h2>
+  <ul>
+    <li><strong>Extract, transform, and load (ETL).</strong> I verified the source release, used Python to standardize the records and flag exclusions, then loaded the results into SQLite. I checked the warehouse summaries before using the aggregates in Power BI. <a href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md#etl-workflow">See the ETL steps and warehouse diagram</a>.</li>
+    <li><strong>Python and scikit-learn</strong> compared two models using earlier fire seasons. I chose the alert cutoff on 2020–2022 data before scoring the held-out seasons.</li>
+    <li><strong>Matplotlib</strong> turned the verified results into a workflow diagram. The study also produced aggregate files for a separate Power BI model review.</li>
+  </ul>
+  <p>The model used report month, reporting agency, latitude and longitude. I treated one missed large fire as ten extra reviews when selecting the cutoff. That cost ratio is a planning assumption. The study supports historical review planning. Live use would require confirming which inputs were available at the first report and testing on new seasons.</p>
 
   <h2>Impact and decision trade-offs</h2>
   <p>The original 10× policy flagged <strong>1,498 of 2,027 large fires</strong> and missed <strong>529</strong>. It sent <strong>5,291 records (28.12%)</strong> for review. Of those alerts, 3,793 concerned fires that ended below 200 hectares.</p>
@@ -66,7 +68,7 @@
       </tbody>
     </table>
   </div>
-  <p>On the same held-out records, 20× would have added 1,275 reviews, flagged 136 more large fires and missed 136 fewer. That is about 9.4 additional reviews per additional large fire flagged. This comparison describes historical performance.</p>
+  <p>On the same 18,814 held-out records from 2023–2025, 20× would have added 1,275 reviews, flagged 136 more large fires and missed 136 fewer. That is about 9.4 additional reviews per additional large fire flagged. This comparison describes historical performance.</p>
   <section aria-labelledby="wildfire-metrics-heading">
     <h2 id="wildfire-metrics-heading">Why these metrics matter</h2>
     <p>On the held-out records, clearing every record would have achieved <strong>89.23% accuracy</strong> while missing all <strong>2,027 large fires</strong>. Because large fires were uncommon, I used average precision to compare how well the models ranked them during validation. For the final policy comparison, I reported measures that show both detection and workload.</p>
@@ -78,7 +80,12 @@
     <p><strong>Capacity example.</strong> With an illustrative budget of 6,000 reviews across the held-out period, the 10× policy fits at <strong>5,291</strong>. The 20× policy would flag 136 more large fires and exceed the budget at <strong>6,566</strong>. The example uses a hypothetical budget. The study did not validate an operating capacity.</p>
   </section>
   <h2>Did a simpler rule work?</h2>
-  <p>I compared gradient boosting with a lookup based on historical large-fire rates by reporting agency and month. On the same 18,814 held-out records, average precision was <strong>0.427 for gradient boosting and 0.293 for the lookup</strong>. At their respective 10× cutoffs, the lookup would flag 1,202 large fires in 4,153 reviews, and gradient boosting would flag 1,498 in 5,291 reviews. <a href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md#agency-by-month-baseline">See the baseline method and results</a>.</p>
+  <p>I tested a simple lookup based on past large-fire rates by reporting agency and month. With <strong>5,291 reviews each</strong>, the lookup flagged <strong>1,334</strong> large fires and gradient boosting flagged <strong>1,498</strong>. The model flagged 164 more, and the simple lookup flagged 89% as many. <a href="https://github.com/mamkon/wildfire-seasonal-risk-research/blob/5032c23008de0346b52afae4e6fe19bb01ab2b03/modeling/results/agency_month_baseline.json">See the matched-workload results</a>.</p>
+  <figure>
+    <a href="canada_wildfire_validation_decision.png"><img src="canada_wildfire_validation_decision.png" width="5100" height="2820" alt="The model trains on 2000–2019, sets thresholds on 2020–2022 and is tested on 2023–2025. The 20× policy flags 136 more large fires for 1,275 additional reviews." loading="lazy"></a>
+    <figcaption>Model validation and the 10× to 20× policy trade-off. <a href="canada_wildfire_validation_decision.svg">Open the vector diagram</a>.</figcaption>
+  </figure>
+  <p><a class="text-link" href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md">Read the technical methods and validation ↗</a></p>
   <h2>Who can use the research?</h2>
   <ul>
     <li><strong>Wildfire operations planners</strong> can use historical seasonality as a starting point for staffing reviews and check agency-specific patterns before setting dates.</li>
@@ -86,23 +93,21 @@
     <li><strong>Analysts reviewing a triage rule</strong> can compare missed large fires with the extra workload at each cutoff before proposing a prospective test.</li>
   </ul>
   <p>Agencies record small fires differently. Geography &amp; Fire Size shows agency shares separately from geographic jurisdiction. Recorded area also reflects the reporting scope and provides no direct measure of community exposure.</p>
-  <h2>How I built it</h2>
-  <ul>
-    <li><strong>Extract, transform, and load (ETL).</strong> I verified the source release, used Python to standardize the records and flag exclusions, then loaded the results into SQLite. I checked the warehouse summaries before using the aggregates in Power BI. <a href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md#etl-workflow">See the ETL steps and warehouse diagram</a>.</li>
-    <li><strong>Python and scikit-learn</strong> compared two models using earlier fire seasons. I chose the alert cutoff on 2020–2022 data before scoring the held-out seasons.</li>
-    <li><strong>Matplotlib</strong> turned the verified results into a workflow diagram. The study also produced aggregate files for a separate Power BI model review.</li>
-  </ul>
-  <p>I treated one missed large fire as ten extra reviews when selecting the cutoff. That cost ratio is a planning assumption. The study supports historical review planning. Live use would require confirming which inputs were available at the first report and testing on new seasons.</p>
-  <h2>Workflow and policy evaluation</h2>
-  <figure>
-    <a href="canada_wildfire_pipeline.png"><img src="canada_wildfire_pipeline.png" width="5400" height="2370" alt="Canadian wildfire records are prepared in Python and loaded into SQLite. Historical analysis and model evaluation feed three Power BI views through an embedded snapshot." loading="lazy"></a>
-    <figcaption>Data and reporting pipeline. <a href="canada_wildfire_pipeline.svg">Open the vector diagram</a>.</figcaption>
-  </figure>
-  <figure>
-    <a href="canada_wildfire_validation_decision.png"><img src="canada_wildfire_validation_decision.png" width="5100" height="2820" alt="The model trains on 2000–2019, sets thresholds on 2020–2022 and is tested on 2023–2025. The 20× policy flags 136 more large fires for 1,275 additional reviews." loading="lazy"></a>
-    <figcaption>Model validation and the 10× to 20× policy trade-off. <a href="canada_wildfire_validation_decision.svg">Open the vector diagram</a>.</figcaption>
-  </figure>
-  <p><a class="text-link" href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md">Read the technical methods and validation ↗</a></p>
+  <section id="executive-summary" aria-labelledby="dashboard-preview-heading">
+    <h2 id="dashboard-preview-heading">Explore Canada Wildfire Intelligence</h2>
+    <p><a class="button" href="dashboard/">Explore the interactive dashboard ↗</a></p>
+    <p><a class="text-link" href="dashboard/#geography">Geography &amp; Fire Size</a> · <a class="text-link" href="dashboard/#triage">Predictive Triage</a></p>
+    <h3>Power BI Desktop previews</h3>
+    <p>The research repository includes a 13-page historical Power BI project. The three-page audited report covers National Overview, Geography &amp; Fire Size, and Predictive Triage. The API test copy shown here includes those three views plus a fourth page with a dated Wildfire Update snapshot. Select a preview to enlarge it.</p>
+    <div class="report-previews">
+      <figure id="report-national" class="report-national"><a href="#report-national" aria-label="Enlarge National Overview report preview"><div class="report-canvas"><img src="power-bi-preview/national-overview-report.jpg" width="1112" height="768" alt="Power BI National Overview showing the report period, national totals, annual area, monthly counts and jurisdiction table." loading="lazy"></div></a><figcaption>National Overview <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-geography" class="report-geography"><a href="#report-geography" aria-label="Enlarge Geography &amp; Fire Size report preview"><div class="report-canvas"><img src="power-bi-preview/geography-fire-size-report.jpg" width="1112" height="784" alt="Power BI Geography and Fire Size showing size bands, reporting agency shares, area concentration and rounded large-fire cells." loading="lazy"></div></a><figcaption>Geography &amp; Fire Size <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-triage" class="report-triage"><a href="#report-triage" aria-label="Enlarge Predictive Triage report preview"><div class="report-canvas"><img src="power-bi-preview/predictive-triage-report.jpg" width="1112" height="828" alt="Power BI Predictive Triage showing the 10× policy, five-policy comparison, confusion matrix and held-out annual results." loading="lazy"></div></a><figcaption>Predictive Triage <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-api" class="report-api"><a href="#report-api" aria-label="Enlarge WildFire Update report preview"><div class="report-canvas"><img src="power-bi-preview/wildfire-update-report.jpg" width="1112" height="646" alt="WildFire Update shows 85 distinct fires with 132 status updates from October 12 to November 11, 2026 UTC, using the Natural Resources Canada wildfire feed." loading="lazy"></div></a><figcaption>WildFire Update · API snapshot <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+    </div>
+    <p><a class="text-link" href="dashboard/">Open the public interactive dashboard</a> · <a class="text-link" href="../#contact">Request a walkthrough</a></p>
+  </section>
+
   <h2>Explore the results</h2>
   <p><a class="text-link" href="../air-quality-research/">Read the Ontario air quality study ↗</a></p>
   <p><a class="text-link" href="https://github.com/mamkon/wildfire-seasonal-risk-research">View the research repository</a> · <a class="text-link" href="https://github.com/mamkon/wildfire-seasonal-risk-research/tree/main/modeling">Read the modeling methods and reproduction steps</a></p>
