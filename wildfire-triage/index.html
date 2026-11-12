@@ -90,7 +90,7 @@
   <p>Agencies record small fires differently. Geography &amp; Fire Size shows agency shares separately from geographic jurisdiction. Recorded area also reflects the reporting scope and provides no direct measure of community exposure.</p>
   <h2>How I built it</h2>
   <ul>
-    <li><strong>SQLite</strong> organized the reporting archive and extracted the reviewed study records.</li>
+    <li><strong>Extract, transform, and load (ETL).</strong> I verified the source release, used Python to standardize the records and flag exclusions, then loaded the results into SQLite. I checked the warehouse summaries before using the aggregates in Power BI. <a href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md#etl-workflow">See the ETL steps and warehouse diagram</a>.</li>
     <li><strong>Python and scikit-learn</strong> compared two models using earlier fire seasons. I chose the alert cutoff on 2020–2022 data before scoring the held-out seasons.</li>
     <li><strong>Matplotlib</strong> turned the verified results into a workflow diagram. The study also produced aggregate files for a separate Power BI model review.</li>
   </ul>
@@ -104,7 +104,7 @@
     <a href="canada_wildfire_validation_decision.png"><img src="canada_wildfire_validation_decision.png" width="5100" height="2820" alt="The model trains on 2000–2019, sets thresholds on 2020–2022 and is tested on 2023–2025. The 20× policy flags 136 more large fires for 1,275 additional reviews." loading="lazy"></a>
     <figcaption>Model validation and the 10× to 20× policy trade-off. <a href="canada_wildfire_validation_decision.svg">Open the vector diagram</a>.</figcaption>
   </figure>
-  <p><a class="text-link" href="https://github.com/mamkon/mamkon.github.io/blob/406bd38/wildfire-triage/TECHNICAL_README.md">Read the technical methods and validation ↗</a></p>
+  <p><a class="text-link" href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md">Read the technical methods and validation ↗</a></p>
   <h2>Explore the results</h2>
   <p><a class="text-link" href="../air-quality-research/">Read the Ontario air quality study ↗</a></p>
   <p><a class="text-link" href="https://github.com/mamkon/wildfire-seasonal-risk-research">View the research repository</a> · <a class="text-link" href="https://github.com/mamkon/wildfire-seasonal-risk-research/tree/main/modeling">Read the modeling methods and reproduction steps</a></p>

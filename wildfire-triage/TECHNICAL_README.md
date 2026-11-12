@@ -29,18 +29,31 @@ Four populations appear in this project. They differ on purpose.
 
 A **large fire** is a record whose final recorded area is at least 200 hectares: 9,594 records, 5.70% of the historical scope. The largest 3% of records hold 96.2% of pooled recorded area.
 
-## Data preparation
+## ETL workflow
+
+ETL means extract, transform, and load. The pipeline keeps one warehouse row per source record so exclusions can be traced back to their flags.
+
+### Extract
+
+`src/download_data.py` retrieves the Canadian National Fire Database (CNFDB) point release. Preparation verifies the source file against the SHA-256 checksum in `data/source_versions.csv` before processing it.
+
+### Transform
 
 `src/prepare_cnfdb.py` flags records and never deletes or corrects them. Each rule is a column, so every exclusion can be audited.
 
-1. **Verify the source.** `src/download_data.py` checks the release against the pinned SHA-256.
-2. **Standardize fields.** Year, month, day, size and coordinates are parsed as numbers. Agency codes are upper-cased.
-3. **Flag quality problems.** Flags cover exact duplicate rows, repeated fire identifiers, invalid year or month, missing or negative size, coordinates outside bounds, invalid calendar dates, report dates that conflict with the calendar fields, and out-dates before report dates.
-4. **Classify.** Cause codes map to cause classes through `data/seeds/cause_mapping.csv`. Response codes map to full, modified or monitored. Prescribed fires are flagged from the prescribed indicator and four other source fields.
-5. **Derive.** Size band, the ≥200 ha outcome, and a whole-degree grid cell from rounded coordinates.
-6. **Set eligibility.** A record is eligible unless it has an invalid year, invalid size, unknown agency, a year before the agency's documented start, an exact duplicate row, or a prescribed-fire flag.
+1. **Standardize fields.** Year, month, day, size and coordinates are parsed as numbers. Agency codes are upper-cased.
+2. **Flag quality problems.** Flags cover exact duplicate rows, repeated fire identifiers, invalid year or month, missing or negative size, coordinates outside bounds, invalid calendar dates, report dates that conflict with the calendar fields, and out-dates before report dates.
+3. **Classify.** Cause codes map to cause classes through `data/seeds/cause_mapping.csv`. Response codes map to full, modified or monitored. Prescribed fires are flagged from the prescribed indicator and four other source fields.
+4. **Derive.** Size band, the ≥200 ha outcome, and a whole-degree grid cell from rounded coordinates.
+5. **Set eligibility.** A record is eligible unless it has an invalid year, invalid size, unknown agency, a year before the agency's documented start, an exact duplicate row, or a prescribed-fire flag.
 
 Size bands: under 1 ha, 1 to under 10, 10 to under 200, 200 to under 1,000, 1,000 to under 10,000, and 10,000+ ha.
+
+### Load and validate
+
+`src/load_warehouse.py` loads the prepared records, dimensions, and batch metadata into SQLite. It applies the 2000–2025 reporting scope through `in_analysis` and keeps flagged records available for review. Before replacing the database, the loader checks foreign keys and database integrity. It also exports tables and reference views. `src/reconcile.py` independently checks those views against pandas calculations.
+
+The Power BI report contains validated historical and model-evaluation aggregates. Its historical snapshot is embedded. The API-enabled report copy adds a separate WildFire Update page sourced from the Natural Resources Canada feed for its stated reporting window.
 
 ## SQLite warehouse
 
@@ -59,6 +72,85 @@ Defined in `sql/01_schema.sql`. Foreign keys are enforced per connection.
 | `fact_nfd_annual` | Jurisdiction, year, category, release | **Empty.** Reserved for official National Forestry Database tables. |
 
 `fact_fire` carries the keys to every dimension, the measures (`size_ha`, `latitude`, `longitude`, `is_large_fire`), and the quality flags as columns. Check constraints hold latitude to 41–84, longitude to −141 to −52, and size to zero or above. One index, `fire_scope`, covers `(in_analysis, year_key, agency_key)`.
+
+### Entity relationship diagram
+
+Each fire record points to exactly one row in every dimension. Each dimension row can describe many fire records. Quality-flag columns on `fact_fire` are omitted here for readability.
+
+```mermaid
+erDiagram
+  dim_agency ||--o{ fact_fire : "agency_key"
+  dim_cause ||--o{ fact_fire : "cause_key"
+  dim_size_class ||--o{ fact_fire : "size_class_key"
+  dim_response ||--o{ fact_fire : "response_key"
+  dim_date ||--o{ fact_fire : "date_key"
+  dim_year ||--o{ fact_fire : "year_key"
+  dim_month ||--o{ fact_fire : "month_key"
+  load_batch ||--o{ fact_fire : "batch_key"
+  fact_fire {
+    int fire_key PK
+    text fire_id
+    int agency_key FK
+    int cause_key FK
+    int size_class_key FK
+    int response_key FK
+    int date_key FK
+    int year_key FK
+    int month_key FK
+    int batch_key FK
+    real size_ha
+    real latitude
+    real longitude
+    int is_large_fire
+    int in_analysis
+  }
+  dim_agency {
+    int agency_key PK
+    text agency_code UK
+    text reporting_agency
+    int documented_start_year
+  }
+  dim_cause {
+    int cause_key PK
+    text cause_code UK
+    text cause_class
+  }
+  dim_size_class {
+    int size_class_key PK
+    text size_class
+    int sort_order
+    real min_ha
+    real max_ha
+  }
+  dim_response {
+    int response_key PK
+    text response_code UK
+    text response_class
+  }
+  dim_date {
+    int date_key PK
+    text date UK
+    int year
+    int month_num
+    text season
+  }
+  dim_year {
+    int year_key PK
+    text year_label
+  }
+  dim_month {
+    int month_key PK
+    text month_name
+    text season
+  }
+  load_batch {
+    int batch_key PK
+    text source_version
+    text source_sha256
+  }
+```
+
+`fact_nfd_annual` stands alone with no foreign keys and is not shown.
 
 The other SQL files: `02_analysis_queries.sql`, `03_reference_views.sql`, `04_quality_checks.sql`, `05_reconciliation.sql`.
 
