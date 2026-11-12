@@ -273,7 +273,7 @@ L 1184.4 622.8
     <text style="fill: #d6d3ce; font: 10.2px 'DejaVu Sans'; text-anchor: start" x="40.32" y="637.750406" transform="rotate(-0 40.32 637.750406)">Retrospective research on archived records. Not a live forecast. Staffing needs and prevented losses were not measured. Multipliers are planning assumptions, not financial estimates.</text>
    </g>
    <g id="text_26">
-    <text style="fill: #87d7cb; font: 10.2px 'DejaVu Sans'; text-anchor: start" x="40.32" y="660.070406" transform="rotate(-0 40.32 660.070406)">Not yet tested: an agency-by-month rate baseline, and the model without reporting agency.</text>
+    <text style="fill: #87d7cb; font: 10.2px 'DejaVu Sans'; text-anchor: start" x="40.32" y="660.070406" transform="rotate(-0 40.32 660.070406)">Open question: how does the model perform without reporting agency?</text>
    </g>
   </g>
  </g>

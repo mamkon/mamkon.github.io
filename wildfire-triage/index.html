@@ -19,12 +19,8 @@
   .wildfire .report-previews figure:target { grid-column: 1 / -1; }
   .wildfire .report-previews figure > a { display: block; }
   .wildfire .report-previews a:focus-visible { outline: 3px solid #a84627; outline-offset: 4px; }
-  .wildfire .report-canvas { aspect-ratio: var(--canvas-ratio); overflow: hidden; background: #141618; }
-  .wildfire .report-canvas img { width: var(--image-width); max-width: none; transform: translate(var(--crop-left), var(--crop-top, -15.32%)); }
-  .wildfire .report-national { --canvas-ratio: 1507 / 952; --image-width: 160.25%; --crop-left: -7.99%; }
-  .wildfire .report-geography { --canvas-ratio: 1475 / 952; --image-width: 163.73%; --crop-left: -8.65%; }
-  .wildfire .report-triage { --canvas-ratio: 1393 / 952; --image-width: 173.37%; --crop-left: -10.35%; }
-  .wildfire .report-api { --canvas-ratio: 1113 / 646; --image-width: 126.06%; --crop-left: -2.92%; --crop-top: -28.17%; }
+  .wildfire .report-canvas { overflow: hidden; background: #141618; }
+  .wildfire .report-canvas img { display: block; width: 100%; height: auto; }
   .wildfire .report-preview-collapse { display: none; }
   .wildfire figure:target .report-preview-collapse { display: inline; }
   .wildfire .table-wrap { overflow-x: auto; }
@@ -50,12 +46,12 @@
     <h3>Audited Power BI Desktop report</h3>
     <p>Select a report preview to enlarge it.</p>
     <div class="report-previews">
-      <figure id="report-national" class="report-national"><a href="#report-national" aria-label="Enlarge National Overview report preview"><div class="report-canvas"><img src="power-bi-preview/national-overview.jpg" width="2415" height="1253" alt="Power BI National Overview showing the report period, national totals, annual area, monthly counts and jurisdiction table." loading="lazy"></div></a><figcaption>National Overview <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-      <figure id="report-geography" class="report-geography"><a href="#report-geography" aria-label="Enlarge Geography &amp; Fire Size report preview"><div class="report-canvas"><img src="power-bi-preview/geography-fire-size.jpg" width="2415" height="1253" alt="Power BI Geography and Fire Size showing size bands, reporting agency shares, area concentration and rounded large-fire cells." loading="lazy"></div></a><figcaption>Geography &amp; Fire Size <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-      <figure id="report-triage" class="report-triage"><a href="#report-triage" aria-label="Enlarge Predictive Triage report preview"><div class="report-canvas"><img src="power-bi-preview/predictive-triage.jpg" width="2415" height="1253" alt="Power BI Predictive Triage showing the 10× policy, five-policy comparison, confusion matrix and held-out annual results." loading="lazy"></div></a><figcaption>Predictive Triage <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
-      <figure id="report-api" class="report-api"><a href="#report-api" aria-label="Enlarge WildFire Update report preview"><div class="report-canvas"><img src="power-bi-preview/wildfire-update.jpg" width="1403" height="1253" alt="WildFire Update shows 85 distinct fires with 132 status updates from October 12 to November 11, 2026 UTC, using the Natural Resources Canada wildfire feed." loading="lazy"></div></a><figcaption>WildFire Update · API snapshot <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-national" class="report-national"><a href="#report-national" aria-label="Enlarge National Overview report preview"><div class="report-canvas"><img src="power-bi-preview/national-overview-report.jpg" width="1112" height="768" alt="Power BI National Overview showing the report period, national totals, annual area, monthly counts and jurisdiction table." loading="lazy"></div></a><figcaption>National Overview <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-geography" class="report-geography"><a href="#report-geography" aria-label="Enlarge Geography &amp; Fire Size report preview"><div class="report-canvas"><img src="power-bi-preview/geography-fire-size-report.jpg" width="1112" height="784" alt="Power BI Geography and Fire Size showing size bands, reporting agency shares, area concentration and rounded large-fire cells." loading="lazy"></div></a><figcaption>Geography &amp; Fire Size <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-triage" class="report-triage"><a href="#report-triage" aria-label="Enlarge Predictive Triage report preview"><div class="report-canvas"><img src="power-bi-preview/predictive-triage-report.jpg" width="1112" height="828" alt="Power BI Predictive Triage showing the 10× policy, five-policy comparison, confusion matrix and held-out annual results." loading="lazy"></div></a><figcaption>Predictive Triage <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
+      <figure id="report-api" class="report-api"><a href="#report-api" aria-label="Enlarge WildFire Update report preview"><div class="report-canvas"><img src="power-bi-preview/wildfire-update-report.jpg" width="1112" height="646" alt="WildFire Update shows 85 distinct fires with 132 status updates from October 12 to November 11, 2026 UTC, using the Natural Resources Canada wildfire feed." loading="lazy"></div></a><figcaption>WildFire Update · API snapshot <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
     </div>
-    <p><a class="text-link" href="https://app.powerbi.com/groups/me/reports/36eb2913-c706-45b5-b815-4175b600ddaf/8436858a3932bc03e28d?experience=power-bi">Open in Power BI (access required)</a> · <a class="text-link" href="../#contact">Request a walkthrough</a></p>
+    <p><a class="text-link" href="https://app.powerbi.com/groups/me/reports/36eb2913-c706-45b5-b815-4175b600ddaf/8436858a3932bc03e28d?experience=power-bi">Open in Power BI (sign-in and access required)</a> · <a class="text-link" href="../#contact">Request a walkthrough</a></p>
   </section>
 
   <h2>Impact and decision trade-offs</h2>
@@ -81,6 +77,8 @@
     </ul>
     <p><strong>Capacity example.</strong> With an illustrative budget of 6,000 reviews across the held-out period, the 10× policy fits at <strong>5,291</strong>. The 20× policy would flag 136 more large fires and exceed the budget at <strong>6,566</strong>. The example uses a hypothetical budget. The study did not validate an operating capacity.</p>
   </section>
+  <h2>Did a simpler rule work?</h2>
+  <p>I compared gradient boosting with a lookup based on historical large-fire rates by reporting agency and month. On the same 18,814 held-out records, average precision was <strong>0.427 for gradient boosting and 0.293 for the lookup</strong>. At their respective 10× cutoffs, the lookup would flag 1,202 large fires in 4,153 reviews, and gradient boosting would flag 1,498 in 5,291 reviews. <a href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md#agency-by-month-baseline">See the baseline method and results</a>.</p>
   <h2>Who can use the research?</h2>
   <ul>
     <li><strong>Wildfire operations planners</strong> can use historical seasonality as a starting point for staffing reviews and check agency-specific patterns before setting dates.</li>

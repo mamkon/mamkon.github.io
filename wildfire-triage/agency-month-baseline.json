@@ -1,0 +1,66 @@
+{
+  "method": "Training-only empirical agency-by-month large-fire rate; unknown month grouped separately; unseen combinations fall back to agency, then training prevalence.",
+  "split_records": [
+    132037,
+    16296,
+    18814
+  ],
+  "warehouse_sha256": "a04f210aa237d19935509bfe9df36716bb135b72aa408c7ab5af02ccb11839af",
+  "fallback_rows": {
+    "threshold": 2,
+    "test": 14
+  },
+  "policies": {
+    "10": {
+      "threshold": 0.05720122574055159,
+      "records": 18814,
+      "true_negatives": 13836,
+      "false_positives": 2951,
+      "false_negatives": 825,
+      "true_positives": 1202,
+      "accuracy": 0.7992983948123737,
+      "precision": 0.2894293281964845,
+      "recall": 0.5929945732609768,
+      "specificity": 0.8242092095073569,
+      "f1": 0.3889967637540453,
+      "roc_auc": 0.7785365487524425,
+      "average_precision": 0.2930481238139432,
+      "alert_share": 0.22073987456149677,
+      "cost_units": 11201
+    },
+    "20": {
+      "threshold": 0.03516655270098662,
+      "records": 18814,
+      "true_negatives": 10825,
+      "false_positives": 5962,
+      "false_negatives": 462,
+      "true_positives": 1565,
+      "accuracy": 0.6585521420218986,
+      "precision": 0.20791816128603693,
+      "recall": 0.772076961026147,
+      "specificity": 0.6448442246976828,
+      "f1": 0.32761147163491733,
+      "roc_auc": 0.7785365487524425,
+      "average_precision": 0.2930481238139432,
+      "alert_share": 0.4000744126714149,
+      "cost_units": 10582
+    }
+  },
+  "original_model": {
+    "threshold": 0.04246452302097272,
+    "records": 18814,
+    "true_negatives": 12994,
+    "false_positives": 3793,
+    "false_negatives": 529,
+    "true_positives": 1498,
+    "accuracy": 0.7702774529605613,
+    "precision": 0.2831222831222831,
+    "recall": 0.7390231869758264,
+    "specificity": 0.7740513492583547,
+    "f1": 0.4094014758130637,
+    "roc_auc": 0.8380167612139318,
+    "average_precision": 0.42686938735161545,
+    "alert_share": 0.28122674604018283,
+    "cost_units": 9083
+  }
+}
