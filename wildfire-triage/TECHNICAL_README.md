@@ -217,6 +217,19 @@ The 10× policy by year:
 | 2024 | 5,814 | 533 | 9.17% | 75.05% | 24.07% | 28.59% |
 | 2025 | 6,180 | 529 | 8.56% | 74.86% | 25.83% | 24.81% |
 
+### Agency-by-month baseline
+
+I estimated historical large-fire rates by reporting agency and month using only 2000–2019 records. Missing months had their own group. Unseen combinations fell back to the agency rate, then the overall training rate. The threshold was chosen on 2020–2022 under the same 10× miss-cost assumption. The comparison uses the same 18,814 held-out records from 2023–2025.
+
+| Held-out measure | Agency-by-month lookup | Gradient boosting |
+| --- | ---: | ---: |
+| Average precision | 0.293 | 0.427 |
+| Large fires flagged | 1,202 | 1,498 |
+| Total reviews | 4,153 | 5,291 |
+| Cost at 10× | 11,201 | 9,083 |
+
+Gradient boosting ranked large fires better in this test. At their separately selected thresholds, it flagged 296 more large fires and required 1,138 more reviews. Those operating points use different workloads. [Baseline results](agency-month-baseline.json)
+
 ### The 10× to 20× trade-off
 
 Moving from 10× to 20× on the held-out records adds 1,275 reviews (5,291 to 6,566) and flags 136 more large fires. That is about 9.4 additional reviews per additional large fire flagged. Of the 1,275, 136 are the large fires themselves and 1,139 are additional false alerts, or about 8.4 false alerts per additional large fire. Both ratios are correct; state which one is meant.
@@ -509,7 +522,6 @@ The Power BI file is a static snapshot. Refresh in Desktop does not fetch a new 
 
 **Not yet run**
 
-- An agency-by-month rate table as a no-model baseline. The only reference so far is a constant score (average precision 0.108 against the model's 0.427). If the simple table performs similarly, that result should replace the model as the headline.
 - The model without reporting agency. Large-fire share ranges from 0.1% (NB) to 31.0% (NT) across agencies, so agency may carry reporting practice as well as fire behaviour.
 - A fresh test window for any threshold chosen after seeing 2023–2025.
 
