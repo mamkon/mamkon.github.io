@@ -33,18 +33,24 @@
 <main class="wildfire">
   <nav aria-label="Portfolio"><a class="text-link" href="../#projects">← Back to featured projects</a></nav>
   <p class="eyebrow">Environmental analytics · Retrospective research</p>
-  <h1>How many extra reviews is one more large fire worth?</h1>
-  <p>On the same 18,814 held-out Canadian wildfire records from 2023–2025, the 20× alert policy would have flagged <strong>136 more large fires</strong> than the 10× policy and required <strong>1,275 additional reviews</strong>. That’s about 9.4 extra reviews per additional large fire flagged.</p>
-  <h2>Patterns in the data</h2>
-  <p>Across 2000–2025, July recorded <strong>3.07 times</strong> the average calendar-month count. The largest 3% of records accounted for <strong>96.2%</strong> of pooled recorded area, while the within-agency share ranged from 59% to over 99%. July’s volume is useful for reviewing seasonal staffing. The agency range points to different large-fire workloads.</p>
+  <h1>How many extra reviews would it take to flag one more large fire?</h1>
+  <p>A team with limited review time needs to know when records pile up and what it would take to flag more of the fires that eventually reach <strong>200 hectares</strong>. I used Canadian wildfire records to answer both questions.</p>
+  <p>In a test on <strong>18,814 records from 2023–2025</strong>, a more sensitive alert rule flagged <strong>136 more large fires</strong> and sent <strong>1,275 more records for review</strong>. That’s <strong>9.4 extra reviews per additional large fire flagged</strong>.</p>
+
+  <h2>When records peak and how burned area is concentrated</h2>
+  <p>The Canadian National Fire Database study covers <strong>168,276 records from 12 reporting agencies</strong> between 2000 and 2025. The archive includes <strong>9,594 large fires</strong> and <strong>83,988,359.26 recorded hectares</strong>. The 2023 area total is pending National Forestry Database reconciliation.</p>
+  <p>July had <strong>3.07 times the average calendar-month record count</strong>, giving planners a starting point for seasonal review capacity. The largest <strong>3% of records accounted for 96.2% of recorded area</strong>. Within agencies, that share ranged from 59% to over 99%, so local planners need to check their own mix of fire sizes alongside record volume.</p>
+
+  <h2>From historical patterns to a review decision</h2>
+  <p>I prepared the records in Python and organized them in a SQLite warehouse. I trained a model on 2000–2019 records using report month, reporting agency, latitude and longitude. I set the alert cutoffs on 2020–2022 and tested them on later seasons. The dashboard lets you compare how many records each rule would send for review, how many large fires it would flag, and how many it would miss.</p>
+  <p>At the same 5,291 reviews, the model flagged 1,498 large fires and a simple lookup based on past agency and month rates flagged 1,334. Both comparisons use historical records. Live performance remains untested.</p>
 
   <section id="executive-summary" aria-labelledby="dashboard-preview-heading">
-    <h2 id="dashboard-preview-heading">Canada Wildfire Intelligence</h2>
-    <p>The 2000–2025 study covers 168,276 records from 12 reporting agencies, 83,988,359.26 recorded hectares, and 9,594 fires of at least 200 hectares. The 2023 area total is pending National Forestry Database reconciliation.</p>
+    <h2 id="dashboard-preview-heading">Explore Canada Wildfire Intelligence</h2>
     <p><a class="button" href="dashboard/">Explore the interactive dashboard ↗</a></p>
     <p><a class="text-link" href="dashboard/#geography">Geography &amp; Fire Size</a> · <a class="text-link" href="dashboard/#triage">Predictive Triage</a></p>
-    <h3>Audited Power BI Desktop report</h3>
-    <p>Select a report preview to enlarge it.</p>
+    <h3>Power BI Desktop previews</h3>
+    <p>The first three previews show the historical study and policy evaluation. Wildfire Update shows a separate, dated API snapshot. Select a preview to enlarge it.</p>
     <div class="report-previews">
       <figure id="report-national" class="report-national"><a href="#report-national" aria-label="Enlarge National Overview report preview"><div class="report-canvas"><img src="power-bi-preview/national-overview-report.jpg" width="1112" height="768" alt="Power BI National Overview showing the report period, national totals, annual area, monthly counts and jurisdiction table." loading="lazy"></div></a><figcaption>National Overview <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
       <figure id="report-geography" class="report-geography"><a href="#report-geography" aria-label="Enlarge Geography &amp; Fire Size report preview"><div class="report-canvas"><img src="power-bi-preview/geography-fire-size-report.jpg" width="1112" height="784" alt="Power BI Geography and Fire Size showing size bands, reporting agency shares, area concentration and rounded large-fire cells." loading="lazy"></div></a><figcaption>Geography &amp; Fire Size <a class="report-preview-collapse" href="#dashboard-preview-heading">· Back to previews</a></figcaption></figure>
