@@ -219,6 +219,8 @@ The 10× policy by year:
 
 ### Agency-by-month baseline
 
+At the same 5,291 reviews (28.12%), the lookup flagged 1,334 large fires (65.81% recall) and gradient boosting flagged 1,498 (73.90% recall). The lookup rates use 2000–2019 only. Reporting year and warehouse row key broke tied lookup scores at the cutoff without using outcomes. [Matched-workload result](https://github.com/mamkon/wildfire-seasonal-risk-research/blob/5032c23008de0346b52afae4e6fe19bb01ab2b03/modeling/results/agency_month_baseline.json)
+
 I estimated historical large-fire rates by reporting agency and month using only 2000–2019 records. Missing months had their own group. Unseen combinations fell back to the agency rate, then the overall training rate. The threshold was chosen on 2020–2022 under the same 10× miss-cost assumption. The comparison uses the same 18,814 held-out records from 2023–2025.
 
 | Held-out measure | Agency-by-month lookup | Gradient boosting |

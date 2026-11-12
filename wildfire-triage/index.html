@@ -78,7 +78,7 @@
     <p><strong>Capacity example.</strong> With an illustrative budget of 6,000 reviews across the held-out period, the 10× policy fits at <strong>5,291</strong>. The 20× policy would flag 136 more large fires and exceed the budget at <strong>6,566</strong>. The example uses a hypothetical budget. The study did not validate an operating capacity.</p>
   </section>
   <h2>Did a simpler rule work?</h2>
-  <p>I compared gradient boosting with a lookup based on historical large-fire rates by reporting agency and month. On the same 18,814 held-out records, average precision was <strong>0.427 for gradient boosting and 0.293 for the lookup</strong>. At their respective 10× cutoffs, the lookup would flag 1,202 large fires in 4,153 reviews, and gradient boosting would flag 1,498 in 5,291 reviews. <a href="https://github.com/mamkon/mamkon.github.io/blob/main/wildfire-triage/TECHNICAL_README.md#agency-by-month-baseline">See the baseline method and results</a>.</p>
+  <p>I tested a simple lookup based on past large-fire rates by reporting agency and month. With <strong>5,291 reviews each</strong>, the lookup flagged <strong>1,334</strong> large fires and gradient boosting flagged <strong>1,498</strong>. The model flagged 164 more, and the simple lookup flagged 89% as many. <a href="https://github.com/mamkon/wildfire-seasonal-risk-research/blob/5032c23008de0346b52afae4e6fe19bb01ab2b03/modeling/results/agency_month_baseline.json">See the matched-workload results</a>.</p>
   <h2>Who can use the research?</h2>
   <ul>
     <li><strong>Wildfire operations planners</strong> can use historical seasonality as a starting point for staffing reviews and check agency-specific patterns before setting dates.</li>
