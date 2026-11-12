@@ -71,6 +71,16 @@
     </table>
   </div>
   <p>On the same held-out records, 20× would have added 1,275 reviews, flagged 136 more large fires and missed 136 fewer. That is about 9.4 additional reviews per additional large fire flagged. This comparison describes historical performance.</p>
+  <section aria-labelledby="wildfire-metrics-heading">
+    <h2 id="wildfire-metrics-heading">Why these metrics matter</h2>
+    <p>On the held-out records, clearing every record would have achieved <strong>89.23% accuracy</strong> while missing all <strong>2,027 large fires</strong>. Because large fires were uncommon, I used average precision to compare how well the models ranked them during validation. For the final policy comparison, I reported measures that show both detection and workload.</p>
+    <ul>
+      <li><strong>Recall</strong> shows what share of actual large fires were flagged for review.</li>
+      <li><strong>Precision</strong> shows what share of alerts were for large fires.</li>
+      <li><strong>Review rate</strong> shows what share of evaluated records would go to manual review.</li>
+    </ul>
+    <p><strong>Capacity example.</strong> With an illustrative budget of 6,000 reviews across the held-out period, the 10× policy fits at <strong>5,291</strong>. The 20× policy would flag 136 more large fires and exceed the budget at <strong>6,566</strong>. The example uses a hypothetical budget. The study did not validate an operating capacity.</p>
+  </section>
   <h2>Who can use the research?</h2>
   <ul>
     <li><strong>Wildfire operations planners</strong> can use historical seasonality as a starting point for staffing reviews and check agency-specific patterns before setting dates.</li>
