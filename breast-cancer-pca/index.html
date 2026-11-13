@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<meta name="description" content="A proof-of-concept case study compressing 30 breast biopsy measurements into 7 components with principal component analysis, with governance limits for clinical triage.">
+<title>Breast Biopsy Triage with PCA | Portfolio Case Study</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .pca { max-width: 980px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  .pca > * + * { margin-top: 1.25rem; }
+  .pca h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.08; }
+  .pca h2 { font-size: 1.4rem; margin-top: 2.4rem; }
+  .pca h3 { margin-top: 1.6rem; }
+  .pca ul { padding-left: 1.4rem; }
+  .pca img { display: block; max-width: 100%; height: auto; border: 1px solid #e0e7ee; border-radius: 6px; }
+  .pca figure { margin: 1.25rem 0 0; }
+  .pca figcaption { font-size: 12px; color: #5d6c7f; margin-top: .5rem; }
+  .pca .meta { font-size: 12px; color: #5d6c7f; }
+  .pca .notice { padding: 12px 14px; background: #fff4dc; border-left: 3px solid #b96c00; border-radius: 3px; color: #614300; font-size: 13px; }
+  .pca .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .pca .kpi { border: 1px solid #e0e7ee; border-top: 4px solid #07847e; border-radius: 6px; padding: 16px; }
+  .pca .kpi strong { display: block; font-size: 1.9rem; line-height: 1.1; color: #102237; }
+  .pca .kpi span { font-size: 12px; color: #5d6c7f; }
+  .pca .bottom-line { padding: 16px 18px; background: #f0f4f8; border-radius: 6px; }
+  .pca .table-wrap { overflow-x: auto; }
+  .pca table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .pca th, .pca td { padding: .65rem .7rem; text-align: left; border-bottom: 1px solid #cad9dc; vertical-align: top; }
+  .pca th { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #5d6c7f; }
+  .pca td.num, .pca th.num { text-align: right; white-space: nowrap; }
+  .pca tr.recommended { background: #e2f4ef; color: #152c33; }
+</style>
+</head>
+<body>
+<main class="pca">
+  <nav aria-label="Portfolio"><a class="text-link" href="../#projects">← Back to featured projects</a></nav>
+  <p class="eyebrow">Health analytics · Analytical proof of concept</p>
+  <h1>Compressing 30 biopsy measurements into 7 signals for breast cancer triage</h1>
+  <p class="meta"><strong>Clinical domain:</strong> breast cytopathology, fine needle aspirate review · <strong>Method:</strong> principal component analysis (PCA) · <strong>Tools:</strong> Python, scikit-learn, pandas, NumPy, Matplotlib</p>
+  <p class="notice"><strong>Not clinically validated.</strong> This study uses a public research dataset from one institution. It is not a diagnostic tool and has had no regulatory review.</p>
+
+  <div class="kpis">
+    <div class="kpi"><strong>569</strong><span>biopsy cases, zero missing values</span></div>
+    <div class="kpi"><strong>30 → 7</strong><span>features to components, a 76.7% reduction</span></div>
+    <div class="kpi"><strong>91.0%</strong><span>of total variance retained by 7 components</span></div>
+    <div class="kpi"><strong>63.2%</strong><span>of total variance in 2 components, enough to plot every case on one chart</span></div>
+  </div>
+
+  <p class="bottom-line"><strong>Bottom line:</strong> thirty overlapping nuclear measurements carry far fewer than thirty independent signals. Seven components preserve 91% of the information, and in a cross-validated check they detected malignancy as well as all thirty features did. The value is a simpler, more stable input for triage. It is not a diagnostic.</p>
+
+  <h2>1. Clinical and operational challenge</h2>
+  <p>A breast fine needle aspirate produces a slide of cell nuclei. Image analysis turns each case into 30 numbers: ten nuclear characteristics, each reported as a mean, a standard error and a worst value. Those 30 numbers create two problems for anyone building decision support on top of them.</p>
+  <ul>
+    <li><strong>They repeat each other.</strong> Radius, perimeter and area describe the same thing three ways. Of the 435 possible feature pairs, <strong>21 are correlated above 0.9</strong> and 44 above 0.8. Models fed this redundancy produce unstable weights that are hard to explain and harder to govern.</li>
+    <li><strong>They cannot be seen.</strong> No reviewer can scan 30 columns per case across a worklist. Without a compact summary, prioritization defaults to arrival order.</li>
+  </ul>
+  <p><strong>The operational question:</strong> can the measurements be compressed into a handful of independent signals that keep the clinically relevant variation and can support a prioritized review queue?</p>
+
+  <h2>2. Unsupervised analytical architecture</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Step</th><th>Action</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><td>1. Ingest</td><td>569 cases, 30 continuous features, 212 malignant and 357 benign</td><td>Completeness check: 0 missing values</td></tr>
+      <tr><td>2. Withhold the diagnosis</td><td>The malignant or benign label is removed before any fitting</td><td>PCA never sees the outcome, so the components cannot be shaped by it</td></tr>
+      <tr><td>3. Standardize</td><td>Z-score every feature to mean 0, standard deviation 1</td><td>Stops large-scale measures such as area and perimeter from drowning out fine-scale measures such as smoothness and fractal dimension</td></tr>
+      <tr><td>4. Decompose</td><td>PCA on the standardized matrix</td><td>Components are ordered by variance explained and are uncorrelated by construction</td></tr>
+      <tr><td>5. Select</td><td>Cumulative variance curve, 90% retention threshold</td><td>Component count is chosen from variance alone, without reference to the diagnosis</td></tr>
+      <tr><td>6. Interpret</td><td>Loadings map each component back to the original measurements</td><td>Every component can be traced to named pathology features</td></tr>
+      <tr><td>7. Compare to diagnosis</td><td>Labels are reintroduced only to describe how the components relate to outcome</td><td>Evaluation step only; nothing is refitted</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Leakage control for the next phase:</strong> in the exploratory analysis the scaler and PCA were fitted on all 569 cases. For any predictive model, both must be refitted inside each training fold. The supervised check in section 3 does this.</p>
+
+  <h2>3. Diagnostic variance and dimensionality optimization</h2>
+  <p>PC1 alone captures <strong>44.3%</strong> of total variance and PC2 a further <strong>19.0%</strong>. Seven components are the smallest set that clears 90%.</p>
+  <figure>
+    <a href="cumulative-variance.png"><img src="cumulative-variance.png" width="1600" height="920" alt="Line chart of cumulative variance explained against number of principal components. Two components explain 63.2%, seven explain 91.0% and cross the 90% threshold, and ten explain 95.2%." loading="lazy"></a>
+    <figcaption>Cumulative variance explained by the first 1 to 30 principal components.</figcaption>
+  </figure>
+  <div class="table-wrap"><table>
+    <thead><tr><th class="num">Components</th><th class="num">Cumulative variance</th><th class="num">Feature reduction</th><th class="num">Sensitivity*</th><th class="num">Malignant cases missed*</th><th>Operational recommendation</th></tr></thead>
+    <tbody>
+      <tr><td class="num">2</td><td class="num">63.2%</td><td class="num">93.3%</td><td class="num">92.0%</td><td class="num">17 of 212</td><td><strong>Visualization only.</strong> Use for a case map and outlier spotting. Too lossy to drive triage.</td></tr>
+      <tr><td class="num">5</td><td class="num">84.7%</td><td class="num">83.3%</td><td class="num">94.8%</td><td class="num">11 of 212</td><td><strong>Lightweight screening.</strong> Acceptable where compute or bandwidth is tightly constrained.</td></tr>
+      <tr class="recommended"><td class="num"><strong>7</strong></td><td class="num"><strong>91.0%</strong></td><td class="num"><strong>76.7%</strong></td><td class="num"><strong>95.3%</strong></td><td class="num"><strong>10 of 212</strong></td><td><strong>Recommended baseline.</strong> Smallest set above 90% variance; matches the full feature set on sensitivity.</td></tr>
+      <tr><td class="num">10</td><td class="num">95.2%</td><td class="num">66.7%</td><td class="num">96.2%</td><td class="num">8 of 212</td><td><strong>Higher-assurance option.</strong> Fewer misses and fewer false alarms for three more components.</td></tr>
+      <tr><td class="num">All 30 features</td><td class="num">100%</td><td class="num">0%</td><td class="num">95.3%</td><td class="num">10 of 212</td><td>Reference point. No detection advantage over 7 components.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta">* Exploratory check: logistic regression, 10-fold stratified cross-validation, scaling and PCA refitted inside each fold, default 0.5 cutoff. Specificity ranged from 96.6% to 98.9%.</p>
+  <ul>
+    <li><strong>Compression costs nothing in detection here.</strong> Seven components and thirty raw features both reach 95.3% sensitivity.</li>
+    <li><strong>PCA does not improve accuracy.</strong> Its contribution is a smaller, uncorrelated, more governable input.</li>
+    <li><strong>Ten components is a defensible alternative</strong> if the priority is fewer missed malignancies. The difference between 7 and 10 is two cases in this sample and needs confirmation on new data.</li>
+    <li><strong>The natural grouping is real but partial.</strong> PC1 was built without the diagnosis, yet ranking cases by PC1 alone separates malignant from benign with an AUC of 0.97. The two groups still overlap, which is why two components miss 17 cancers.</li>
+  </ul>
+  <figure>
+    <a href="pc1-pc2-case-map.png"><img src="pc1-pc2-case-map.png" width="1600" height="1040" alt="Scatter plot of 569 cases on the first two principal components. Benign cases, shown as circles, cluster at low PC1 scores. Malignant cases, shown as triangles, spread across higher PC1 scores. The two groups overlap near a PC1 score of zero." loading="lazy"></a>
+    <figcaption>Every case plotted on the first two components. The diagnosis was added after fitting, for display only.</figcaption>
+  </figure>
+
+  <h2>4. Interpretability: translating components into pathology insight</h2>
+  <h3>PC1: overall nuclear size and border irregularity (44.3% of variance)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Feature</th><th class="num">Loading</th><th>What it measures</th></tr></thead>
+    <tbody>
+      <tr><td>Mean concave points</td><td class="num">0.261</td><td>Number of indentations in the nuclear outline</td></tr>
+      <tr><td>Mean concavity</td><td class="num">0.258</td><td>Depth of those indentations</td></tr>
+      <tr><td>Worst concave points</td><td class="num">0.251</td><td>Indentation count among the most abnormal nuclei</td></tr>
+      <tr><td>Mean compactness</td><td class="num">0.239</td><td>Departure of the outline from a smooth circle</td></tr>
+      <tr><td>Worst perimeter</td><td class="num">0.237</td><td>Outline length of the largest nuclei</td></tr>
+    </tbody>
+  </table></div>
+  <p>All 30 loadings on PC1 are positive. <strong>A high PC1 score means nuclei that are larger and more irregular on every dimension at once</strong>, the pattern cytopathologists associate with malignancy. This is the dominant axis of variation in the data and the one that tracks diagnosis.</p>
+
+  <h3>PC2: boundary complexity against overall scale (19.0% of variance)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Feature</th><th class="num">Loading</th><th>Direction</th></tr></thead>
+    <tbody>
+      <tr><td>Mean fractal dimension</td><td class="num">0.367</td><td>Positive: more intricate, jagged outlines</td></tr>
+      <tr><td>Fractal dimension error</td><td class="num">0.280</td><td>Positive</td></tr>
+      <tr><td>Worst fractal dimension</td><td class="num">0.275</td><td>Positive</td></tr>
+      <tr><td>Mean radius</td><td class="num">−0.234</td><td>Negative: larger nuclei</td></tr>
+      <tr><td>Mean area</td><td class="num">−0.231</td><td>Negative</td></tr>
+    </tbody>
+  </table></div>
+  <p>PC2 is a contrast. <strong>A high PC2 score describes small nuclei with complex borders; a low score describes large nuclei with simpler borders.</strong> On its own it separates diagnosis weakly (AUC 0.62), so its role is to refine PC1, not to replace it.</p>
+  <p class="meta">Terminology: these are morphometric image features. They are not biomarkers in the molecular sense.</p>
+
+  <h2>5. Clinical governance, limitations and next-phase roadmap</h2>
+  <h3>Governance and risk trade-off</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Risk</th><th>Why it matters</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Loss of direct interpretability</strong></td><td>A component score means nothing to a pathologist. A component blends all 30 measurements.</td><td>Never present a component score alone. Display the raw features that contributed most to that case's score.</td></tr>
+      <tr><td><strong>Misuse as a diagnosis</strong></td><td>PCA describes variation. It was never trained to detect cancer and has no error guarantee.</td><td>Position it for worklist prioritization and anomaly flagging only. Every case is still read by a clinician.</td></tr>
+      <tr><td><strong>Silent false negatives</strong></td><td>In the check above, 10 of 212 malignant cases fell below the cutoff at 7 components. In a triage queue those cases wait longer.</td><td>Triage reorders the queue; it never removes a case from review. Set a maximum wait regardless of score.</td></tr>
+      <tr><td><strong>Sign-off accountability</strong></td><td>A flag must be explainable to the clinician who acts on it.</td><td>High-risk scores are mapped back to named measurements, such as concave points and worst perimeter, for clinician sign-off.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Limitations</h3>
+  <ul>
+    <li><strong>One institution, one era.</strong> The cases come from a single university hospital and were digitized in the early 1990s. Staining, imaging and case mix differ today.</li>
+    <li><strong>Small sample.</strong> 569 cases cannot support subgroup or rare-presentation analysis.</li>
+    <li><strong>Enriched prevalence.</strong> 37% of cases are malignant, far above a screening population. Predictive values would be lower in practice.</li>
+    <li><strong>No external validation.</strong> Every figure here is from one dataset, resampled.</li>
+    <li><strong>Untuned threshold.</strong> Sensitivity is reported at a default 0.5 cutoff, which is not a clinically chosen operating point.</li>
+  </ul>
+
+  <h3>Next-phase supervised roadmap</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Phase</th><th>Objective</th><th>Deliverable</th></tr></thead>
+    <tbody>
+      <tr><td>1. Sensitivity-first tuning</td><td>Minimize missed malignancies</td><td>Choose the cutoff that meets a clinician-set sensitivity target on validation folds, then report the resulting review workload</td></tr>
+      <tr><td>2. Honest evaluation</td><td>Remove optimistic bias</td><td>Nested cross-validation with scaling, PCA and threshold selection inside the training folds</td></tr>
+      <tr><td>3. Head-to-head comparison</td><td>Justify the compression</td><td>7 and 10 components against all 30 features and against a three-feature rule a pathologist could apply by eye</td></tr>
+      <tr><td>4. Case-level explanation</td><td>Support sign-off</td><td>For each flagged case, list the top raw measurements driving its score</td></tr>
+      <tr><td>5. External validation</td><td>Test transfer</td><td>Evaluation on an independent, contemporary cohort before any pilot</td></tr>
+      <tr><td>6. Operating model</td><td>Assign ownership</td><td>Named clinical owner, drift monitoring, and a review cadence for the threshold</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>The decision for leadership:</strong> this analysis shows the measurements can be safely compressed. It does not yet show that a compressed score improves turnaround or outcomes. That requires the supervised phase and a prospective pilot with clinical ownership.</p>
+
+  <h2>Reproduce the figures</h2>
+  <p><a class="text-link" href="verify_pca.py" download>Download the verification script</a> · <a class="text-link" href="https://doi.org/10.24432/C5DW2B">Source data: Breast Cancer Wisconsin (Diagnostic), UCI Machine Learning Repository</a></p>
+  <p class="meta">Data: Wolberg, Mangasarian, Street and Street. Accessed through scikit-learn 1.9.1. Every figure on this page is produced by the script.</p>
+</main>
+</body>
+</html>
