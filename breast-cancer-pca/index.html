@@ -122,6 +122,10 @@
     <li><strong>Examine</strong><span>Case map on two components; variance curve to choose how many to keep</span></li>
     <li><strong>Interpret</strong><span>Trace each component back to the named measurements that drive it</span></li>
   </ol>
+  <figure id="workflow-diagram" style="margin:24px 0">
+    <a href="pipeline_workflow.png"><img src="pipeline_workflow.png" alt="Five stages of the oncology workflow, from FNA morphology through scaling, PCA, model benchmarking, and pathologist review" style="display:block;width:100%;height:auto" width="2420" height="1452" loading="lazy"></a>
+    <figcaption class="meta">Portfolio workflow and clinical governance. The diagram illustrates the companion pipeline and its capacity scenario, which assumes 345 seconds saved per case.</figcaption>
+  </figure>
   <p class="guardrail"><strong>The method never sees the diagnosis.</strong><span>Any separation between malignant and benign cases is something the analysis found in the measurements. It was not built to produce it.</span></p>
   <div class="tradeoff">
     <div><h4>What compression buys</h4><ul><li>7 inputs in place of 30</li><li>Signals that no longer repeat each other</li><li>Every case visible on a single chart</li></ul></div>
