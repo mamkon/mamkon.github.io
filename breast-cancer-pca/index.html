@@ -30,6 +30,25 @@
   .pca th { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #5d6c7f; }
   .pca td.num, .pca th.num { text-align: right; white-space: nowrap; }
   .pca tr.recommended { background: #e2f4ef; color: #152c33; }
+  .pca .pipeline { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px; counter-reset: step; }
+  .pca .pipeline li { position: relative; border: 1px solid #cad9dc; border-top: 4px solid #245fe4; border-radius: 6px; padding: 12px 12px 14px; background: #fff; counter-increment: step; }
+  .pca .pipeline li::before { content: counter(step); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #102237; color: #fff; font-size: 11px; font-weight: 700; }
+  .pca .pipeline li:not(:last-child)::after { content: "→"; position: absolute; right: -21px; top: 50%; transform: translateY(-50%); color: #5d6c7f; font-size: 16px; }
+  .pca .pipeline strong { display: block; margin-top: 8px; font-size: 14px; color: #102237; line-height: 1.3; }
+  .pca .pipeline span { display: block; margin-top: 4px; font-size: 12px; color: #5d6c7f; line-height: 1.45; }
+  .pca .pipeline li.withheld { border-top-color: #07847e; }
+  .pca .guardrail { margin-top: 14px; padding: 14px 16px; border: 1px solid #07847e; border-radius: 6px; background: #e2f4ef; color: #152c33; }
+  .pca .guardrail strong { display: block; font-size: 15px; }
+  .pca .guardrail span { font-size: 13px; }
+  .pca .tradeoff { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .pca .tradeoff div { border: 1px solid #e0e7ee; border-radius: 6px; padding: 14px 16px; }
+  .pca .tradeoff h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: #5d6c7f; }
+  .pca .tradeoff ul { margin: 0; padding-left: 1.1rem; font-size: 13px; }
+  @media (max-width: 760px) {
+    .pca .pipeline { grid-template-columns: 1fr; gap: 24px; }
+    .pca .pipeline li:not(:last-child)::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -22px; transform: translateX(-50%); }
+    .pca .tradeoff { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -58,6 +77,20 @@
   <p><strong>The operational question:</strong> can the measurements be compressed into a handful of independent signals that keep the clinically relevant variation and can support a prioritized review queue?</p>
 
   <h2>2. Unsupervised analytical architecture</h2>
+  <p>The workflow has five steps. The diagnosis is set aside at the start and is not used until the components are finished.</p>
+  <ol class="pipeline" aria-label="Analysis workflow in five steps">
+    <li><strong>Load and audit</strong><span>569 cases, 30 measurements, no missing values</span></li>
+    <li><strong>Standardize</strong><span>Every measurement on one scale, so none dominates by size alone</span></li>
+    <li class="withheld"><strong>Compress</strong><span>PCA finds the main directions of variation, diagnosis withheld</span></li>
+    <li><strong>Examine</strong><span>Case map on two components; variance curve to choose how many to keep</span></li>
+    <li><strong>Interpret</strong><span>Trace each component back to the named measurements that drive it</span></li>
+  </ol>
+  <p class="guardrail"><strong>The method never sees the diagnosis.</strong><span>Any separation between malignant and benign cases is something the analysis found in the measurements. It was not built to produce it.</span></p>
+  <div class="tradeoff">
+    <div><h4>What compression buys</h4><ul><li>7 inputs in place of 30</li><li>Signals that no longer repeat each other</li><li>Every case visible on a single chart</li></ul></div>
+    <div><h4>What it costs</h4><ul><li>A component is a blend with no direct clinical meaning</li><li>Scores must be mapped back to named measurements before a clinician acts on them</li></ul></div>
+  </div>
+  <h3>Steps and controls</h3>
   <div class="table-wrap"><table>
     <thead><tr><th>Step</th><th>Action</th><th>Control</th></tr></thead>
     <tbody>
