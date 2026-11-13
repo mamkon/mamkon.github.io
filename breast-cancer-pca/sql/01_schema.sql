@@ -78,3 +78,18 @@ CREATE TABLE fact_selected_feature (
   feature_id  INTEGER NOT NULL REFERENCES dim_feature,
   PRIMARY KEY (approach_id, fold, feature_id)
 );
+
+-- Grain: one geography x one diagnosis year. Female breast cancer incidence
+-- from Statistics Canada Table 13-10-0747-01 (Canadian Cancer Registry).
+-- Population context only: it has no link to the biopsy cases above.
+CREATE TABLE fact_canada_incidence (
+  geography        TEXT NOT NULL,
+  year             INTEGER NOT NULL CHECK (year BETWEEN 1992 AND 2100),
+  new_cases        INTEGER,
+  all_cancer_cases INTEGER,
+  rate_per_100k    REAL NOT NULL,
+  rate_low         REAL,
+  rate_high        REAL,
+  average_age      REAL,
+  PRIMARY KEY (geography, year)
+);

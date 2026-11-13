@@ -2,8 +2,9 @@
 Wisconsin Diagnostic Breast Cancer dataset.
 
 Runs the PCA, a 10-fold cross-validated comparison of feature generation
-(PCA) against feature selection, loads a SQLite warehouse, runs the SQL
-analysis, checks SQL against pandas, and writes the dashboard data file.
+(PCA) against feature selection, loads a SQLite warehouse (including the
+Statistics Canada incidence extract in canada/), runs the SQL analysis,
+checks SQL against pandas, and writes the dashboard data file.
 
     python build_case_study.py
 """
@@ -99,6 +100,9 @@ db.executemany("INSERT INTO fact_case_score VALUES (?, ?, ?)",
                [(i + 1, c + 1, float(scores[i, c])) for i in range(len(X)) for c in range(10)])
 db.executemany("INSERT INTO fact_cv_fold VALUES (?, ?, ?, ?, ?, ?)", fold_rows)
 db.executemany("INSERT INTO fact_selected_feature VALUES (?, ?, ?)", selected_rows)
+# Canadian registry context. A separate, aggregate source: no join to the cases.
+canada = pd.read_csv(HERE / "canada" / "breast_cancer_incidence_females.csv")
+canada.to_sql("fact_canada_incidence", db, if_exists="append", index=False)
 db.commit()
 
 # ---- 4. Run the named SQL queries.
@@ -118,6 +122,9 @@ assert int(results["components_to_reach_90"].components[0]) == int(np.argmax(cum
 pandas_top = pd.Series(pca.components_[0], index=data.feature_names).abs().sort_values(ascending=False).index[:5].tolist()
 assert results["top_loadings"].query("component_id == 1").feature_name.tolist() == pandas_top
 assert (folds[["tp", "fn", "fp", "tn"]].sum(axis=1).groupby(folds.approach_id).sum() == 569).all()
+ca = canada[canada.geography == "Canada (excluding Nova Scotia)"].sort_values("year")
+assert results["canada_trend"].new_cases.tolist() == ca.new_cases.tolist()
+assert np.allclose(results["canada_trend"].rate_per_100k, ca.rate_per_100k)
 print("SQL results match pandas on every check.\n")
 for name, frame in results.items():
     print(f"== {name}\n{frame.to_string(index=False)}\n")
@@ -135,6 +142,8 @@ payload = {
     "approaches": summary_out,
     "folds": [dict(zip(["approach_id", "fold", "tp", "fn", "fp", "tn"], r)) for r in fold_rows],
     "selection_stability": results["selection_stability"].to_dict("records"),
+    "canada": {"trend": results["canada_trend"].to_dict("records"),
+               "provinces": results["canada_provinces_latest"].to_dict("records")},
 }
 (HERE / "dashboard" / "data.json").write_text(json.dumps(payload, separators=(",", ":")))
 (HERE / "results.json").write_text(json.dumps({k: v.to_dict("records") for k, v in results.items()} | {"auc": auc}, indent=1))

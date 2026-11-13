@@ -13,12 +13,15 @@
   .dash h2 { font-size: 15px; letter-spacing: 0; margin: 0 0 2px; }
   .dash .sub { font-size: 12px; color: #5d6c7f; margin: 0 0 10px; }
   .dash .notice { padding: 10px 14px; background: #fff4dc; border-left: 3px solid #b96c00; border-radius: 3px; color: #614300; font-size: 13px; margin: 0 0 16px; }
-  .dash .controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; padding: 14px 16px; background: #f0f4f8; border-radius: 6px; margin-bottom: 14px; }
+  .dash .eyebrow { color: #c2185b; }
+  .dash .text-link { color: #c2185b; }
+  .dash h3.band { font-size: 13px; text-transform: uppercase; letter-spacing: .8px; color: #c2185b; margin: 26px 0 10px; }
+  .dash .controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; padding: 14px 16px; background: #fde8f0; border-radius: 6px; margin-bottom: 14px; }
   .dash label { display: grid; gap: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #5d6c7f; }
   .dash select { font: inherit; font-size: 14px; padding: 8px 10px; border: 1px solid #b9c6d3; border-radius: 5px; background: #fff; color: #192b43; min-width: 230px; }
   .dash .controls p { margin: 0; font-size: 12px; color: #5d6c7f; max-width: 420px; }
   .dash .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
-  .dash .kpi { border: 1px solid #e0e7ee; border-top: 4px solid #07847e; border-radius: 6px; padding: 14px 16px; }
+  .dash .kpi { border: 1px solid #e0e7ee; border-top: 4px solid #c2185b; border-radius: 6px; padding: 14px 16px; }
   .dash .kpi strong { display: block; font-size: 1.9rem; line-height: 1.1; color: #102237; }
   .dash .kpi span { font-size: 12px; color: #5d6c7f; }
   .dash .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
@@ -31,7 +34,7 @@
   .dash th, .dash td { padding: .55rem .6rem; text-align: left; border-bottom: 1px solid #cad9dc; }
   .dash th { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #5d6c7f; }
   .dash .num { text-align: right; white-space: nowrap; }
-  .dash tr.current { background: #e2f4ef; }
+  .dash tr.current { background: #fde8f0; }
   .dash tr.current td:first-child { font-weight: 700; }
   .dash .insight { margin: 10px 0 0; font-size: 13px; }
   .dash .foot { font-size: 12px; color: #5d6c7f; margin-top: 18px; }
@@ -90,7 +93,7 @@
     </section>
     <section class="panel wide" aria-labelledby="h-map">
       <h2 id="h-map">Every case on the first two components</h2>
-      <p class="sub">The components were fitted without the diagnosis. Shape and colour were added afterwards. Benign cases are circles and malignant cases are triangles.</p>
+      <p class="sub">The components were fitted without the diagnosis. Shape and colour were added afterwards. Benign cases are blue circles and malignant cases are pink triangles.</p>
       <div class="chart tall"><canvas id="c-map" role="img" aria-label="Scatter plot of 569 cases on the first two principal components. Benign cases cluster at low PC1 scores and malignant cases spread across higher scores, with an overlap near zero."></canvas></div>
     </section>
     <section class="panel wide" aria-labelledby="h-table">
@@ -103,11 +106,32 @@
       <p class="insight" id="insight"></p>
     </section>
   </div>
+  <h3 class="band">Canadian context</h3>
+  <p class="notice"><strong>A separate source.</strong> These are population counts from the Canadian Cancer Registry, published by Statistics Canada. They show the scale of breast cancer in Canada. They are not the biopsy cases analysed above, and no Canadian patient-level biopsy measurements are public.</p>
+  <div class="kpis">
+    <div class="kpi"><strong id="c-cases">–</strong><span id="c-cases-l">new breast cancer cases in women</span></div>
+    <div class="kpi"><strong id="c-rate">–</strong><span>cases per 100,000 women, age-standardized</span></div>
+    <div class="kpi"><strong id="c-share">–</strong><span>of all new cancers in women</span></div>
+    <div class="kpi"><strong id="c-age">–</strong><span>average age at diagnosis</span></div>
+  </div>
+  <div class="grid">
+    <section class="panel" aria-labelledby="h-ctrend">
+      <h2 id="h-ctrend">Breast cancer incidence in women, 1992 to 2023</h2>
+      <p class="sub">Canada excluding Nova Scotia. The 2020 dip coincides with disrupted screening and diagnostic services.</p>
+      <div class="chart"><canvas id="c-ctrend" role="img" aria-label="Line chart of the age-standardized breast cancer incidence rate in women in Canada excluding Nova Scotia from 1992 to 2023. The rate stays between about 139 and 149 per 100,000, apart from a dip to 126 in 2020."></canvas></div>
+    </section>
+    <section class="panel" aria-labelledby="h-cprov">
+      <h2 id="h-cprov">Incidence rate by province, latest year</h2>
+      <p class="sub">Age-standardized rate per 100,000 women. Hover for the 95% confidence interval. Nova Scotia has not reported recent years.</p>
+      <div class="chart"><canvas id="c-cprov" role="img" aria-label="Horizontal bar chart of the age-standardized breast cancer incidence rate in women for nine provinces in the latest year, from Quebec, the highest, to Prince Edward Island, the lowest."></canvas></div>
+    </section>
+  </div>
+  <p class="foot">Canadian data: Statistics Canada, Table 13-10-0747-01, Number of new cases and age-standardized rates of primary cancer, by cancer type and sex. Adapted from Statistics Canada. This does not constitute an endorsement by Statistics Canada of this product. Case counts are randomly rounded to a multiple of 5 by the source. <a class="text-link" href="../canada/breast_cancer_incidence_females.csv" download>Download the extract</a></p>
   <p class="foot">Data: Breast Cancer Wisconsin (Diagnostic), UCI Machine Learning Repository, through scikit-learn. Charts built with Chart.js. <a class="text-link" href="data.json" download>Download the dashboard data</a> · <a class="text-link" href="../build_case_study.py" download>Download the build script</a></p>
 </main>
 <script src="chart.umd.js"></script>
 <script>
-const INK = '#192b43', MUTED = '#5d6c7f', LINE = '#e0e7ee', BLUE = '#245fe4', PALE = '#a9c0f2', ORANGE = '#c2500a';
+const INK = '#192b43', MUTED = '#5d6c7f', LINE = '#e0e7ee', PINK = '#c2185b', PALE = '#f3b6cd', SLATE = '#2f6f9f';
 Chart.defaults.font.family = 'Inter, Arial, sans-serif';
 Chart.defaults.font.size = 12;
 Chart.defaults.color = MUTED;
@@ -132,14 +156,14 @@ fetch('data.json').then(r => r.json()).then(d => {
 
   const folds = new Chart('c-folds', {
     type: 'bar',
-    data: { labels: Array.from({ length: d.meta.folds }, (_, i) => i + 1), datasets: [{ data: [], backgroundColor: BLUE, borderRadius: 4, maxBarThickness: 34 }] },
+    data: { labels: Array.from({ length: d.meta.folds }, (_, i) => i + 1), datasets: [{ data: [], backgroundColor: PINK, borderRadius: 4, maxBarThickness: 34 }] },
     options: { scales: { y: { min: 0, max: 100, grid, ticks: { callback: v => v + '%' }, title: { display: true, text: 'Sensitivity' } }, x: { grid: noGrid, ticks: { maxRotation: 0 }, title: { display: true, text: 'Fold' } } },
       plugins: { tooltip: { callbacks: { title: c => 'Fold ' + c[0].label, label: c => { const f = c.dataset.raw[c.dataIndex]; return c.parsed.y.toFixed(1) + '%: ' + f.tp + ' flagged, ' + f.fn + ' missed'; } } } } }
   });
 
   const variance = new Chart('c-var', {
     type: 'line',
-    data: { labels: d.variance.map(v => v.component), datasets: [{ data: d.variance.map(v => v.cumulative * 100), borderColor: BLUE, borderWidth: 2, pointRadius: [], pointBackgroundColor: '#fff', pointBorderColor: BLUE, pointBorderWidth: 2, tension: 0 }] },
+    data: { labels: d.variance.map(v => v.component), datasets: [{ data: d.variance.map(v => v.cumulative * 100), borderColor: PINK, borderWidth: 2, pointRadius: [], pointBackgroundColor: '#fff', pointBorderColor: PINK, pointBorderWidth: 2, tension: 0 }] },
     options: { layout: { padding: { top: 8, right: 8 } }, interaction: { mode: 'index', intersect: false },
       scales: { y: { min: 40, max: 100, grid, clip: false, ticks: { callback: v => v + '%' }, title: { display: true, text: 'Cumulative variance' } }, x: { grid: noGrid, ticks: { maxRotation: 0, autoSkip: false, callback: function (v) { const n = +this.getLabelForValue(v); return n === 1 || n % 5 === 0 ? n : ''; } }, title: { display: true, text: 'Number of components' } } },
       plugins: { tooltip: { callbacks: { title: c => c[0].label + ' components', label: c => c.parsed.y.toFixed(1) + '% of variance retained' } } } }
@@ -156,8 +180,8 @@ fetch('data.json').then(r => r.json()).then(d => {
   new Chart('c-map', {
     type: 'scatter',
     data: { datasets: [
-      { label: 'Benign (' + d.meta.benign + ')', data: d.cases.filter(c => !c.malignant).map(c => point(c, 0)), backgroundColor: BLUE + 'bf', borderColor: '#fff', borderWidth: 1, pointStyle: 'circle', pointRadius: 4, pointHoverRadius: 7 },
-      { label: 'Malignant (' + d.meta.malignant + ')', data: d.cases.filter(c => c.malignant).map(c => point(c, 1)), backgroundColor: ORANGE + 'cc', borderColor: '#fff', borderWidth: 1, pointStyle: 'triangle', pointRadius: 5, pointHoverRadius: 8 }
+      { label: 'Benign (' + d.meta.benign + ')', data: d.cases.filter(c => !c.malignant).map(c => point(c, 0)), backgroundColor: SLATE + 'bf', borderColor: '#fff', borderWidth: 1, pointStyle: 'circle', pointRadius: 4, pointHoverRadius: 7 },
+      { label: 'Malignant (' + d.meta.malignant + ')', data: d.cases.filter(c => c.malignant).map(c => point(c, 1)), backgroundColor: PINK + 'cc', borderColor: '#fff', borderWidth: 1, pointStyle: 'triangle', pointRadius: 5, pointHoverRadius: 8 }
     ] },
     options: { scales: { x: { grid, title: { display: true, text: 'PC1: overall nuclear size and border irregularity (' + pct(d.variance[0].ratio) + ')' } }, y: { grid, title: { display: true, text: 'PC2: boundary complexity vs size (' + pct(d.variance[1].ratio) + ')' } } },
       plugins: { legend: { display: true, position: 'top', align: 'end', labels: { usePointStyle: true, color: INK } },
@@ -171,7 +195,7 @@ fetch('data.json').then(r => r.json()).then(d => {
     document.getElementById('k-missed').textContent = a.missed;
     document.getElementById('k-false').textContent = a.false_alarms;
 
-    missed.data.datasets[0].backgroundColor = d.approaches.map((_, j) => j === i ? BLUE : PALE);
+    missed.data.datasets[0].backgroundColor = d.approaches.map((_, j) => j === i ? PINK : PALE);
     missed.update();
 
     const rows = d.folds.filter(f => f.approach_id === i + 1);
@@ -201,9 +225,30 @@ fetch('data.json').then(r => r.json()).then(d => {
     const top = d.loadings[c].map((v, j) => ({ v, name: d.features[j] })).sort((p, q) => Math.abs(q.v) - Math.abs(p.v)).slice(0, 10);
     load.data.labels = top.map(t => t.name);
     load.data.datasets[0].data = top.map(t => t.v);
-    load.data.datasets[0].backgroundColor = top.map(t => t.v >= 0 ? BLUE : ORANGE);
+    load.data.datasets[0].backgroundColor = top.map(t => t.v >= 0 ? PINK : SLATE);
     load.update();
   }
+
+  const ct = d.canada.trend, last = ct[ct.length - 1];
+  document.getElementById('c-cases').textContent = last.new_cases.toLocaleString('en-CA');
+  document.getElementById('c-cases-l').textContent = 'new breast cancer cases in women, ' + last.year;
+  document.getElementById('c-rate').textContent = last.rate_per_100k.toFixed(1);
+  document.getElementById('c-share').textContent = last.share_of_female_cancers_pct.toFixed(0) + '%';
+  document.getElementById('c-age').textContent = last.average_age.toFixed(1);
+  new Chart('c-ctrend', {
+    type: 'line',
+    data: { labels: ct.map(r => r.year), datasets: [{ data: ct.map(r => r.rate_per_100k), borderColor: PINK, borderWidth: 2, pointRadius: 2, pointBackgroundColor: PINK, tension: 0 }] },
+    options: { interaction: { mode: 'index', intersect: false },
+      scales: { y: { min: 0, max: 180, grid, title: { display: true, text: 'Rate per 100,000 women' } }, x: { grid: noGrid, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } } },
+      plugins: { tooltip: { callbacks: { label: c => { const r = ct[c.dataIndex]; return r.rate_per_100k.toFixed(1) + ' per 100,000 (95% CI ' + r.rate_low.toFixed(1) + ' to ' + r.rate_high.toFixed(1) + '), ' + r.new_cases.toLocaleString('en-CA') + ' cases'; } } } } }
+  });
+  const cp = d.canada.provinces;
+  new Chart('c-cprov', {
+    type: 'bar',
+    data: { labels: cp.map(r => r.geography), datasets: [{ data: cp.map(r => r.rate_per_100k), backgroundColor: PINK, borderRadius: 4, maxBarThickness: 18 }] },
+    options: { indexAxis: 'y', scales: { x: { beginAtZero: true, grid, title: { display: true, text: 'Rate per 100,000 women, ' + cp[0].year } }, y: { grid: noGrid, ticks: { color: INK } } },
+      plugins: { tooltip: { callbacks: { label: c => { const r = cp[c.dataIndex]; return r.rate_per_100k.toFixed(1) + ' (95% CI ' + r.rate_low.toFixed(1) + ' to ' + r.rate_high.toFixed(1) + '), ' + r.new_cases.toLocaleString('en-CA') + ' cases'; } } } } }
+  });
 
   approachEl.addEventListener('change', update);
   componentEl.addEventListener('change', updateLoadings);

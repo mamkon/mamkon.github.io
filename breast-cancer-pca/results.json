@@ -205,6 +205,379 @@
    "folds_selected": 10
   }
  ],
+ "canada_trend": [
+  {
+   "year": 1992,
+   "new_cases": 15275,
+   "rate_per_100k": 144.7,
+   "rate_low": 142.3,
+   "rate_high": 147.0,
+   "average_age": 62.3,
+   "share_of_female_cancers_pct": 28.8
+  },
+  {
+   "year": 1993,
+   "new_cases": 15160,
+   "rate_per_100k": 140.3,
+   "rate_low": 138.0,
+   "rate_high": 142.6,
+   "average_age": 62.2,
+   "share_of_female_cancers_pct": 28.0
+  },
+  {
+   "year": 1994,
+   "new_cases": 15460,
+   "rate_per_100k": 139.5,
+   "rate_low": 137.3,
+   "rate_high": 141.8,
+   "average_age": 62.1,
+   "share_of_female_cancers_pct": 28.1
+  },
+  {
+   "year": 1995,
+   "new_cases": 15715,
+   "rate_per_100k": 138.9,
+   "rate_low": 136.7,
+   "rate_high": 141.2,
+   "average_age": 61.9,
+   "share_of_female_cancers_pct": 28.0
+  },
+  {
+   "year": 1996,
+   "new_cases": 16105,
+   "rate_per_100k": 139.5,
+   "rate_low": 137.3,
+   "rate_high": 141.7,
+   "average_age": 61.9,
+   "share_of_female_cancers_pct": 28.3
+  },
+  {
+   "year": 1997,
+   "new_cases": 17050,
+   "rate_per_100k": 144.2,
+   "rate_low": 142.0,
+   "rate_high": 146.4,
+   "average_age": 62.0,
+   "share_of_female_cancers_pct": 29.0
+  },
+  {
+   "year": 1998,
+   "new_cases": 17560,
+   "rate_per_100k": 146.2,
+   "rate_low": 144.0,
+   "rate_high": 148.5,
+   "average_age": 61.9,
+   "share_of_female_cancers_pct": 28.7
+  },
+  {
+   "year": 1999,
+   "new_cases": 18355,
+   "rate_per_100k": 149.1,
+   "rate_low": 146.9,
+   "rate_high": 151.3,
+   "average_age": 61.8,
+   "share_of_female_cancers_pct": 29.3
+  },
+  {
+   "year": 2000,
+   "new_cases": 18075,
+   "rate_per_100k": 144.0,
+   "rate_low": 141.8,
+   "rate_high": 146.1,
+   "average_age": 62.0,
+   "share_of_female_cancers_pct": 28.2
+  },
+  {
+   "year": 2001,
+   "new_cases": 18260,
+   "rate_per_100k": 142.1,
+   "rate_low": 139.9,
+   "rate_high": 144.2,
+   "average_age": 61.9,
+   "share_of_female_cancers_pct": 28.0
+  },
+  {
+   "year": 2002,
+   "new_cases": 19040,
+   "rate_per_100k": 145.0,
+   "rate_low": 142.8,
+   "rate_high": 147.1,
+   "average_age": 61.8,
+   "share_of_female_cancers_pct": 28.1
+  },
+  {
+   "year": 2003,
+   "new_cases": 18645,
+   "rate_per_100k": 138.7,
+   "rate_low": 136.6,
+   "rate_high": 140.7,
+   "average_age": 62.0,
+   "share_of_female_cancers_pct": 27.3
+  },
+  {
+   "year": 2004,
+   "new_cases": 19150,
+   "rate_per_100k": 138.3,
+   "rate_low": 136.3,
+   "rate_high": 140.3,
+   "average_age": 62.0,
+   "share_of_female_cancers_pct": 27.2
+  },
+  {
+   "year": 2005,
+   "new_cases": 19570,
+   "rate_per_100k": 138.2,
+   "rate_low": 136.2,
+   "rate_high": 140.2,
+   "average_age": 61.8,
+   "share_of_female_cancers_pct": 26.9
+  },
+  {
+   "year": 2006,
+   "new_cases": 19920,
+   "rate_per_100k": 137.6,
+   "rate_low": 135.7,
+   "rate_high": 139.6,
+   "average_age": 61.9,
+   "share_of_female_cancers_pct": 26.8
+  },
+  {
+   "year": 2007,
+   "new_cases": 20500,
+   "rate_per_100k": 139.5,
+   "rate_low": 137.5,
+   "rate_high": 141.4,
+   "average_age": 62.3,
+   "share_of_female_cancers_pct": 26.6
+  },
+  {
+   "year": 2008,
+   "new_cases": 20460,
+   "rate_per_100k": 135.7,
+   "rate_low": 133.8,
+   "rate_high": 137.6,
+   "average_age": 62.2,
+   "share_of_female_cancers_pct": 26.2
+  },
+  {
+   "year": 2009,
+   "new_cases": 21375,
+   "rate_per_100k": 139.2,
+   "rate_low": 137.3,
+   "rate_high": 141.1,
+   "average_age": 62.4,
+   "share_of_female_cancers_pct": 26.3
+  },
+  {
+   "year": 2010,
+   "new_cases": 22895,
+   "rate_per_100k": 146.3,
+   "rate_low": 144.4,
+   "rate_high": 148.2,
+   "average_age": 62.6,
+   "share_of_female_cancers_pct": 26.1
+  },
+  {
+   "year": 2011,
+   "new_cases": 23480,
+   "rate_per_100k": 147.0,
+   "rate_low": 145.1,
+   "rate_high": 149.0,
+   "average_age": 62.9,
+   "share_of_female_cancers_pct": 26.0
+  },
+  {
+   "year": 2012,
+   "new_cases": 23190,
+   "rate_per_100k": 142.5,
+   "rate_low": 140.6,
+   "rate_high": 144.3,
+   "average_age": 62.9,
+   "share_of_female_cancers_pct": 25.2
+  },
+  {
+   "year": 2013,
+   "new_cases": 23925,
+   "rate_per_100k": 144.2,
+   "rate_low": 142.4,
+   "rate_high": 146.1,
+   "average_age": 63.2,
+   "share_of_female_cancers_pct": 25.9
+  },
+  {
+   "year": 2014,
+   "new_cases": 24510,
+   "rate_per_100k": 144.7,
+   "rate_low": 142.9,
+   "rate_high": 146.5,
+   "average_age": 63.1,
+   "share_of_female_cancers_pct": 25.9
+  },
+  {
+   "year": 2015,
+   "new_cases": 24750,
+   "rate_per_100k": 143.3,
+   "rate_low": 141.5,
+   "rate_high": 145.1,
+   "average_age": 63.1,
+   "share_of_female_cancers_pct": 25.8
+  },
+  {
+   "year": 2016,
+   "new_cases": 25675,
+   "rate_per_100k": 145.7,
+   "rate_low": 143.9,
+   "rate_high": 147.5,
+   "average_age": 63.4,
+   "share_of_female_cancers_pct": 26.1
+  },
+  {
+   "year": 2017,
+   "new_cases": 25540,
+   "rate_per_100k": 142.3,
+   "rate_low": 140.6,
+   "rate_high": 144.1,
+   "average_age": 63.4,
+   "share_of_female_cancers_pct": 25.6
+  },
+  {
+   "year": 2018,
+   "new_cases": 26290,
+   "rate_per_100k": 143.9,
+   "rate_low": 142.1,
+   "rate_high": 145.6,
+   "average_age": 63.5,
+   "share_of_female_cancers_pct": 26.0
+  },
+  {
+   "year": 2019,
+   "new_cases": 26960,
+   "rate_per_100k": 144.8,
+   "rate_low": 143.0,
+   "rate_high": 146.5,
+   "average_age": 63.6,
+   "share_of_female_cancers_pct": 26.0
+  },
+  {
+   "year": 2020,
+   "new_cases": 23895,
+   "rate_per_100k": 126.0,
+   "rate_low": 124.4,
+   "rate_high": 127.6,
+   "average_age": 63.5,
+   "share_of_female_cancers_pct": 24.9
+  },
+  {
+   "year": 2021,
+   "new_cases": 28010,
+   "rate_per_100k": 145.4,
+   "rate_low": 143.6,
+   "rate_high": 147.1,
+   "average_age": 63.9,
+   "share_of_female_cancers_pct": 26.2
+  },
+  {
+   "year": 2022,
+   "new_cases": 29250,
+   "rate_per_100k": 149.0,
+   "rate_low": 147.3,
+   "rate_high": 150.7,
+   "average_age": 63.9,
+   "share_of_female_cancers_pct": 26.8
+  },
+  {
+   "year": 2023,
+   "new_cases": 29660,
+   "rate_per_100k": 147.9,
+   "rate_low": 146.2,
+   "rate_high": 149.6,
+   "average_age": 63.8,
+   "share_of_female_cancers_pct": 27.0
+  }
+ ],
+ "canada_provinces_latest": [
+  {
+   "geography": "Quebec",
+   "year": 2023,
+   "new_cases": 7565,
+   "rate_per_100k": 158.5,
+   "rate_low": 154.9,
+   "rate_high": 162.1,
+   "rate_rank": 1
+  },
+  {
+   "geography": "Saskatchewan",
+   "year": 2023,
+   "new_cases": 890,
+   "rate_per_100k": 155.0,
+   "rate_low": 144.7,
+   "rate_high": 165.2,
+   "rate_rank": 2
+  },
+  {
+   "geography": "Newfoundland and Labrador",
+   "year": 2023,
+   "new_cases": 515,
+   "rate_per_100k": 152.2,
+   "rate_low": 138.9,
+   "rate_high": 165.6,
+   "rate_rank": 3
+  },
+  {
+   "geography": "Ontario",
+   "year": 2023,
+   "new_cases": 11995,
+   "rate_per_100k": 150.1,
+   "rate_low": 147.4,
+   "rate_high": 152.8,
+   "rate_rank": 4
+  },
+  {
+   "geography": "Alberta",
+   "year": 2023,
+   "new_cases": 3065,
+   "rate_per_100k": 144.0,
+   "rate_low": 138.9,
+   "rate_high": 149.2,
+   "rate_rank": 5
+  },
+  {
+   "geography": "Manitoba",
+   "year": 2023,
+   "new_cases": 935,
+   "rate_per_100k": 136.1,
+   "rate_low": 127.4,
+   "rate_high": 144.9,
+   "rate_rank": 6
+  },
+  {
+   "geography": "British Columbia",
+   "year": 2023,
+   "new_cases": 3880,
+   "rate_per_100k": 132.5,
+   "rate_low": 128.3,
+   "rate_high": 136.6,
+   "rate_rank": 7
+  },
+  {
+   "geography": "New Brunswick",
+   "year": 2023,
+   "new_cases": 640,
+   "rate_per_100k": 131.0,
+   "rate_low": 120.8,
+   "rate_high": 141.3,
+   "rate_rank": 8
+  },
+  {
+   "geography": "Prince Edward Island",
+   "year": 2023,
+   "new_cases": 120,
+   "rate_per_100k": 126.6,
+   "rate_low": 103.9,
+   "rate_high": 149.2,
+   "rate_rank": 9
+  }
+ ],
  "auc": {
   "PCA, 2 components": 0.9881216637598436,
   "PCA, 5 components": 0.9930104117118546,

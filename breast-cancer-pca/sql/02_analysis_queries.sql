@@ -45,3 +45,19 @@ GROUP BY a.approach_id ORDER BY a.approach_id;
 SELECT f.feature_name, COUNT(*) AS folds_selected
 FROM fact_selected_feature s JOIN dim_feature f USING (feature_id)
 GROUP BY f.feature_id ORDER BY folds_selected DESC, f.feature_name;
+
+-- name: canada_trend
+SELECT year, new_cases, rate_per_100k, rate_low, rate_high, average_age,
+       ROUND(100.0 * new_cases / all_cancer_cases, 1) AS share_of_female_cancers_pct
+FROM fact_canada_incidence
+WHERE geography = 'Canada (excluding Nova Scotia)'
+ORDER BY year;
+
+-- name: canada_provinces_latest
+WITH latest AS (SELECT MAX(year) AS year FROM fact_canada_incidence WHERE geography = 'Ontario')
+SELECT i.geography, i.year, i.new_cases, i.rate_per_100k, i.rate_low, i.rate_high,
+       RANK() OVER (ORDER BY i.rate_per_100k DESC) AS rate_rank
+FROM fact_canada_incidence i JOIN latest USING (year)
+WHERE i.geography IN ('Newfoundland and Labrador', 'Prince Edward Island', 'New Brunswick', 'Quebec', 'Ontario',
+                      'Manitoba', 'Saskatchewan', 'Alberta', 'British Columbia')
+ORDER BY i.rate_per_100k DESC;

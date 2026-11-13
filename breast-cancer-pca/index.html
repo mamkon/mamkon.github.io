@@ -20,7 +20,7 @@
   .pca .meta { font-size: 12px; color: #5d6c7f; }
   .pca .notice { padding: 12px 14px; background: #fff4dc; border-left: 3px solid #b96c00; border-radius: 3px; color: #614300; font-size: 13px; }
   .pca .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-  .pca .kpi { border: 1px solid #e0e7ee; border-top: 4px solid #07847e; border-radius: 6px; padding: 16px; }
+  .pca .kpi { border: 1px solid #e0e7ee; border-top: 4px solid #c2185b; border-radius: 6px; padding: 16px; }
   .pca .kpi strong { display: block; font-size: 1.9rem; line-height: 1.1; color: #102237; }
   .pca .kpi span { font-size: 12px; color: #5d6c7f; }
   .pca .bottom-line { padding: 16px 18px; background: #f0f4f8; border-radius: 6px; }
@@ -29,21 +29,26 @@
   .pca th, .pca td { padding: .65rem .7rem; text-align: left; border-bottom: 1px solid #cad9dc; vertical-align: top; }
   .pca th { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #5d6c7f; }
   .pca td.num, .pca th.num { text-align: right; white-space: nowrap; }
-  .pca tr.recommended { background: #e2f4ef; color: #152c33; }
+  .pca tr.recommended { background: #fde8f0; color: #3b0d22; }
+  .pca .eyebrow { color: #c2185b; }
+  .pca .button { background: #c2185b; }
+  .pca .button:hover { background: #9c1049; }
+  .pca .text-link { color: #c2185b; }
+  .pca .bottom-line { border-left: 4px solid #c2185b; }
   .pca pre { background: #102237; color: #e6edf5; padding: 14px 16px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; line-height: 1.55; }
   .pca code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   .pca p code, .pca td code, .pca li code { background: #eef3f9; padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
   .pca .folds { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; margin-top: 1rem; }
-  .pca .folds span { height: 26px; border-radius: 3px; background: #a9c0f2; display: grid; place-items: center; font-size: 10px; color: #102237; }
-  .pca .folds span.test { background: #c2500a; color: #fff; font-weight: 700; }
+  .pca .folds span { height: 26px; border-radius: 3px; background: #c9dceb; display: grid; place-items: center; font-size: 10px; color: #102237; }
+  .pca .folds span.test { background: #c2185b; color: #fff; font-weight: 700; }
   .pca .pipeline { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px; counter-reset: step; }
-  .pca .pipeline li { position: relative; border: 1px solid #cad9dc; border-top: 4px solid #245fe4; border-radius: 6px; padding: 12px 12px 14px; background: #fff; counter-increment: step; }
+  .pca .pipeline li { position: relative; border: 1px solid #cad9dc; border-top: 4px solid #c2185b; border-radius: 6px; padding: 12px 12px 14px; background: #fff; counter-increment: step; }
   .pca .pipeline li::before { content: counter(step); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #102237; color: #fff; font-size: 11px; font-weight: 700; }
   .pca .pipeline li:not(:last-child)::after { content: "→"; position: absolute; right: -21px; top: 50%; transform: translateY(-50%); color: #5d6c7f; font-size: 16px; }
   .pca .pipeline strong { display: block; margin-top: 8px; font-size: 14px; color: #102237; line-height: 1.3; }
   .pca .pipeline span { display: block; margin-top: 4px; font-size: 12px; color: #5d6c7f; line-height: 1.45; }
-  .pca .pipeline li.withheld { border-top-color: #07847e; }
-  .pca .guardrail { margin-top: 14px; padding: 14px 16px; border: 1px solid #07847e; border-radius: 6px; background: #e2f4ef; color: #152c33; }
+  .pca .pipeline li.withheld { border-top-color: #2f6f9f; }
+  .pca .guardrail { margin-top: 14px; padding: 14px 16px; border: 1px solid #c2185b; border-radius: 6px; background: #fde8f0; color: #3b0d22; }
   .pca .guardrail strong { display: block; font-size: 15px; }
   .pca .guardrail span { font-size: 13px; }
   .pca .tradeoff { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
@@ -62,7 +67,7 @@
   <nav aria-label="Portfolio"><a class="text-link" href="../#projects">← Back to featured projects</a></nav>
   <p class="eyebrow">Health analytics · Analytical proof of concept</p>
   <h1>Compressing 30 biopsy measurements into 7 signals for breast cancer triage</h1>
-  <p class="meta"><strong>Clinical domain:</strong> breast cytopathology, fine needle aspirate review · <strong>Method:</strong> principal component analysis (PCA) · <strong>Tools:</strong> Python, scikit-learn, pandas, NumPy, SQL (SQLite), Matplotlib, Chart.js</p>
+  <p class="meta"><strong>Clinical domain:</strong> breast cytopathology, fine needle aspirate review · <strong>Method:</strong> principal component analysis (PCA) · <strong>Tools:</strong> Python, scikit-learn, pandas, NumPy, SQL (SQLite), Matplotlib, Chart.js · <strong>Data:</strong> Wisconsin Diagnostic Breast Cancer dataset; Statistics Canada for Canadian context</p>
   <p class="notice"><strong>Not clinically validated.</strong> This study uses a public research dataset from one institution. It is not a diagnostic tool and has had no regulatory review.</p>
 
   <div class="kpis">
@@ -96,6 +101,17 @@
     <li><strong>They cannot be seen.</strong> No reviewer can scan 30 columns per case across a worklist. Without a compact summary, prioritization defaults to arrival order.</li>
   </ul>
   <p><strong>The operational question:</strong> can the measurements be compressed into a handful of independent signals that keep the clinically relevant variation and can support a prioritized review queue?</p>
+
+  <h3>Why it matters in Canada</h3>
+  <div class="kpis">
+    <div class="kpi"><strong>29,660</strong><span>new breast cancer cases in women in 2023</span></div>
+    <div class="kpi"><strong>27%</strong><span>of all new cancers in women</span></div>
+    <div class="kpi"><strong>147.9</strong><span>cases per 100,000 women, age-standardized</span></div>
+    <div class="kpi"><strong>63.8</strong><span>average age at diagnosis</span></div>
+  </div>
+  <p class="meta">Canada excluding Nova Scotia, 2023. Source: Statistics Canada, Table 13-10-0747-01 (Canadian Cancer Registry). Counts are randomly rounded to a multiple of 5 by the source.</p>
+  <p>Most of those diagnoses are confirmed by a pathology review, so anything that helps a laboratory order its queue has a large population behind it. The rate has stayed between 135.7 and 149.1 per 100,000 since 1992, apart from a dip to 126 in 2020 when screening and diagnostic services were disrupted. Among provinces in 2023 it ranged from 126.6 in Prince Edward Island to 158.5 in Quebec.</p>
+  <p class="notice"><strong>Two separate sources.</strong> The Canadian figures are population counts and set the context. The analysis itself uses the Wisconsin research dataset, because no Canadian patient-level biopsy measurements are publicly available. Nothing here estimates how the method would perform on Canadian cases.</p>
 
   <h2>2. Unsupervised analytical architecture</h2>
   <p>The workflow has five steps. The diagnosis is set aside at the start and is not used until the components are finished.</p>
@@ -152,6 +168,7 @@
       <tr><td><code>fact_case_score</code></td><td>One case and one of the first 10 components</td><td class="num">5,690</td></tr>
       <tr><td><code>fact_cv_fold</code></td><td>One approach and one fold: counts of caught, missed and false alarms</td><td class="num">60</td></tr>
       <tr><td><code>fact_selected_feature</code></td><td>One selected measurement in one fold</td><td class="num">70</td></tr>
+      <tr><td><code>fact_canada_incidence</code></td><td>One Canadian geography and one diagnosis year: female breast cancer incidence. Context only, with no link to the cases</td><td class="num">514</td></tr>
     </tbody>
   </table></div>
   <p>The comparison in section 3 comes from this query. Rates are computed from stored counts, never stored as percentages.</p>
@@ -206,7 +223,7 @@ ORDER BY a.approach_id;</code></pre>
   </ul>
 
   <figure>
-    <a href="pc1-pc2-case-map.png"><img src="pc1-pc2-case-map.png" width="1600" height="1040" alt="Scatter plot of 569 cases on the first two principal components. Benign cases, shown as circles, cluster at low PC1 scores. Malignant cases, shown as triangles, spread across higher PC1 scores. The two groups overlap near a PC1 score of zero." loading="lazy"></a>
+    <a href="pc1-pc2-case-map.png"><img src="pc1-pc2-case-map.png" width="1600" height="1040" alt="Scatter plot of 569 cases on the first two principal components. Benign cases, shown as blue circles, cluster at low PC1 scores. Malignant cases, shown as pink triangles, spread across higher PC1 scores. The two groups overlap near a PC1 score of zero." loading="lazy"></a>
     <figcaption>Every case plotted on the first two components. The diagnosis was added after fitting, for display only.</figcaption>
   </figure>
 
@@ -276,6 +293,8 @@ ORDER BY a.approach_id;</code></pre>
   <h2>Reproduce the figures</h2>
   <p><code>python build_case_study.py</code> runs the PCA and the cross-validation, loads the SQLite warehouse, runs the SQL, checks it against pandas and writes the dashboard data.</p>
   <p><a class="text-link" href="build_case_study.py" download>Download the build script</a> · <a class="text-link" href="verify_pca.py" download>Download the quick verification script</a> · <a class="text-link" href="https://doi.org/10.24432/C5DW2B">Source data: Breast Cancer Wisconsin (Diagnostic), UCI Machine Learning Repository</a></p>
+  <p><a class="text-link" href="canada/breast_cancer_incidence_females.csv" download>Download the Canadian incidence extract</a> · <a class="text-link" href="canada/extract_statcan.py" download>Download the extraction script</a> · <a class="text-link" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310074701">Statistics Canada, Table 13-10-0747-01</a></p>
+  <p class="meta">Canadian data adapted from Statistics Canada, Table 13-10-0747-01, Number of new cases and age-standardized rates of primary cancer, by cancer type and sex. This does not constitute an endorsement by Statistics Canada of this product.</p>
   <p class="meta">Data: Wolberg, Mangasarian, Street and Street. Accessed through scikit-learn 1.9.1. Every figure on this page is produced by these two scripts.</p>
 </main>
 </body>
