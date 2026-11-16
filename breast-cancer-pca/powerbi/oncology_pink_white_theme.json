@@ -1,0 +1,18 @@
+{
+  "name": "Oncology Pink White",
+  "dataColors": ["#059669", "#DB2777", "#F57EB6", "#10B981", "#831843", "#500021"],
+  "background": "#FFFFFF",
+  "foreground": "#334155",
+  "tableAccent": "#DB2777",
+  "firstLevelElements": "#334155",
+  "secondLevelElements": "#831843",
+  "thirdLevelElements": "#FCE7F3",
+  "fourthLevelElements": "#FFF1F2",
+  "secondaryBackground": "#FDF2F8",
+  "textClasses": {
+    "label": { "fontFace": "Segoe UI", "color": "#334155" },
+    "title": { "fontFace": "Segoe UI", "color": "#831843" },
+    "header": { "fontFace": "Segoe UI", "color": "#831843" },
+    "callout": { "fontFace": "Segoe UI", "color": "#831843" }
+  }
+}

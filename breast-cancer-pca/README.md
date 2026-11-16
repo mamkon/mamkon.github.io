@@ -7,6 +7,7 @@
 
 **Case study:** [mamkon.github.io/breast-cancer-pca](https://mamkon.github.io/breast-cancer-pca/)
 **Interactive dashboard:** [mamkon.github.io/breast-cancer-pca/dashboard](https://mamkon.github.io/breast-cancer-pca/dashboard/)
+**Power BI companion:** [Download the six-page report project](powerbi/oncology-powerbi-report.zip), [get the theme](powerbi/oncology_pink_white_theme.json), or [read the build guide](powerbi/POWERBI_BUILD_GUIDE.md).
 **Author:** Mamkon Mercy Oyeleke, Data Analytics & Business Intelligence Consultant
 
 > **Not clinically validated.** This is an analytical proof of concept on a public research dataset from one institution. It is not a diagnostic tool and has had no regulatory review.
