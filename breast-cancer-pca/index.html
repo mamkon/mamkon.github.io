@@ -17,6 +17,7 @@
   .pca img { display: block; max-width: 100%; height: auto; border: 1px solid #e0e7ee; border-radius: 6px; }
   .pca figure { margin: 1.25rem 0 0; }
   .pca figcaption { font-size: 12px; color: #5d6c7f; margin-top: .5rem; }
+  .pca .report-hero img { width: 100%; }
   .pca .report-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .pca .report-grid figure { margin: 0; }
   .pca .report-grid figcaption strong { display: block; color: #102237; font-size: 13px; }
@@ -74,16 +75,23 @@
   <p class="meta"><strong>Clinical domain:</strong> breast cytopathology, fine needle aspirate review · <strong>Method:</strong> principal component analysis (PCA) · <strong>Tools:</strong> Python, scikit-learn, pandas, NumPy, SQL (SQLite), Matplotlib, Chart.js · <strong>Data:</strong> Wisconsin Diagnostic Breast Cancer dataset; Statistics Canada for Canadian context</p>
   <p class="notice"><strong>Not clinically validated.</strong> This study uses a public research dataset from one institution. It is not a diagnostic tool and has had no regulatory review.</p>
 
+  <p class="bottom-line"><strong>Bottom line:</strong> thirty overlapping nuclear measurements carry far fewer than thirty independent signals. Seven components preserve 91% of the information, and in a cross-validated check they detected malignancy as well as all thirty features did. The value is a simpler, more stable input for triage. It is not a diagnostic.</p>
+
+  <figure class="report-hero">
+    <a href="powerbi/page-1-executive-overview.png"><img src="powerbi/page-1-executive-overview.png" width="1600" height="900" alt="Power BI Executive Overview page: cards showing 569 biopsy cases, 7 components needed for 90%, 91.0% variance kept and 6 of 212 cancers missed; charts of cases by diagnosis, cancers missed by model, and recall in each test fold." fetchpriority="high"></a>
+    <figcaption>Power BI Executive Overview · <a class="text-link" href="#power-bi-report">See all six report pages</a></figcaption>
+  </figure>
+
+  <p><a class="button" href="dashboard/">Explore the interactive dashboard ↗</a></p>
+
+  <p><strong>Who this is for.</strong> Built for pathology operations teams and clinical data leads evaluating interpretable triage workflows.</p>
+
   <div class="kpis">
     <div class="kpi"><strong>569</strong><span>biopsy cases, zero missing values</span></div>
     <div class="kpi"><strong>30 → 7</strong><span>features to components, a 76.7% reduction</span></div>
     <div class="kpi"><strong>91.0%</strong><span>of total variance retained by 7 components</span></div>
     <div class="kpi"><strong>63.2%</strong><span>of total variance in 2 components, enough to plot every case on one chart</span></div>
   </div>
-
-  <p class="bottom-line"><strong>Bottom line:</strong> thirty overlapping nuclear measurements carry far fewer than thirty independent signals. Seven components preserve 91% of the information, and in a cross-validated check they detected malignancy as well as all thirty features did. The value is a simpler, more stable input for triage. It is not a diagnostic.</p>
-
-  <p><a class="button" href="dashboard/">Explore the interactive dashboard ↗</a></p>
 
   <h2>Project objective</h2>
   <p><strong>Show whether 30 overlapping biopsy measurements can be reduced to a much smaller set of inputs without losing the ability to detect malignancy, and prove it on cases the model has not seen.</strong></p>
