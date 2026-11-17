@@ -1,6 +1,6 @@
 # Canada Wildfire Intelligence dashboard
 
-An in-place extension of the existing GitHub Pages dashboard. No build step or external chart dependency is needed; serve the repository over HTTP to load its JSON and CSV files. The original case study, research links, images, annual chart and five-year mean, month bars, map geometry, Power BI link and CSV downloads remain available.
+An in-place extension of the existing GitHub Pages dashboard. No build step or external chart dependency is needed; serve the repository over HTTP to load its JSON and CSV files. The original case study, research links, images, annual chart and five-year mean, month bars, map geometry, Power BI report page images and CSV downloads remain available. The private Power BI service link was removed; the report is shown through exported page images.
 
 ## Views and filter scope
 

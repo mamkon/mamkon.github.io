@@ -1,12 +1,14 @@
-# Breast Biopsy Triage with PCA: Dimensionality Reduction and K-Fold Cross-Validation
+# Breast Biopsy PCA, with Canadian Context
 
 ![Python](https://img.shields.io/badge/Python-3.12-c2185b?style=flat-square)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-PCA%20%26%20CV-c2185b?style=flat-square)
 ![SQLite](https://img.shields.io/badge/SQL-SQLite%20star%20schema-c2185b?style=flat-square)
+![Power BI](https://img.shields.io/badge/Power%20BI-6%20pages%20%C2%B7%20DAX-c2185b?style=flat-square)
 ![Status](https://img.shields.io/badge/status-proof%20of%20concept-2f6f9f?style=flat-square)
 
 **Case study:** [mamkon.github.io/breast-cancer-pca](https://mamkon.github.io/breast-cancer-pca/)
 **Interactive dashboard:** [mamkon.github.io/breast-cancer-pca/dashboard](https://mamkon.github.io/breast-cancer-pca/dashboard/)
+**Power BI report:** [six page images and project download](https://mamkon.github.io/breast-cancer-pca/#power-bi-report)
 **Author:** Mamkon Mercy Oyeleke, Data Analytics & Business Intelligence Consultant
 
 > **Not clinically validated.** This is an analytical proof of concept on a public research dataset from one institution. It is not a diagnostic tool and has had no regulatory review.
@@ -67,14 +69,35 @@ These are morphometric image features, not biomarkers in the molecular sense.
 | :--- | :--- | :--- |
 | [Breast Cancer Wisconsin (Diagnostic)](https://doi.org/10.24432/C5DW2B), UCI Machine Learning Repository, via scikit-learn | 569 biopsy cases, 30 nuclear measurements each, early 1990s, one institution | All analysis |
 | [Statistics Canada, Table 13-10-0747-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310074701) | Female breast cancer incidence by province and year, 1992 to 2023, from the Canadian Cancer Registry | Population context only. It has no link to the biopsy cases. |
+| Statistics Canada, Table 13-10-0761-01, and Health Reports 82-003-X | Cases by stage at diagnosis (2017) and five-year net survival by stage (2010 to 2017) | Power BI Canadian Context page |
+| [Canadian Partnership Against Cancer, breast screening data tables](https://www.partnershipagainstcancer.ca/data-tables-breast-indicators/) | Share of women diagnosed within the target wait after an abnormal screen, by province, 2019 to 2020 | Power BI Provincial Map hover details |
+| [Statistics Canada, Health Reports 82-003-X (Hwee and Bougie, 2021)](https://www150.statcan.gc.ca/n1/en/catalogue/82-003-X202100800001) | Breast cancer incidence and death rates by ethnicity, 2006 to 2016, from census data linked to the cancer registry | Power BI Ethnicity and Equity page |
+| [Wilkinson, Ng, Ellison and Seely, The Oncologist (2024)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12395137/) | Age at diagnosis and mortality by race and ethnicity in Canada | Findings panel on the Ethnicity and Equity page |
 
-No Canadian patient-level biopsy measurements are publicly available, so nothing here estimates how the method would perform on Canadian cases.
+No Canadian patient-level biopsy measurements are publicly available, so nothing here estimates how the method would perform on Canadian cases. The national cancer registry does not collect race or ethnicity, so those rates come only from the census-linked studies above. No demographic data was generated or simulated.
 
 Canadian data adapted from Statistics Canada, Table 13-10-0747-01. This does not constitute an endorsement by Statistics Canada of this product.
 
 ---
 
-## 4. Repository layout
+## 4. Power BI report
+
+Six pages built on a star schema: five lookup tables (Province, Year, Stage, Diagnosis, Model) joined to the fact tables, with the biopsy tables kept separate from the Canadian tables because they share no key.
+
+| Page | Slicer | What it answers |
+| --- | --- | --- |
+| Executive Overview | Diagnosis | Live cards (569 cases, 7 components, 91.0% variance kept, 6 of 212 cancers missed), cancers missed by model, recall in each fold |
+| PCA and Validation | Model | Case map on PC1 and PC2, variance added by each component, model comparison |
+| Biopsy Findings | Diagnosis | How six nuclear measurements differ between benign and malignant cases |
+| Canadian Context | Year range | Incidence 1992 to 2023, cases by stage, survival by stage |
+| Provincial Map | Province | 2023 rates by province, rank, and biopsy diagnosis within the 7-week target |
+| Ethnicity and Equity | Group | Incidence and death rates by ethnicity, and age at diagnosis |
+
+DAX measures include fewest cancers missed and best mean recall for the selected models, components needed for 90%, variance added per component, change across the selected years, provincial rank, gap to the national rate, and biopsy-wait shortfall against the 90% target. The report uses five-fold cross-validation with class-weighted models, so its figures differ slightly from the ten-fold results above. Built with help from Claude, Codex and Google Colab; every figure was checked against its source.
+
+---
+
+## 5. Repository layout
 
 ```text
 breast-cancer-pca/
@@ -92,6 +115,9 @@ breast-cancer-pca/
 ├── build_case_study.py        # PCA, cross-validation, warehouse load, SQL checks, dashboard data
 ├── verify_pca.py              # Quick standalone check of the headline figures
 ├── results.json               # Output of every SQL query
+├── powerbi/
+│   ├── page-1-executive-overview.png … page-6-ethnicity-and-equity.png
+│   └── breast-cancer-analysis-six-pages.zip   # PBIP project and CSV snapshots
 ├── cumulative-variance.png
 └── pc1-pc2-case-map.png
 ```
@@ -100,7 +126,7 @@ The SQLite database is generated by the build and is not committed.
 
 ---
 
-## 5. Reproduce
+## 6. Reproduce
 
 ```sh
 python -m pip install scikit-learn pandas numpy matplotlib
@@ -111,7 +137,7 @@ The build stops if any SQL result disagrees with the matching pandas calculation
 
 ---
 
-## 6. Limitations and next steps
+## 7. Limitations and next steps
 
 **Limitations**
 
