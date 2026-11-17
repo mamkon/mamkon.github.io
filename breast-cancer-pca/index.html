@@ -17,6 +17,10 @@
   .pca img { display: block; max-width: 100%; height: auto; border: 1px solid #e0e7ee; border-radius: 6px; }
   .pca figure { margin: 1.25rem 0 0; }
   .pca figcaption { font-size: 12px; color: #5d6c7f; margin-top: .5rem; }
+  .pca .report-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .pca .report-grid figure { margin: 0; }
+  .pca .report-grid figcaption strong { display: block; color: #102237; font-size: 13px; }
+  @media (max-width: 760px) { .pca .report-grid { grid-template-columns: 1fr; } }
   .pca .meta { font-size: 12px; color: #5d6c7f; }
   .pca .notice { padding: 12px 14px; background: #fff4dc; border-left: 3px solid #b96c00; border-radius: 3px; color: #614300; font-size: 13px; }
   .pca .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
@@ -254,6 +258,37 @@ ORDER BY a.approach_id;</code></pre>
   </table></div>
   <p>PC2 is a contrast. <strong>A high PC2 score describes small nuclei with complex borders; a low score describes large nuclei with simpler borders.</strong> On its own it separates diagnosis weakly (AUC 0.62), so its role is to refine PC1, not to replace it.</p>
   <p class="meta">Terminology: these are morphometric image features. They are not biomarkers in the molecular sense.</p>
+
+  <h2 id="power-bi-report">Power BI report</h2>
+  <p>The same analysis is built as a six-page Power BI report. Power Query loads the data, a star schema with five lookup tables connects it, and DAX measures calculate recall, cancers missed, provincial rank and wait-time shortfall. Every page has a slicer and the headline numbers are live cards. To explore it, download the project and open it in Power BI Desktop, which is free.</p>
+  <div class="report-grid">
+    <figure>
+      <a href="powerbi/page-1-executive-overview.png"><img src="powerbi/page-1-executive-overview.png" width="1600" height="900" alt="Power BI Executive Overview page: cards showing 569 biopsy cases, 7 components needed for 90%, 91.0% variance kept and 6 of 212 cancers missed; charts of cases by diagnosis, cancers missed by model, and recall in each test fold." loading="lazy"></a>
+      <figcaption><strong>1. Executive Overview</strong>Live cards, cancers missed by model, and recall across the five test folds.</figcaption>
+    </figure>
+    <figure>
+      <a href="powerbi/page-2-pca-and-validation.png"><img src="powerbi/page-2-pca-and-validation.png" width="1600" height="900" alt="Power BI PCA and Validation page: benign and malignant cases on the first two components, the cumulative variance curve, a four-model comparison table, variance added by each component, and mean ROC AUC by model." loading="lazy"></a>
+      <figcaption><strong>2. PCA and Validation</strong>The case map, the scree plot and the model comparison.</figcaption>
+    </figure>
+    <figure>
+      <a href="powerbi/page-3-biopsy-findings.png"><img src="powerbi/page-3-biopsy-findings.png" width="1600" height="900" alt="Power BI Biopsy Findings page: six charts comparing the median of each nuclear measurement for benign and malignant cases." loading="lazy"></a>
+      <figcaption><strong>3. Biopsy Findings</strong>How six nuclear measurements differ between benign and malignant cases.</figcaption>
+    </figure>
+    <figure>
+      <a href="powerbi/page-4-canadian-context.png"><img src="powerbi/page-4-canadian-context.png" width="1600" height="900" alt="Power BI Canadian Context page with a year-range slider: breast cancer incidence in women from 1992 to 2023 for Canada excluding Nova Scotia, rates by province, cases by stage, and five-year net survival by stage." loading="lazy"></a>
+      <figcaption><strong>4. Canadian Context</strong>Incidence, stage at diagnosis and survival from Statistics Canada.</figcaption>
+    </figure>
+    <figure>
+      <a href="powerbi/page-5-provincial-map.png"><img src="powerbi/page-5-provincial-map.png" width="1600" height="900" alt="Power BI Provincial Map page: a filled map of Canada shaded by 2023 age-standardized breast cancer rate, with Nova Scotia grey for no published rate, beside a ranked chart led by Quebec." loading="lazy"></a>
+      <figcaption><strong>5. Provincial Map</strong>2023 rates by province, with diagnostic wait times on hover.</figcaption>
+    </figure>
+    <figure>
+      <a href="powerbi/page-6-ethnicity-and-equity.png"><img src="powerbi/page-6-ethnicity-and-equity.png" width="1600" height="900" alt="Power BI Ethnicity and Equity page: breast cancer incidence and death rates by ethnicity in Canada, 2006 to 2016, with 95% ranges, and findings on younger age at diagnosis." loading="lazy"></a>
+      <figcaption><strong>6. Ethnicity and Equity</strong>Incidence and death rates by ethnicity, and who is diagnosed younger.</figcaption>
+    </figure>
+  </div>
+  <p class="meta">The Power BI report compares models with five-fold cross-validation and includes class-weighted models, so its detection figures differ slightly from the ten-fold results above. Both use the same 569 cases. Wait times come from the Canadian Partnership Against Cancer (2019 to 2020). Rates by ethnicity come from Statistics Canada, Health Reports 82-003-X (2021), using census data linked to the Canadian Cancer Registry, and from Wilkinson and colleagues, The Oncologist (2024).</p>
+  <p><a class="text-link" href="powerbi/breast-cancer-analysis-six-pages.zip" download>Download the Power BI project</a></p>
 
   <h2>5. Clinical governance, limitations and next-phase roadmap</h2>
   <h3>Governance and risk trade-off</h3>
