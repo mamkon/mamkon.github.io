@@ -32,3 +32,5 @@
 .wildfire-spotlight .actions { align-items: center; }
 .wildfire-preview-canvas { aspect-ratio: 1507 / 952; overflow: hidden; background: #141618; }
 .wildfire-preview-canvas img { display: block; width: 160.25%; max-width: none; height: auto; transform: translate(-7.99%, -15.32%); }
+
+.footer-data-note{max-width:640px;font-size:10px;line-height:1.5;color:#9fb0c7;margin-top:10px}
