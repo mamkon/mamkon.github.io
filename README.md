@@ -11,7 +11,6 @@ I turn public and organizational data into decisions people can defend. Each pro
 | **Breast Biopsy PCA, with Canadian Context** | Can a team use 7 summary scores instead of 30 measurements and still catch nearly every cancer? Who in Canada waits longest for an answer? | Python, scikit-learn, SQL (SQLite), DAX, Power BI | [Case study](https://mamkon.github.io/breast-cancer-pca/) · [Dashboard](https://mamkon.github.io/breast-cancer-pca/dashboard/) · [Code](breast-cancer-pca/) |
 | **Canada Wildfire Intelligence** | How many large fires does each alert policy miss, and how much review work does it create? | Python, scikit-learn, SQLite, Power BI | [Case study](https://mamkon.github.io/wildfire-triage/) · [Dashboard](https://mamkon.github.io/wildfire-triage/dashboard/) |
 | **Ontario Air Quality Decision Research** | How does uncertainty in afternoon ozone across 47 Ontario locations change planning decisions? | Python, Power BI | [Case study](https://mamkon.github.io/air-quality-research/) · [Dashboard](https://mamkon.github.io/air-quality-research/dashboard/) |
-| **Ontario Analytics** | How do disease, public health unit and access indicators vary across Ontario? | Power BI, DAX | [Browser preview](https://mamkon.github.io/ontario-analytics/) |
 
 ## How I work
 
@@ -28,8 +27,7 @@ I turn public and organizational data into decisions people can defend. Each pro
 ├── index.html, styles.css, script.js   # Portfolio home page
 ├── breast-cancer-pca/                  # Case study, dashboard, SQL, Python, Power BI project
 ├── wildfire-triage/                    # Case study and dashboard
-├── air-quality-research/               # Case study and dashboard
-└── ontario-analytics/                  # Browser preview of a Power BI report
+└── air-quality-research/               # Case study and dashboard
 ```
 
 The site is plain HTML, CSS and JavaScript served by GitHub Pages, with no build step. Each project folder has its own README where it needs one.
