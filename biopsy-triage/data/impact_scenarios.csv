@@ -1,0 +1,4 @@
+scenario_id,model_name,prevalence,volume,cancers_in_priority,cancers_in_standard,false_alarms,total_priority,days_to_clear_priority,days_to_clear_full
+1,Logistic Regression,0.15,1000,147,3,55,202,10.1,50.0
+2,Logistic Regression,0.25,1000,246,4,49,295,14.8,50.0
+3,Logistic Regression,0.37,1000,364,6,41,405,20.2,50.0

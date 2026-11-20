@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Biopsy Triage Dashboard | Threshold and Queue Explorer</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { background: #f4f6fa; }
+  .db { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .db h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: .4rem 0 .6rem; }
+  .db .eyebrow { color: #6a4c93; }
+  .db .meta { font-size: 12px; color: #5d6c7f; margin: 0; }
+  .db .text-link { color: #6a4c93; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0 14px; }
+  .tabs button { border: 1px solid #cbbfdc; background: #fff; color: #3b2a55; padding: 8px 14px; border-radius: 5px; font-size: 12px; font-weight: 700; }
+  .tabs button[aria-selected="true"] { background: #6a4c93; color: #fff; border-color: #6a4c93; }
+  .panel { background: #fff; border: 1px solid #e0e7ee; border-radius: 8px; padding: 18px; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px; }
+  .control { background: #f7f5fb; border: 1px solid #e6def1; border-radius: 6px; padding: 10px 12px; }
+  .control label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #2d1f42; }
+  .control input[type=range] { width: 100%; accent-color: #6a4c93; }
+  .control select { width: 100%; padding: 6px; border: 1px solid #cbbfdc; border-radius: 4px; font: inherit; margin-top: 4px; }
+  .control small { font-size: 11px; color: #5d6c7f; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .kpi { border: 1px solid #e0e7ee; border-top: 4px solid #6a4c93; border-radius: 6px; padding: 12px 14px; background: #fff; }
+  .kpi.alert { border-top-color: #9c1049; }
+  .kpi.calm { border-top-color: #4a6a8a; }
+  .kpi strong { display: block; font-size: 1.7rem; line-height: 1.1; color: #102237; }
+  .kpi span { font-size: 11.5px; color: #5d6c7f; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-box { position: relative; height: 300px; }
+  .cm { border-collapse: collapse; width: 100%; font-size: 13px; text-align: center; }
+  .cm th, .cm td { border: 1px solid #e0e7ee; padding: 14px 8px; }
+  .cm th { background: #f7f5fb; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #5d6c7f; }
+  .cm td strong { display: block; font-size: 1.5rem; }
+  .cm .good { background: #eef3f9; }
+  .cm .bad { background: #fbe9f0; color: #7a0d39; }
+  .note { font-size: 12px; color: #5d6c7f; margin-top: 10px; }
+  .callout { padding: 12px 14px; background: #f0f4f8; border-left: 4px solid #6a4c93; border-radius: 4px; font-size: 13px; margin-top: 14px; }
+  table.simple { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.simple th, table.simple td { border-bottom: 1px solid #e0e7ee; padding: 8px; text-align: left; }
+  table.simple th { font-size: 11px; text-transform: uppercase; color: #5d6c7f; }
+  [hidden] { display: none !important; }
+  @media (max-width: 800px) { .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="db">
+  <nav aria-label="Portfolio"><a class="text-link" href="../">← Back to the case study</a></nav>
+  <p class="eyebrow" style="margin-top:14px">Browser companion to the Power BI build · Test-set results, not live data</p>
+  <h1>Biopsy triage: threshold and queue explorer</h1>
+  <p class="meta">171 held-out test biopsies (64 malignant, 107 benign). Move the threshold and watch cancers missed and false alarms trade off. Mercy Mamkon Oyeleke · built on studies at Toronto Metropolitan University.</p>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" aria-controls="p1" id="t1">1 · Donor summary</button>
+    <button role="tab" aria-selected="false" aria-controls="p2" id="t2">2 · Trade-off explorer</button>
+    <button role="tab" aria-selected="false" aria-controls="p3" id="t3">3 · Queue simulator</button>
+    <button role="tab" aria-selected="false" aria-controls="p4" id="t4">4 · Model explainer</button>
+  </div>
+
+  <section class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+    <div class="kpis">
+      <div class="kpi"><strong>63 / 64</strong><span>cancers in the priority queue</span></div>
+      <div class="kpi alert"><strong>1</strong><span>cancer in the standard queue</span></div>
+      <div class="kpi calm"><strong>7</strong><span>false alarms (of 107 benign)</span></div>
+      <div class="kpi"><strong>98.4%</strong><span>malignant recall</span></div>
+      <div class="kpi calm"><strong>93.5%</strong><span>specificity</span></div>
+      <div class="kpi"><strong>40.9%</strong><span>of cases sent to priority</span></div>
+    </div>
+    <div class="grid2">
+      <div>
+        <h3 style="margin-top:0">Recommendation: fund with conditions</h3>
+        <p style="font-size:13px">Logistic regression with a threshold of 0.09. The model reorders the queue so likely cancers are read first; a pathologist reads and signs off every case.</p>
+        <ol style="font-size:13px;padding-left:1.2rem">
+          <li>Re-validate on local de-identified samples before any patient-facing use.</li>
+          <li>Pathologist sign-off on 100% of cases.</li>
+          <li>Independent review at month six; pause if the standard-queue miss rate exceeds the locally validated rate.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Recommended rule on the test set</h3>
+        <table class="cm" aria-label="Confusion matrix for the recommended rule">
+          <tr><th></th><th>Flagged priority</th><th>Standard queue</th></tr>
+          <tr><th>Malignant</th><td class="good"><strong>63</strong>caught</td><td class="bad"><strong>1</strong>missed</td></tr>
+          <tr><th>Benign</th><td class="bad"><strong>7</strong>false alarms</td><td class="good"><strong>100</strong>cleared</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+    <div class="controls">
+      <div class="control"><label for="model">Model</label>
+        <select id="model"><option value="lr">Logistic regression (C = 1.0)</option><option value="knn">k-NN (k = 3)</option></select></div>
+      <div class="control"><label for="thr">Threshold <output id="thrOut">0.09</output></label>
+        <input id="thr" type="range" min="0.01" max="0.99" step="0.01" value="0.09">
+        <small>Flag a biopsy for priority when its probability of malignancy is at or above this value. <a href="#" class="text-link" id="resetThr">Reset to tuned value</a></small></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><strong id="kCaught">-</strong><span>cancers caught</span></div>
+      <div class="kpi alert"><strong id="kMissed">-</strong><span>cancers missed</span></div>
+      <div class="kpi calm"><strong id="kFA">-</strong><span>false alarms</span></div>
+      <div class="kpi"><strong id="kRec">-</strong><span>recall</span></div>
+      <div class="kpi calm"><strong id="kSpec">-</strong><span>specificity</span></div>
+      <div class="kpi"><strong id="kShare">-</strong><span>priority share</span></div>
+    </div>
+    <div class="grid2">
+      <div><div class="chart-box"><canvas id="curve" role="img" aria-label="Line chart of recall, specificity and priority share across thresholds for the selected model"></canvas></div></div>
+      <div>
+        <table class="cm" aria-label="Confusion matrix at the selected threshold">
+          <tr><th></th><th>Flagged priority</th><th>Standard queue</th></tr>
+          <tr><th>Malignant</th><td class="good"><strong id="c1">-</strong>caught</td><td class="bad"><strong id="c2">-</strong>missed</td></tr>
+          <tr><th>Benign</th><td class="bad"><strong id="c3">-</strong>false alarms</td><td class="good"><strong id="c4">-</strong>cleared</td></tr>
+        </table>
+        <p class="callout" id="tradeText"></p>
+      </div>
+    </div>
+    <p class="note">k-NN with k = 3 can only output probabilities of 0, 0.33, 0.67 and 1, so its results jump in steps. Logistic regression moves smoothly, which is why its threshold can be set precisely.</p>
+  </section>
+
+  <section class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+    <div class="controls">
+      <div class="control"><label for="prev">Cancer prevalence <output id="prevOut">25%</output></label>
+        <input id="prev" type="range" min="0.05" max="0.40" step="0.01" value="0.25"></div>
+      <div class="control"><label for="cap">Reviews per day <output id="capOut">20</output></label>
+        <input id="cap" type="range" min="5" max="100" step="1" value="20">
+        <small>Illustrative assumption. Replace with a partner lab's real capacity.</small></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><strong id="qPri">-</strong><span>cancers in the priority queue</span></div>
+      <div class="kpi alert"><strong id="qStd">-</strong><span>cancers in the standard queue</span></div>
+      <div class="kpi calm"><strong id="qFA">-</strong><span>false alarms</span></div>
+      <div class="kpi"><strong id="qDaysP">-</strong><span>days to clear the priority queue</span></div>
+      <div class="kpi calm"><strong id="qDaysA">-</strong><span>days to clear all 1,000</span></div>
+    </div>
+    <div class="chart-box"><canvas id="queue" role="img" aria-label="Bar chart comparing days to clear the priority queue and the full queue"></canvas></div>
+    <p class="note">Per 1,000 biopsies, using the recommended rule's test-set recall (98.4%) and specificity (93.5%). Treats a year of cases as one backlog for illustration; real cases arrive continuously. Every case is still read: the tool reorders the queue, it does not shorten it.</p>
+  </section>
+
+  <section class="panel" id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+    <div class="grid2">
+      <div><div class="chart-box" style="height:360px"><canvas id="coef" role="img" aria-label="Horizontal bar chart of the ten largest logistic regression coefficients"></canvas></div></div>
+      <div>
+        <h3 style="margin-top:0">What drives a priority flag?</h3>
+        <p style="font-size:13px">Coefficients from the logistic regression model on standardized features. A positive weight pushes a biopsy toward the priority queue; a negative weight pushes it away. The strongest signals are worst texture, radius error and worst symmetry.</p>
+        <p style="font-size:13px">These are associations, not causes. They give pathologists something concrete to check, which k-NN cannot offer.</p>
+        <table class="simple" aria-label="Model card summary">
+          <tr><th colspan="2">Model card</th></tr>
+          <tr><td>Purpose</td><td>Reorder the review queue; not for diagnosis</td></tr>
+          <tr><td>Data</td><td>UCI Breast Cancer Wisconsin (Diagnostic), CC BY 4.0</td></tr>
+          <tr><td>Main risk</td><td>Generalizability beyond one 1990s US clinic</td></tr>
+          <tr><td>Owner</td><td>Mercy Mamkon Oyeleke</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="note">Data: Wolberg, Mangasarian, Street &amp; Street (1993), Breast Cancer Wisconsin (Diagnostic), UCI Machine Learning Repository, <a class="text-link" href="https://doi.org/10.24432/C5DW2B">doi.org/10.24432/C5DW2B</a>, CC BY 4.0. Predictions exported from the case study notebook. CareBridge Health is fictional.</p>
+</main>
+<script src="chart.umd.js"></script>
+<script>
+(function () {
+  const PURPLE = '#6a4c93', MAGENTA = '#9c1049', SLATE = '#4a6a8a';
+  const pct = v => (v * 100).toFixed(1) + '%';
+  let D, curveChart, queueChart;
+
+  // Tabs
+  const tabs = document.querySelectorAll('[role=tab]');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => { x.setAttribute('aria-selected', x === t); document.getElementById(x.getAttribute('aria-controls')).hidden = x !== t; });
+  }));
+
+  function counts(key, t) {
+    let tp = 0, fn = 0, fp = 0, tn = 0;
+    D.cases.forEach(c => {
+      const flag = c[key] >= t - 1e-9;
+      if (c.m === 1) flag ? tp++ : fn++; else flag ? fp++ : tn++;
+    });
+    return { tp, fn, fp, tn, rec: tp / (tp + fn), spec: tn / (tn + fp), share: (tp + fp) / D.cases.length };
+  }
+
+  function updateTrade() {
+    const key = document.getElementById('model').value;
+    const t = parseFloat(document.getElementById('thr').value);
+    document.getElementById('thrOut').textContent = t.toFixed(2);
+    const r = counts(key, t);
+    const set = (id, v) => document.getElementById(id).textContent = v;
+    set('kCaught', r.tp + ' / ' + (r.tp + r.fn)); set('kMissed', r.fn); set('kFA', r.fp);
+    set('kRec', pct(r.rec)); set('kSpec', pct(r.spec)); set('kShare', pct(r.share));
+    set('c1', r.tp); set('c2', r.fn); set('c3', r.fp); set('c4', r.tn);
+    const name = key === 'lr' ? 'Logistic regression' : 'k-NN';
+    set('tradeText', `${name} at ${t.toFixed(2)}: ${r.fn} cancer${r.fn === 1 ? '' : 's'} would wait in the standard queue, and ${r.fp} benign case${r.fp === 1 ? '' : 's'} would jump the queue. Tuned value for this model: ${D.tuned[key].toFixed(2)}.`);
+    drawCurve(key, t);
+  }
+
+  function drawCurve(key, t) {
+    const xs = [], rec = [], spec = [], share = [];
+    for (let i = 1; i <= 99; i++) { const th = i / 100, r = counts(key, th); xs.push(th.toFixed(2)); rec.push(r.rec); spec.push(r.spec); share.push(r.share); }
+    const data = { labels: xs, datasets: [
+      { label: 'Recall (cancers caught)', data: rec, borderColor: PURPLE, backgroundColor: PURPLE, pointRadius: 0, borderWidth: 2.5 },
+      { label: 'Specificity', data: spec, borderColor: SLATE, backgroundColor: SLATE, pointRadius: 0, borderWidth: 2, borderDash: [6, 4] },
+      { label: 'Priority share', data: share, borderColor: MAGENTA, backgroundColor: MAGENTA, pointRadius: 0, borderWidth: 2 }
+    ]};
+    const marker = { id: 'marker', afterDraw(c) {
+      const x = c.scales.x.getPixelForValue(Math.round(t * 100) - 1), a = c.chartArea, g = c.ctx;
+      g.save(); g.strokeStyle = '#102237'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x, a.top); g.lineTo(x, a.bottom); g.stroke(); g.restore();
+    }};
+    if (curveChart) { curveChart.data = data; curveChart.update('none'); return; }
+    curveChart = new Chart(document.getElementById('curve'), { type: 'line', data, plugins: [marker],
+      options: { animation: false, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+        scales: { y: { min: 0, max: 1, ticks: { callback: v => (v * 100) + '%' } }, x: { title: { display: true, text: 'Threshold' }, ticks: { maxTicksLimit: 10 } } },
+        plugins: { tooltip: { callbacks: { label: c => c.dataset.label + ': ' + pct(c.parsed.y) } } } } });
+  }
+
+  function updateQueue() {
+    const prev = parseFloat(document.getElementById('prev').value), cap = parseInt(document.getElementById('cap').value, 10);
+    document.getElementById('prevOut').textContent = Math.round(prev * 100) + '%';
+    document.getElementById('capOut').textContent = cap;
+    const r = counts('lr', D.tuned.lr), vol = 1000;
+    const cancers = Math.floor(vol * prev + 1e-9), benign = vol - cancers;
+    const pri = Math.floor(cancers * r.rec), std = cancers - pri, fa = Math.floor(benign * (1 - r.spec));
+    const dP = (pri + fa) / cap, dA = vol / cap;
+    const set = (id, v) => document.getElementById(id).textContent = v;
+    set('qPri', pri + ' / ' + cancers); set('qStd', std); set('qFA', fa); set('qDaysP', dP.toFixed(1)); set('qDaysA', dA.toFixed(1));
+    const data = { labels: ['Priority queue (likely cancers first)', 'Full queue (all 1,000)'],
+      datasets: [{ label: 'Days to clear', data: [dP, dA], backgroundColor: [PURPLE, SLATE] }] };
+    if (queueChart) { queueChart.data = data; queueChart.update('none'); return; }
+    queueChart = new Chart(document.getElementById('queue'), { type: 'bar', data,
+      options: { indexAxis: 'y', animation: false, maintainAspectRatio: false, plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Days' }, beginAtZero: true } } } });
+  }
+
+  function drawCoef() {
+    const c = D.coefs.slice().reverse();
+    new Chart(document.getElementById('coef'), { type: 'bar',
+      data: { labels: c.map(x => x.feature), datasets: [{ label: 'Coefficient', data: c.map(x => x.coef), backgroundColor: c.map(x => x.coef >= 0 ? PURPLE : SLATE) }] },
+      options: { indexAxis: 'y', maintainAspectRatio: false, plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Standardized coefficient' } } } } });
+  }
+
+  fetch('data.json').then(r => r.json()).then(json => {
+    D = json;
+    document.getElementById('model').addEventListener('change', () => {
+      document.getElementById('thr').value = D.tuned[document.getElementById('model').value]; updateTrade(); });
+    document.getElementById('thr').addEventListener('input', updateTrade);
+    document.getElementById('resetThr').addEventListener('click', e => { e.preventDefault();
+      document.getElementById('thr').value = D.tuned[document.getElementById('model').value]; updateTrade(); });
+    ['prev', 'cap'].forEach(id => document.getElementById(id).addEventListener('input', updateQueue));
+    updateTrade(); updateQueue(); drawCoef();
+  });
+})();
+</script>
+</body>
+</html>

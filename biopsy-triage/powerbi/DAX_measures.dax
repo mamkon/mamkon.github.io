@@ -1,0 +1,78 @@
+// ML-Assisted Biopsy Triage: DAX measures for Power BI
+// Author: Mercy Mamkon Oyeleke
+// Tables: biopsies (1) -> predictions (many) on biopsy_id, single direction.
+// Add a single-select slicer on predictions[model_name] to every page.
+
+// ---------- Calculated column (in predictions) ----------
+actual_malignant = RELATED ( biopsies[is_malignant] )
+
+// ---------- Core measures at the tuned threshold ----------
+Cases = COUNTROWS ( predictions )
+
+Cancers Caught =
+    CALCULATE ( [Cases], predictions[actual_malignant] = 1, predictions[predicted_tuned] = 1 )
+
+Cancers Missed =
+    CALCULATE ( [Cases], predictions[actual_malignant] = 1, predictions[predicted_tuned] = 0 )
+
+False Alarms =
+    CALCULATE ( [Cases], predictions[actual_malignant] = 0, predictions[predicted_tuned] = 1 )
+
+Benign Cleared =
+    CALCULATE ( [Cases], predictions[actual_malignant] = 0, predictions[predicted_tuned] = 0 )
+
+Malignant Recall = DIVIDE ( [Cancers Caught], [Cancers Caught] + [Cancers Missed] )
+
+Specificity = DIVIDE ( [Benign Cleared], [Benign Cleared] + [False Alarms] )
+
+Priority Share =
+    DIVIDE ( CALCULATE ( [Cases], predictions[predicted_tuned] = 1 ), [Cases] )
+
+Tuned Threshold = MAX ( predictions[threshold_used] )
+
+// ---------- What-If parameters (Modeling > New parameter) ----------
+// Threshold   : 0.01 to 0.99, step 0.01, default 0.09  -> creates 'Threshold'[Threshold Value]
+// Prevalence  : 0.05 to 0.40, step 0.01, default 0.25  -> creates 'Prevalence'[Prevalence Value]
+// Capacity    : 5 to 100, step 1, default 20           -> creates 'Capacity'[Capacity Value]
+
+// ---------- Measures at the slider threshold ----------
+Cancers Caught @T =
+    CALCULATE (
+        [Cases],
+        predictions[actual_malignant] = 1,
+        FILTER ( predictions, predictions[probability_malignant] >= 'Threshold'[Threshold Value] )
+    )
+
+Cancers Missed @T =
+    CALCULATE ( [Cases], predictions[actual_malignant] = 1 ) - [Cancers Caught @T]
+
+False Alarms @T =
+    CALCULATE (
+        [Cases],
+        predictions[actual_malignant] = 0,
+        FILTER ( predictions, predictions[probability_malignant] >= 'Threshold'[Threshold Value] )
+    )
+
+Recall @T =
+    DIVIDE ( [Cancers Caught @T], CALCULATE ( [Cases], predictions[actual_malignant] = 1 ) )
+
+Specificity @T =
+    1 - DIVIDE ( [False Alarms @T], CALCULATE ( [Cases], predictions[actual_malignant] = 0 ) )
+
+Priority Share @T = DIVIDE ( [Cancers Caught @T] + [False Alarms @T], [Cases] )
+
+// ---------- Queue simulator (per 1,000 biopsies) ----------
+// Illustrative: treats a year of cases as one backlog. Real cases arrive continuously.
+Expected Cancers = ROUNDDOWN ( 1000 * 'Prevalence'[Prevalence Value], 0 )
+
+Cancers in Priority Queue = ROUNDDOWN ( [Expected Cancers] * [Recall @T], 0 )
+
+Cancers in Standard Queue = [Expected Cancers] - [Cancers in Priority Queue]
+
+Queue False Alarms = ROUNDDOWN ( ( 1000 - [Expected Cancers] ) * ( 1 - [Specificity @T] ), 0 )
+
+Total Priority Cases = [Cancers in Priority Queue] + [Queue False Alarms]
+
+Days to Clear Priority Queue = DIVIDE ( [Total Priority Cases], 'Capacity'[Capacity Value] )
+
+Days to Clear Full Queue = DIVIDE ( 1000, 'Capacity'[Capacity Value] )
