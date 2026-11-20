@@ -9,6 +9,7 @@ I turn public and organizational data into decisions people can defend. Each pro
 | Project | The question | Tools | Links |
 | --- | --- | --- | --- |
 | **Breast Biopsy PCA, with Canadian Context** | Can a team use 7 summary scores instead of 30 measurements and still catch nearly every cancer? Who in Canada waits longest for an answer? | Python, scikit-learn, SQL (SQLite), DAX, Power BI | [Case study](https://mamkon.github.io/breast-cancer-pca/) · [Dashboard](https://mamkon.github.io/breast-cancer-pca/dashboard/) · [Code](breast-cancer-pca/) |
+| **Should We Fund It? ML-Assisted Biopsy Triage** | Should a donor fund a pilot that reorders biopsy queues so likely cancers are read first? Which model and threshold miss the fewest cancers? | Python, scikit-learn, SQL (SQLite), DAX, Power BI | [Case study](https://mamkon.github.io/biopsy-triage/) · [Dashboard](https://mamkon.github.io/biopsy-triage/dashboard/) · [Code](biopsy-triage/) |
 | **Canada Wildfire Intelligence** | How many large fires does each alert policy miss, and how much review work does it create? | Python, scikit-learn, SQLite, Power BI | [Case study](https://mamkon.github.io/wildfire-triage/) · [Dashboard](https://mamkon.github.io/wildfire-triage/dashboard/) |
 | **Ontario Air Quality Decision Research** | How does uncertainty in afternoon ozone across 47 Ontario locations change planning decisions? | Python, Power BI | [Case study](https://mamkon.github.io/air-quality-research/) · [Dashboard](https://mamkon.github.io/air-quality-research/dashboard/) |
 | **Ontario Analytics** | How do chronic disease rates and procedure wait times vary across Ontario's Public Health Units and health regions? | Python, Power BI, DAX | [Dashboard](https://mamkon.github.io/ontario-analytics/) · [Data and code](ontario-analytics/) |
@@ -27,6 +28,7 @@ I turn public and organizational data into decisions people can defend. Each pro
 .
 ├── index.html, styles.css, script.js   # Portfolio home page
 ├── breast-cancer-pca/                  # Case study, dashboard, SQL, Python, Power BI project
+├── biopsy-triage/                      # Funding case study, dashboard, notebook, SQL, DAX and Power BI guide
 ├── wildfire-triage/                    # Case study and dashboard
 ├── air-quality-research/               # Case study and dashboard
 └── ontario-analytics/                  # Dashboard on Public Health Ontario and CIHI data
