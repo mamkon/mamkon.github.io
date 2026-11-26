@@ -25,7 +25,7 @@ video.addEventListener('volumechange', syncControls);
 playButton.addEventListener('click', () => { if (video.paused) play(); else video.pause(); });
 muteButton.addEventListener('click', () => { video.muted = !video.muted; syncControls(); });
 video.muted = true;
-video.src = 'gemini_generated_video_fd623309.mp4';
+video.src = 'portfolio-intro.mp4';
 // Reduced-motion visitors choose whether to load and play the moving background.
 if (motionPreference.matches) { playButton.disabled = false; video.preload = 'none'; videoStatus.textContent = 'Motion reduced · select Play video to watch'; }
 else { video.autoplay = true; play(); }
