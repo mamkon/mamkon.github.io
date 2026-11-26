@@ -30,7 +30,7 @@
 .wildfire-spotlight .eyebrow { color: #8c371e; }
 .wildfire-spotlight h3 { font-size: clamp(1.6rem, 3.4vw, 2.25rem); line-height: 1.15; margin: 10px 0 16px; }
 .wildfire-spotlight .actions { align-items: center; }
-.wildfire-preview-canvas { aspect-ratio: 1507 / 952; overflow: hidden; background: #141618; }
-.wildfire-preview-canvas img { display: block; width: 160.25%; max-width: none; height: auto; transform: translate(-7.99%, -15.32%); }
+.wildfire-preview-canvas { overflow: hidden; background: #141618; }
+.wildfire-preview-canvas img { display: block; width: 100%; height: auto; }
 
 .footer-data-note{max-width:640px;font-size:10px;line-height:1.5;color:#9fb0c7;margin-top:10px}
