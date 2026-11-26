@@ -1,6 +1,6 @@
 # Should We Fund It? ML-Assisted Biopsy Triage
 
-**Mercy Mamkon Oyeleke** · Data Analytics & Business Intelligence Consultant
+**Mamkon Mercy Oyeleke** · Data Analytics & Business Intelligence Consultant
 
 A funding case study: should a donor fund a global health NGO to pilot a model that reorders biopsy review queues, so likely cancers are read first in labs where pathologists are scarce?
 

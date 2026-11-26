@@ -34,3 +34,4 @@
 .wildfire-preview-canvas img { display: block; width: 100%; height: auto; }
 
 .footer-data-note{max-width:640px;font-size:10px;line-height:1.5;color:#9fb0c7;margin-top:10px}
+.experience-roles{grid-column:1/-1;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}.experience-roles .roles-heading{margin:0 0 18px;color:var(--navy)}.experience-roles ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}.experience-roles ol>li{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:16px 18px}.experience-roles .role-title{font-weight:700;color:var(--ink);margin:0;font-size:.9rem}.experience-roles .role-meta{color:var(--muted);font-size:.78rem;margin:4px 0 10px}.experience-roles ul{margin:0;padding-left:18px;color:var(--muted);font-size:.8rem;line-height:1.55}.experience-roles ul li{margin:4px 0}
