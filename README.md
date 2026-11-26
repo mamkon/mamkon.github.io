@@ -38,6 +38,6 @@ The site is plain HTML, CSS and JavaScript served by GitHub Pages, with no build
 
 ## Data notices
 
-All case studies in this portfolio use public, openly licensed data from named publishers such as Statistics Canada, Public Health Ontario, CIHI and the UCI Machine Learning Repository. No private, patient-level or confidential data is used. The work is for learning and demonstrating analytical method. It is not clinical advice or official statistics, and every source is credited on its page.
+All case studies in this portfolio use public data from named publishers, used under each publisher’s licence or terms of use, such as Statistics Canada, Public Health Ontario, CIHI and the UCI Machine Learning Repository. No private, patient-level or confidential data is used. The work is for learning and demonstrating analytical method. It is not clinical advice or official statistics, and every source is credited on its page.
 
 Canadian cancer data is adapted from Statistics Canada. This does not constitute an endorsement by Statistics Canada of this product. Other sources are cited on each project page.
