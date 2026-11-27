@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Card Offer Clarity | Mamkon Mercy Oyeleke</title>
+<meta name="description" content="A SAS reporting case study: reconciled credit-card choice KPIs, four verified discrepancy categories, independent Python checks and a five-million-row synthetic performance test.">
+<meta property="og:title" content="Card Offer Clarity | Mamkon Mercy Oyeleke">
+<meta property="og:description" content="How checking denominators changed a fictional banking team's recommendation. SAS, KPI reconciliation and independent Python validation.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mamkon.github.io/card-offer-clarity/">
+<link rel="canonical" href="https://mamkon.github.io/card-offer-clarity/">
+<link rel="stylesheet" href="../styles.css">
+<style>
+body{font-size:16px}.case{max-width:1080px;margin:auto;padding:28px 24px 64px}.case h1{font-size:clamp(40px,7vw,68px);max-width:820px}.case h2{margin:0 0 18px;font-size:28px}.case h3{font-size:19px}.case section{margin-top:48px}.case p{max-width:78ch}.case .eyebrow{font-size:14px;color:#07847e}.case .button{font-size:15px}.case .meta{color:#5d6c7f;font-size:14px}.case .decision{background:#102237;color:white;padding:24px;border-radius:7px;margin:24px 0}.case .decision p{margin:0 0 12px}.case .decision p:last-child{margin:0}.case .metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}.case .metric{border:1px solid #e0e7ee;border-top:4px solid #07847e;border-radius:6px;padding:20px}.case .metric strong{display:block;font-size:32px;color:#102237;line-height:1.2;margin-bottom:8px}.case .metric span{font-size:14px;color:#5d6c7f}.case .table-wrap{overflow-x:auto}.case table{border-collapse:collapse;width:100%;font-size:15px}.case caption{text-align:left;font-weight:600;margin-bottom:12px}.case th,.case td{padding:14px 12px;border-bottom:1px solid #e0e7ee;text-align:left;vertical-align:top}.case thead{background:#f0f4f8}.case tr.best{background:#e0f1ed}.case tr.best td:last-child{font-weight:800;color:#075c57}.case .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.case .panel{border:1px solid #e0e7ee;border-radius:6px;padding:22px}.case .panel h3{margin-top:0}.case li{margin-bottom:8px}.case .notice{background:#f0f4f8;border-left:4px solid #07847e;padding:16px 20px}.case .steps{padding-left:24px}.case .links{display:flex;flex-wrap:wrap;gap:12px 24px}.case a:not(.button){text-underline-offset:3px}.case .mini{font-size:14px}.case footer{border-top:1px solid #e0e7ee;margin-top:48px;padding-top:24px}.case .jump{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:24px;font-size:14px}@media(max-width:680px){.case{padding:22px 18px 44px}.case .metrics,.case .two{grid-template-columns:1fr}.case .metric{padding:16px}.case th,.case td{padding:12px 9px}.case .actions{flex-direction:column;align-items:stretch}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main class="case" id="main">
+<nav aria-label="Portfolio"><a href="../#projects">Back to featured projects</a></nav>
+<header>
+<p class="eyebrow">SAS · KPI reporting · Data validation</p>
+<h1>Card Offer Clarity</h1>
+<p style="font-size:21px">A denominator check changed the recommendation.</p>
+<p class="meta">Mamkon Mercy Oyeleke · Data Analytics &amp; Business Intelligence Consultant</p>
+<p class="meta">First analyzed in a 2024 George Brown College group project; rebuilt independently in 2026.</p>
+<div class="decision">
+<p><strong>The decision:</strong> fund an explainer video with a recap, remove taglines that add no information, and use one message across income groups.</p>
+<p><strong>The evidence:</strong> without taglines, correct choices rose from 42.5% with the plain video to 65.0% with the recap video. Overall taglines reduced correct choices (p = 0.0001); income showed no association (p = 0.97).</p>
+<p><strong>The condition:</strong> re-test with real customers and track the correct-choice rate after launch.</p>
+</div>
+<p class="notice"><strong>Fictional banking scenario.</strong> A regional bank's card team is reviewing its offer pages. The evidence comes from an online experiment, not that bank's customers. No real bank or commercial impact is claimed.</p>
+<div class="actions"><a class="button" href="https://github.com/mamkon/card-offer-clarity-sas">Explore the SAS case study repository</a><a class="button light" href="https://github.com/mamkon/card-offer-clarity-sas/blob/main/docs/discrepancy_review.md">Read the discrepancy review</a></div>
+<nav class="jump" aria-label="Case study sections"><a href="#results">Results</a><a href="#review">What changed</a><a href="#workflow">How I validated it</a><a href="#scale">5M-row test</a><a href="#limits">Limitations</a></nav>
+<div class="metrics"><div class="metric"><strong>1,603</strong><span>respondents with unique IDs</span></div><div class="metric"><strong>48.8%</strong><span>chose the best card: 783 of 1,603</span></div><div class="metric"><strong>4</strong><span>error categories verified against original code and notes</span></div></div>
+</header>
+<section id="results" aria-labelledby="results-title">
+<p class="eyebrow">The result</p><h2 id="results-title">Clearer information, better choices.</h2>
+<p>Each respondent chose among four card offers, one of which was the dominant, or best, card. Video type and tagline presence were randomized. Every rate below uses the respondents within that treatment group as its denominator.</p>
+<div class="table-wrap"><table><caption>Correct-choice rates by experimental treatment</caption><thead><tr><th scope="col">Video</th><th scope="col">Taglines</th><th scope="col">Correct / respondents</th><th scope="col">Rate</th></tr></thead><tbody>
+<tr><th scope="row">Plain video (Baseline)</th><td>None</td><td>173 / 407</td><td>42.5%</td></tr>
+<tr><th scope="row">Plain video</th><td>Superfluous</td><td>145 / 394</td><td>36.8%</td></tr>
+<tr class="best"><th scope="row">Recap video (Implemental)</th><td>None</td><td>258 / 397</td><td>65.0%</td></tr>
+<tr><th scope="row">Recap video</th><td>Superfluous</td><td>207 / 405</td><td>51.1%</td></tr>
+</tbody></table></div>
+<p>Taglines reduced correct choices overall (p = 0.0001); within the plain-video group alone the effect was not significant (p = 0.099).</p>
+<p class="meta">The overall p-value is Pearson; the plain-video p-value is a logistic Wald test. The interaction p-value is approximately 0.101, so a difference in tagline effects between video groups was not established.</p>
+<div class="two"><div class="panel"><h3>Income: no evidence for targeting</h3><p>Correct-choice rates ranged from 47.4% to 51.1% across income groups. Pearson p = 0.9697. The earlier recommendation to target lower-income customers was unsupported by this analysis.</p></div><div class="panel"><h3>Card holding: an association</h3><p>Cardholders chose correctly 46.4% of the time (554/1193), compared with 55.9% for nonholders (229/410); Pearson p = 0.0010. This does not show that card holding causes lower accuracy.</p><p class="mini">A clearer comparison for switchers is a hypothesis to test. Switching status and that mechanism were not measured.</p></div></div>
+</section>
+<section id="review" aria-labelledby="review-title"><p class="eyebrow">Reporting quality</p><h2 id="review-title">Four errors, traced to their causes.</h2>
+<p>I checked the original 2024 SAS code and analysis notes against independently recomputed results. The review distinguishes incorrect commentary from code that was already appropriate.</p>
+<div class="table-wrap"><table><caption>What changed and why it matters</caption><thead><tr><th scope="col">Area</th><th scope="col">What the review found</th><th scope="col">Correct interpretation</th></tr></thead><tbody>
+<tr><th scope="row">Sex</th><td>Shares of best-card choosers were labeled as within-group accuracy.</td><td>Women: 380/753 = 50.5%; men: 403/850 = 47.4%. The original chart used the appropriate mean, and the notes already rejected male superiority.</td></tr>
+<tr><th scope="row">Income</th><td>Percentages were suppressed, but the notes still inferred an income advantage and recommended lower-income targeting.</td><td>No evidence of an overall income association (p = 0.9697). Use a common message unless new customer evidence supports targeting.</td></tr>
+<tr><th scope="row">Survey</th><td>A conditional denominator was used for a joint share; a second calculation filtered on both conditions.</td><td>Both low: 128/1603 = 8.0%, not 30.6%. High easiness given neutral confidence: 23/226 = 10.2%, not 100%.</td></tr>
+<tr><th scope="row">Treatment chart</th><td>The chart response used a share of the full sample rather than success within each treatment group.</td><td>Use 42.5%, 36.8%, 65.0%, and 51.1% with explicit treatment-cell denominators. The notes and chart computation conflicted.</td></tr>
+</tbody></table></div>
+<p class="meta">The 30.6% versus 30.5% gap is resolved as double rounding: 128/419 is 30.548926…%, which rounds directly to 30.5%; rounding first to 30.55% produces 30.6% on a second rounding. Original-code line references are recorded in the repository; the private source itself is not published.</p>
+</section>
+<section id="workflow" aria-labelledby="workflow-title"><p class="eyebrow">The work</p><h2 id="workflow-title">Validate the logic before reporting the KPI.</h2>
+<ol class="steps"><li><strong>Define:</strong> one respondent per row; correct choices divided by all respondents in each group.</li><li><strong>Check:</strong> 1,603 unique IDs and 68 source variables. Flag three missing ages and one age of 200; retain every respondent.</li><li><strong>Reconcile:</strong> a reusable PROC SQL macro produces five grouped KPI tables. Exact-count checks stop processing if totals differ from 783 best choices among 1,603 respondents.</li><li><strong>Test:</strong> Pearson chi-square tests and logistic regression with a video-by-tagline interaction, checked independently in Python.</li><li><strong>Deliver:</strong> four survey fractions, 15 aggregate CSV exports, reviewed SAS logs, and a documented discrepancy review.</li></ol>
+<p>Survey checks: 128/1603 = 8.0%; 128/419 = 30.5%; 128/140 = 91.4%; 23/226 = 10.2%. Overall card holding was 1193/1603 = 74.4%.</p>
+<p class="notice"><strong>Power BI status:</strong> measures and a page plan are available. A Power BI dashboard has not yet been built or tested for this case study.</p>
+<div class="links"><a href="https://github.com/mamkon/card-offer-clarity-sas/tree/main/sas">SAS programs</a><a href="https://github.com/mamkon/card-offer-clarity-sas/blob/main/python/verify_kpis.py">Python verification</a><a href="https://github.com/mamkon/card-offer-clarity-sas/tree/main/outputs">Aggregate outputs and SAS evidence</a></div>
+</section>
+<section id="scale" aria-labelledby="scale-title"><p class="eyebrow">Processing at scale</p><h2 id="scale-title">5,000,000 rows. A performance test.</h2>
+<p>I resampled respondents with replacement using seed 2026 and ran the resulting five-million-row table in SAS OnDemand for Academics. The program uses KEEP=, indexes with WHERE, PROC SUMMARY NWAY, a hash lookup, and OPTIONS FULLSTIMER.</p>
+<p>All grouped, overall, and survey rates stayed within one percentage point of the real rates. The largest observed gap was 0.123520 percentage points. Synthetic rows add no new research evidence.</p>
+<div class="table-wrap"><table><caption>Selected FULLSTIMER measurements from the verified run</caption><thead><tr><th scope="col">Step</th><th scope="col">Real time</th><th scope="col">SAS-reported memory</th></tr></thead><tbody><tr><th scope="row">Create synthetic table</th><td>1.42 seconds</td><td>2134.25k</td></tr><tr><th scope="row">Build indexes</th><td>2.77 seconds</td><td>533504.76k</td></tr></tbody></table></div>
+<p class="meta">These are measurements from one environment, not performance guarantees or proof that indexing is faster. Resampling does not reproduce a multi-source enterprise warehouse.</p>
+<a href="https://github.com/mamkon/card-offer-clarity-sas/blob/main/docs/sas_run_evidence.md">Read the execution evidence</a>
+</section>
+<section id="limits" aria-labelledby="limits-title"><h2 id="limits-title">What this case can and cannot establish</h2><ul>
+<li>US online participants, not bank customers; re-test with real customers before launch.</li>
+<li>A single choice moment, with no long-term usage, fees paid, retention, or conversion outcomes.</li>
+<li>Both groups watched a video; this does not test video versus no video.</li>
+<li>Self-reported survey items. Card holding, sex, and income were not randomized; associations do not establish causes.</li>
+<li>No significant income association does not prove equivalence or rule out every subgroup interaction.</li>
+<li>Original code and analysis notes were reviewed; a historical rendered report was not inspected.</li>
+<li>Synthetic resampling adds no evidence. No commercial return, production deployment, or Power BI implementation is claimed.</li>
+</ul></section>
+<footer><p><strong>Source:</strong> Carlin, Jiang, and Spiller (2017), <em>Millennial-Style Learning: Search Intensity, Decision Making, and Information Sharing</em>, Management Science. <a href="https://doi.org/10.1287/mnsc.2016.2689">Read the reference</a>.</p><p class="meta">Workbook supplied through a George Brown College course. Raw data and the original course code remain private and are excluded from Git.</p><div class="links"><a href="../#projects">Back to the portfolio</a><a href="https://github.com/mamkon/card-offer-clarity-sas">View the complete repository</a></div></footer>
+</main>
+</body>
+</html>
